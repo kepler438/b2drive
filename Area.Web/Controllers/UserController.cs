@@ -17,6 +17,7 @@ namespace Area.Web.Controllers
         private B2DriveForPostEntities db = new B2DriveForPostEntities();
         // GET: User
         // GET: check in denemesi
+        // GET: al bunu alamaz mısın?
         public ActionResult Login()
         {
             return View();
