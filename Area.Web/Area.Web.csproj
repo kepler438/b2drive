@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -103,6 +104,7 @@
     <Content Include="Assets\css\font-awesome-ie7.min.css" />
     <Content Include="Assets\css\font-awesome.css" />
     <Content Include="Assets\css\font-awesome.min.css" />
+    <Content Include="Assets\css\main.css" />
     <Content Include="Assets\css\pages\dashboard.css" />
     <Content Include="Assets\css\pages\faq.css" />
     <Content Include="Assets\css\pages\plans.css" />

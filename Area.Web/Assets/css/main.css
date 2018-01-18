@@ -1,0 +1,26 @@
+﻿.btn-orange-st {
+    margin-top: .5em !important;
+    width: 142px !important;
+}
+
+
+
+
+@media (max-width: 576px) {
+    .btn-orange-st {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .btn-blue-st {
+        display: block !important;
+        width: 100% !important;
+        margin-top: .5em !important;
+    }
+
+    .btn-green-st {
+        display: block !important;
+        width: 100% !important;
+    }
+
+}
