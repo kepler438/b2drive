@@ -307,6 +307,7 @@
     <Content Include="Views\SPPlace\Penetration.cshtml" />
     <Content Include="Views\CustomerHome\Index.cshtml" />
     <Content Include="Views\CustomerPlaceMap\Index.cshtml" />
+    <Content Include="Views\SPPlace\DeliveryProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
