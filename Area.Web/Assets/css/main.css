@@ -1,26 +1,56 @@
 ﻿.btn-orange-st {
     margin-top: .5em !important;
-    width: 142px !important;
+    width: 114px !important;
 }
 
+.btn-green-st {
+    width: 114px !important;
+}
 
+.btn-blue-st {
+    width: 61px;
+}
 
+.btn-red-st {
+    margin-top: .5em;
+}
 
 @media (max-width: 576px) {
     .btn-orange-st {
         display: block !important;
-        width: 100% !important;
+        width: 80% !important;
     }
 
     .btn-blue-st {
         display: block !important;
-        width: 100% !important;
+        width: 80% !important;
         margin-top: .5em !important;
     }
 
     .btn-green-st {
         display: block !important;
-        width: 100% !important;
+        width: 80% !important;
     }
 
+    .btn-red-st {
+        display: block;
+        width: 80%;
+    }
+
+    .table th, .table td {
+        padding: 0px;
+        text-align: center;
+    }
+
+    .mobile-font-size {
+        font-size: 19px !important;
+    }
+
+}
+
+@media (max-width: 767px) {
+    body {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
 }
