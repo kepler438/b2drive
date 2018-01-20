@@ -4,29 +4,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var photoList = ViewData["visitPlacePhotoList"] as List<PlacePhoto>;
 }
-<div class="span12"> 
-    <div class="widget "> 
+<div class="span12">
+    <div class="widget ">
         <div class="widget-header">
-            <i class="icon-user"></i> 
-            <h3>Fotoğraf Ekle </h3> 
-        </div> 
+            <i class="icon-user"></i>
+            <h3>Fotoğraf Ekle </h3>
+        </div>
         <div class="widget-content">
             <div class="tabbable">
-                <div class="tab-content"> 
-                         
-                        <form action="@Url.Action("SaveImages","SPPlace")" method="post" enctype="multipart/form-data">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <input type="file" class="form-control" id="images" name="images[]" onchange="preview_images();" multiple />
-                                <input type="submit" class="btn btn-primary pull-right" name='submit_image' value="Resimleri Kaydet" />
-                            </div>
-                        </form>
+                <div class="tab-content">
+
+                    <form action="@Url.Action("SaveImages","SPPlace")" method="post" enctype="multipart/form-data">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <input type="file" class="form-control" id="images" name="images[]" onchange="preview_images();" multiple />
+                            <input type="submit" class="btn btn-primary pull-right" name='submit_image' value="Resimleri Kaydet" />
+                        </div>
+                    </form>
                     <div class="image_preview_custom" id="image_preview">
                     </div>
-                    <br /> 
+                    <br />
                     <a href="/SPPlace/inspectioncomment/@Url.RequestContext.RouteData.Values["id"]" class="btn btn-small btn-success two pull-right">Sonraki Adım<i class="btn-icon-only icon-circle-arrow-right">  </i></a>
                 </div>
             </div>
-        </div> 
+        </div>
 
         @if (photoList.Count > 0)
         {
@@ -40,7 +40,11 @@
                         <div class="image_preview_custom">
                             @foreach (var item in photoList)
                             {
-                                <img class='img-responsive' src="@item.PhotoUrl" />
+                                string id = "removeImage" + item.ID;
+                                <div class="respo-img">
+                                    <img class='img-responsive' src="@item.PhotoUrl" />
+                                    <input type="button" id="@id" select-id="@item.ID" value="X" class="rmv deletebutton btn-delete-img" />
+                                </div>
                             }
                         </div>
 
@@ -48,6 +52,5 @@
                 </div>
             </div>
         }
-    </div> 
+    </div>
 </div>
- 

@@ -42,8 +42,10 @@
                     @foreach (var item in Model)
                     {
                         string id = "removeImage" + item.ID;
-                        <img class='img-responsive' src="@item.PhotoUrl" id="@id" />
-                        <input type="button" id="@id" select-id="@item.ID" value="x" class="rmv deletebutton" />
+                        <div class="respo-img">
+                            <img class='img-responsive' src="@item.PhotoUrl" id="@id" />
+                            <input type="button" id="@id" select-id="@item.ID" value="X" class="rmv deletebutton btn-delete-img" />
+                        </div>
                     }
                 </div>
 
