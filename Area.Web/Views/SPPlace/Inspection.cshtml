@@ -54,3 +54,15 @@
         }
     </div>
 </div>
+<script>
+    $(".deletebutton").click(function () {
+        var selectid = $(this).attr("select-id");
+        $.ajax({
+            url: '/uploadphotos/delete/' + selectid,
+            type: 'post',
+            success: function () {
+                window.location.reload();
+            }
+        });
+    });
+</script>

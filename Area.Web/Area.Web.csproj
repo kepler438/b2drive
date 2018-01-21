@@ -213,7 +213,8 @@
     <Compile Include="Controllers\CustomerHomeController.cs" />
     <Compile Include="Controllers\CustomerPlaceMapController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PickNavigationController.cs" />
+    <Compile Include="Controllers\AdminPickNavigationController.cs" />
+    <Compile Include="Controllers\AdminPlaceControlController.cs" />
     <Compile Include="Controllers\ProductCategoriesController.cs" />
     <Compile Include="Controllers\ProductSaleController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -233,6 +234,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\ExtensionMethods.cs" />
     <Compile Include="Helper\LogHelper.cs" />
     <Compile Include="Models\LoginInfo.cs" />
     <Compile Include="Models\ReceivedProductEntity.cs" />
@@ -309,11 +311,12 @@
     <Content Include="Views\CustomerHome\Index.cshtml" />
     <Content Include="Views\CustomerPlaceMap\Index.cshtml" />
     <Content Include="Views\SPPlace\DeliveryProduct.cshtml" />
-    <Content Include="Views\PickNavigation\Create.cshtml" />
-    <Content Include="Views\PickNavigation\Delete.cshtml" />
-    <Content Include="Views\PickNavigation\Details.cshtml" />
-    <Content Include="Views\PickNavigation\Edit.cshtml" />
-    <Content Include="Views\PickNavigation\Index.cshtml" />
+    <Content Include="Views\AdminPickNavigation\Create.cshtml" />
+    <Content Include="Views\AdminPickNavigation\Delete.cshtml" />
+    <Content Include="Views\AdminPickNavigation\Details.cshtml" />
+    <Content Include="Views\AdminPickNavigation\Edit.cshtml" />
+    <Content Include="Views\AdminPickNavigation\Index.cshtml" />
+    <Content Include="Views\AdminPlaceControl\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

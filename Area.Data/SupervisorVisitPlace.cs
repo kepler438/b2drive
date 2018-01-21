@@ -25,6 +25,7 @@ namespace Area.Data
     
         public int ID { get; set; }
         public int VisitPlaceID { get; set; }
+        public Nullable<int> PersonID { get; set; }
         public int PlaceID { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
@@ -39,12 +40,13 @@ namespace Area.Data
         public virtual Place Place { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductRecivedDelivered> ProductRecivedDelivereds { get; set; }
-        public virtual VisitPlace VisitPlace { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupervisorVisitPlaceComment> SupervisorVisitPlaceComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupervisorVisitPlaceInfo> SupervisorVisitPlaceInfoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupervisorVisitPlacePenetration> SupervisorVisitPlacePenetrations { get; set; }
+        public virtual VisitPlace VisitPlace { get; set; }
     }
 }

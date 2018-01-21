@@ -34,6 +34,7 @@ namespace Area.Data
         public Nullable<int> PlaceID { get; set; }
         public Nullable<int> RegionID { get; set; }
         public Nullable<int> CheckInfoID { get; set; }
+        public Nullable<bool> IsApproved { get; set; }
         public System.DateTime CreateDate { get; set; }
         public bool IsActive { get; set; }
     

@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿ 
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
+using System.Net; 
 using System.Web.Mvc;
 using Area.Data;
+using Area.Web.Attributes;
 
 namespace Area.Web.Controllers
 {
-    public class PickNavigationController : Controller
+    [VerifyUser]
+    public class AdminPickNavigationController : Controller
     {
         private B2DriveForPostEntities db = new B2DriveForPostEntities();
 

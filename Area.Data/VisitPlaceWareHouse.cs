@@ -31,7 +31,7 @@ namespace Area.Data
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductRecivedDelivered> ProductRecivedDelivereds { get; set; }
-        public virtual VisitPlace VisitPlace { get; set; }
         public virtual WareHouse WareHouse { get; set; }
+        public virtual VisitPlace VisitPlace { get; set; }
     }
 }
