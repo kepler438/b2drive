@@ -12,6 +12,7 @@ namespace Area.Web.Controllers
     [VerifyUser]
     public class AdminController : Controller
     {
+        /* esad */
         public ActionResult Index()
         {
             using (B2DriveForPostEntities db = new B2DriveForPostEntities())
