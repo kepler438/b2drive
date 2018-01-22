@@ -51,5 +51,7 @@ namespace Area.Data
         public virtual DbSet<WareHouse> WareHouses { get; set; }
         public virtual DbSet<SupervisorVisitPlace> SupervisorVisitPlaces { get; set; }
         public virtual DbSet<VisitPlace> VisitPlaces { get; set; }
+        public virtual DbSet<WareHouseProduct> WareHouseProducts { get; set; }
+        public virtual DbSet<SPPlaceDeliveryProduct> SPPlaceDeliveryProducts { get; set; }
     }
 }

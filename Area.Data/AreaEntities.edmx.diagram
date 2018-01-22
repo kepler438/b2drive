@@ -30,7 +30,7 @@
         <EntityTypeShape EntityType="B2DriveForPostModel.VisitPlaceWareHouse" Width="1.5" PointX="7.5" PointY="25.625" />
         <EntityTypeShape EntityType="B2DriveForPostModel.WareHouse" Width="1.5" PointX="5.25" PointY="26.25" />
         <AssociationConnector Association="B2DriveForPostModel.FK_AvailableUserVisit_User" ManuallyRouted="true" >
-          <ConnectorPoint PointX="4.5" PointY="17.490962287285353" />
+          <ConnectorPoint PointX="4.5" PointY="17.491004281047026" />
           <ConnectorPoint PointX="4.5922794778125" PointY="18.820260410838895" />
           <ConnectorPoint PointX="5.3473781250000005" PointY="18.820260410838895" />
           <ConnectorPoint PointX="5.3473781250000005" PointY="18.729596774749531" />
@@ -40,8 +40,8 @@
           <ConnectorPoint PointX="7.104166666666667" PointY="16.367456857016204" />
           <ConnectorPoint PointX="10.119789791666664" PointY="16.367456857016204" />
           <ConnectorPoint PointX="10.286456458333332" PointY="16.367456857016204" />
-          <ConnectorPoint PointX="12.057289166666665" PointY="16.367456857016204" />
-          <ConnectorPoint PointX="12.223955833333333" PointY="16.367456857016204" />
+          <ConnectorPoint PointX="12.041666666666666" PointY="16.367456857016204" />
+          <ConnectorPoint PointX="12.208333333333334" PointY="16.367456857016204" />
           <ConnectorPoint PointX="12.28125" PointY="16.367456857016204" />
           <ConnectorPoint PointX="12.28125" PointY="25" />
         </AssociationConnector>
@@ -83,6 +83,12 @@
         <AssociationConnector Association="B2DriveForPostModel.FK_VisitPlaceCarInfo_VisitPlace" />
         <AssociationConnector Association="B2DriveForPostModel.FK_VisitPlaceInfo_VisitPlace" />
         <AssociationConnector Association="B2DriveForPostModel.FK_VisitPlaceWareHouse_VisitPlace" />
+        <EntityTypeShape EntityType="B2DriveForPostModel.WareHouseProduct" Width="1.5" PointX="15.75" PointY="16.5" />
+        <AssociationConnector Association="B2DriveForPostModel.FK_WareHouseProduct_Product" />
+        <AssociationConnector Association="B2DriveForPostModel.FK_WareHouseProduct_VisitPlaceWareHouse" />
+        <EntityTypeShape EntityType="B2DriveForPostModel.SPPlaceDeliveryProduct" Width="1.5" PointX="15.75" PointY="12.5" />
+        <AssociationConnector Association="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_Product" />
+        <AssociationConnector Association="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_SupervisorVisitPlace" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

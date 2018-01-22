@@ -112,6 +112,9 @@
     <Compile Include="RentACar.cs">
       <DependentUpon>AreaEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="SPPlaceDeliveryProduct.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="SupervisorVisitPlace.cs">
       <DependentUpon>AreaEntities.tt</DependentUpon>
     </Compile>
@@ -146,6 +149,9 @@
       <DependentUpon>AreaEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="WareHouse.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WareHouseProduct.cs">
       <DependentUpon>AreaEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>

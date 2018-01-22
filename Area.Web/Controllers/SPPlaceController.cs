@@ -37,12 +37,8 @@ namespace Area.Web.Controllers
 
         [Route("spplace/deliveryproduct/{id?}")]
         public ActionResult DeliveryProduct(int? id)
-        {
-            int userID = Convert.ToInt32(Session["UserId"]);
-            var result = db.ProductRecivedDelivereds.Include(x => x.Product.ProductSubCategory.ProductCategory).Where(p => p.IsActive == true && p.SupervisorVisitPlaceID == id).ToList();
-            ViewData["supervisorVisitPlace"] = db.SupervisorVisitPlaces.Where(p => p.ID == id).FirstOrDefault();
-            ViewData["ProductCategory"] = new SelectList(db.ProductCategories.Where(p => p.IsActive == true), "ID", "Name");
-            return View(result);
+        { 
+            return View();
         }
 
         [Route("spplace/inspection/{id?}")]

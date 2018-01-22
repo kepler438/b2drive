@@ -155,6 +155,18 @@
           <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="SPPlaceDeliveryProducts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SupervisorVisitPlaceID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="SupervisorVisitPlace">
           <Key>
             <PropertyRef Name="ID" />
@@ -324,6 +336,18 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WareHouseProduct">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VisitPlaceWareHouseID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_AvailableUserVisit_User">
@@ -503,6 +527,30 @@
             </Principal>
             <Dependent Role="ProductSubCategory">
               <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SPPlaceDeliveryProducts_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="SPPlaceDeliveryProducts" Type="Self.SPPlaceDeliveryProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SPPlaceDeliveryProducts">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SPPlaceDeliveryProducts_SupervisorVisitPlace">
+          <End Role="SupervisorVisitPlace" Type="Self.SupervisorVisitPlace" Multiplicity="1" />
+          <End Role="SPPlaceDeliveryProducts" Type="Self.SPPlaceDeliveryProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupervisorVisitPlace">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SPPlaceDeliveryProducts">
+              <PropertyRef Name="SupervisorVisitPlaceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -782,6 +830,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WareHouseProduct_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="WareHouseProduct" Type="Self.WareHouseProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WareHouseProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WareHouseProduct_VisitPlaceWareHouse">
+          <End Role="VisitPlaceWareHouse" Type="Self.VisitPlaceWareHouse" Multiplicity="1" />
+          <End Role="WareHouseProduct" Type="Self.WareHouseProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VisitPlaceWareHouse">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WareHouseProduct">
+              <PropertyRef Name="VisitPlaceWareHouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="B2DriveForPostModelStoreContainer">
           <EntitySet Name="AvailableUserVisit" EntityType="Self.AvailableUserVisit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
@@ -797,6 +869,7 @@
           <EntitySet Name="RaitingQuestion" EntityType="Self.RaitingQuestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RentACar" EntityType="Self.RentACar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SPPlaceDeliveryProducts" EntityType="Self.SPPlaceDeliveryProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupervisorVisitPlace" EntityType="Self.SupervisorVisitPlace" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupervisorVisitPlaceComment" EntityType="Self.SupervisorVisitPlaceComment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupervisorVisitPlaceInfo" EntityType="Self.SupervisorVisitPlaceInfo" Schema="dbo" store:Type="Tables" />
@@ -810,6 +883,7 @@
           <EntitySet Name="VisitPlaceInfo" EntityType="Self.VisitPlaceInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VisitPlaceWareHouse" EntityType="Self.VisitPlaceWareHouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WareHouse" EntityType="Self.WareHouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WareHouseProduct" EntityType="Self.WareHouseProduct" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AvailableUserVisit_User" Association="Self.FK_AvailableUserVisit_User">
             <End Role="User" EntitySet="User" />
             <End Role="AvailableUserVisit" EntitySet="AvailableUserVisit" />
@@ -869,6 +943,14 @@
           <AssociationSet Name="FK_ProductSubCategory_ProductCategory" Association="Self.FK_ProductSubCategory_ProductCategory">
             <End Role="ProductCategory" EntitySet="ProductCategory" />
             <End Role="ProductSubCategory" EntitySet="ProductSubCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SPPlaceDeliveryProducts_Product" Association="Self.FK_SPPlaceDeliveryProducts_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="SPPlaceDeliveryProducts" EntitySet="SPPlaceDeliveryProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SPPlaceDeliveryProducts_SupervisorVisitPlace" Association="Self.FK_SPPlaceDeliveryProducts_SupervisorVisitPlace">
+            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlace" />
+            <End Role="SPPlaceDeliveryProducts" EntitySet="SPPlaceDeliveryProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_SupervisorVisitPlace_Place" Association="Self.FK_SupervisorVisitPlace_Place">
             <End Role="Place" EntitySet="Place" />
@@ -961,6 +1043,14 @@
           <AssociationSet Name="FK_VisitPlaceWareHouse_WareHouse" Association="Self.FK_VisitPlaceWareHouse_WareHouse">
             <End Role="WareHouse" EntitySet="WareHouse" />
             <End Role="VisitPlaceWareHouse" EntitySet="VisitPlaceWareHouse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WareHouseProduct_Product" Association="Self.FK_WareHouseProduct_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="WareHouseProduct" EntitySet="WareHouseProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WareHouseProduct_VisitPlaceWareHouse" Association="Self.FK_WareHouseProduct_VisitPlaceWareHouse">
+            <End Role="VisitPlaceWareHouse" EntitySet="VisitPlaceWareHouse" />
+            <End Role="WareHouseProduct" EntitySet="WareHouseProduct" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1142,6 +1232,24 @@
             <End Role="VisitPlace" EntitySet="VisitPlaces" />
             <End Role="VisitPlaceWareHouse" EntitySet="VisitPlaceWareHouses" />
           </AssociationSet>
+          <EntitySet Name="WareHouseProducts" EntityType="B2DriveForPostModel.WareHouseProduct" />
+          <AssociationSet Name="FK_WareHouseProduct_Product" Association="B2DriveForPostModel.FK_WareHouseProduct_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="WareHouseProduct" EntitySet="WareHouseProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WareHouseProduct_VisitPlaceWareHouse" Association="B2DriveForPostModel.FK_WareHouseProduct_VisitPlaceWareHouse">
+            <End Role="VisitPlaceWareHouse" EntitySet="VisitPlaceWareHouses" />
+            <End Role="WareHouseProduct" EntitySet="WareHouseProducts" />
+          </AssociationSet>
+          <EntitySet Name="SPPlaceDeliveryProducts" EntityType="B2DriveForPostModel.SPPlaceDeliveryProduct" />
+          <AssociationSet Name="FK_SPPlaceDeliveryProducts_Product" Association="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="SPPlaceDeliveryProduct" EntitySet="SPPlaceDeliveryProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SPPlaceDeliveryProducts_SupervisorVisitPlace" Association="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_SupervisorVisitPlace">
+            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
+            <End Role="SPPlaceDeliveryProduct" EntitySet="SPPlaceDeliveryProducts" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AvailableUserVisit">
           <Key>
@@ -1232,6 +1340,8 @@
           <NavigationProperty Name="ProductRecivedDelivereds" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_Product" FromRole="Product" ToRole="ProductRecivedDelivered" />
           <NavigationProperty Name="ProductSales" Relationship="B2DriveForPostModel.FK_ProductSale_Product" FromRole="Product" ToRole="ProductSale" />
           <NavigationProperty Name="SupervisorVisitPlacePenetrations" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_Product" FromRole="Product" ToRole="SupervisorVisitPlacePenetration" />
+          <NavigationProperty Name="WareHouseProducts" Relationship="B2DriveForPostModel.FK_WareHouseProduct_Product" FromRole="Product" ToRole="WareHouseProduct" />
+          <NavigationProperty Name="SPPlaceDeliveryProducts" Relationship="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_Product" FromRole="Product" ToRole="SPPlaceDeliveryProduct" />
         </EntityType>
         <EntityType Name="ProductCategory">
           <Key>
@@ -1467,6 +1577,7 @@
           <NavigationProperty Name="ProductRecivedDelivereds" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_VisitPlaceWareHouse" FromRole="VisitPlaceWareHouse" ToRole="ProductRecivedDelivered" />
           <NavigationProperty Name="WareHouse" Relationship="B2DriveForPostModel.FK_VisitPlaceWareHouse_WareHouse" FromRole="VisitPlaceWareHouse" ToRole="WareHouse" />
           <NavigationProperty Name="VisitPlace" Relationship="B2DriveForPostModel.FK_VisitPlaceWareHouse_VisitPlace" FromRole="VisitPlaceWareHouse" ToRole="VisitPlace" />
+          <NavigationProperty Name="WareHouseProducts" Relationship="B2DriveForPostModel.FK_WareHouseProduct_VisitPlaceWareHouse" FromRole="VisitPlaceWareHouse" ToRole="WareHouseProduct" />
         </EntityType>
         <EntityType Name="WareHouse">
           <Key>
@@ -1722,6 +1833,7 @@
           <NavigationProperty Name="SupervisorVisitPlaceInfoes" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlaceInfo_SupervisorVisitPlace" FromRole="SupervisorVisitPlace" ToRole="SupervisorVisitPlaceInfo" />
           <NavigationProperty Name="SupervisorVisitPlacePenetrations" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" FromRole="SupervisorVisitPlace" ToRole="SupervisorVisitPlacePenetration" />
           <NavigationProperty Name="VisitPlace" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_VisitPlace" FromRole="SupervisorVisitPlace" ToRole="VisitPlace" />
+          <NavigationProperty Name="SPPlaceDeliveryProducts" Relationship="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_SupervisorVisitPlace" FromRole="SupervisorVisitPlace" ToRole="SPPlaceDeliveryProduct" />
         </EntityType>
         <Association Name="FK_SupervisorVisitPlace_Place">
           <End Type="B2DriveForPostModel.Place" Role="Place" Multiplicity="1" />
@@ -1963,6 +2075,82 @@
             </Principal>
             <Dependent Role="VisitPlaceWareHouse">
               <PropertyRef Name="VisitPlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="WareHouseProduct">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VisitPlaceWareHouseID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="B2DriveForPostModel.FK_WareHouseProduct_Product" FromRole="WareHouseProduct" ToRole="Product" />
+          <NavigationProperty Name="VisitPlaceWareHouse" Relationship="B2DriveForPostModel.FK_WareHouseProduct_VisitPlaceWareHouse" FromRole="WareHouseProduct" ToRole="VisitPlaceWareHouse" />
+        </EntityType>
+        <Association Name="FK_WareHouseProduct_Product">
+          <End Type="B2DriveForPostModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="B2DriveForPostModel.WareHouseProduct" Role="WareHouseProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WareHouseProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WareHouseProduct_VisitPlaceWareHouse">
+          <End Type="B2DriveForPostModel.VisitPlaceWareHouse" Role="VisitPlaceWareHouse" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.WareHouseProduct" Role="WareHouseProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VisitPlaceWareHouse">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WareHouseProduct">
+              <PropertyRef Name="VisitPlaceWareHouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SPPlaceDeliveryProduct">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupervisorVisitPlaceID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_Product" FromRole="SPPlaceDeliveryProduct" ToRole="Product" />
+          <NavigationProperty Name="SupervisorVisitPlace" Relationship="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_SupervisorVisitPlace" FromRole="SPPlaceDeliveryProduct" ToRole="SupervisorVisitPlace" />
+        </EntityType>
+        <Association Name="FK_SPPlaceDeliveryProducts_Product">
+          <End Type="B2DriveForPostModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.SPPlaceDeliveryProduct" Role="SPPlaceDeliveryProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SPPlaceDeliveryProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SPPlaceDeliveryProducts_SupervisorVisitPlace">
+          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.SPPlaceDeliveryProduct" Role="SPPlaceDeliveryProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupervisorVisitPlace">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SPPlaceDeliveryProduct">
+              <PropertyRef Name="SupervisorVisitPlaceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2315,6 +2503,32 @@
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WareHouseProducts">
+            <EntityTypeMapping TypeName="B2DriveForPostModel.WareHouseProduct">
+              <MappingFragment StoreEntitySet="WareHouseProduct">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="VisitPlaceWareHouseID" ColumnName="VisitPlaceWareHouseID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SPPlaceDeliveryProducts">
+            <EntityTypeMapping TypeName="B2DriveForPostModel.SPPlaceDeliveryProduct">
+              <MappingFragment StoreEntitySet="SPPlaceDeliveryProducts">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="SupervisorVisitPlaceID" ColumnName="SupervisorVisitPlaceID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

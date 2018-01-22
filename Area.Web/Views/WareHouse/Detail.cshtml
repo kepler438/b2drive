@@ -6,6 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var checkinInfo = ViewData["visitplaceWareHouse"] as VisitPlaceWareHouse;
     B2DriveForPostEntities db = new B2DriveForPostEntities();
+    var id = Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]);
     var editProduct = TempData["EditProduct"] as Area.Data.ProductRecivedDelivered;
     SelectList productList = null;
     SelectList procutSubCategoryList = null;
@@ -20,10 +21,51 @@
 
         productCategoryList = new SelectList(db.ProductCategories.Where(p => p.IsActive == true), "ID", "Name", productEntity.ProductSubCategory.CategoryID);
     }
+
+    var receiveProducts = db.WareHouseProducts.Where(p => p.VisitPlaceWareHouseID == id).ToList();
 }
 
 <div class="span12">
     <div class="widget ">
+        @if (receiveProducts.Count > 0)
+        {
+        <div class="widget-header">
+            <i class="icon-user"></i>
+            <h3>Depodan teslim alınacak ürünler listesi</h3>
+        </div>
+        <div class="widget-content">
+            <div class="tabbable">
+                <div class="tab-content">  
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Kategori </th>
+                                <th> Alt Kategori </th>
+                                <th> Ürün </th>
+                                <th> Adet </th>
+                                <th> Not </th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in receiveProducts)
+                        {
+                            <tr>
+                                <td>@item.Product.ProductSubCategory.ProductCategory.Name </td>
+                                <td>@item.Product.ProductSubCategory.Name </td>
+                                <td>@item.Product.Name  </td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Note</td>
+                               
+                            </tr>
+                    }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        }
+        <br />
+
         @if (Model != null && checkinInfo.CheckinDate == null)
     {
         <div class="widget-header">
@@ -62,8 +104,8 @@ else if (Model != null && checkinInfo.CheckinDate != null)
         <i class="icon-user"></i>
         <h3>Depodan Ürün Al</h3>
     </div>
-    if (editProduct == null)
-    {
+if (editProduct == null)
+{
     <div class="widget-content">
         <div class="tabbable">
             <div class="tab-content">
@@ -119,9 +161,9 @@ else if (Model != null && checkinInfo.CheckinDate != null)
             </div>
         </div>
     </div>
-    }
-    else
-    {
+}
+else
+{
     <div class="widget-content">
         <div class="tabbable">
             <div class="tab-content">
@@ -129,7 +171,7 @@ else if (Model != null && checkinInfo.CheckinDate != null)
                     @using (Html.BeginForm("EditReceivedProducts", "WareHouse", FormMethod.Post, new { @id = "edit-profile", @class = "form-horizontal" }))
                 {
 
-                    <fieldset> 
+                    <fieldset>
                         <div class="control-group">
                             <label class="control-label" for="firstname">Kategori</label>
                             <div class="controls">
@@ -176,9 +218,9 @@ else if (Model != null && checkinInfo.CheckinDate != null)
             </div>
         </div>
     </div>
-    }
+}
 
-            
+
     <br />
 if (Model.Count > 0)
 {

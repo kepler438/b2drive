@@ -21,6 +21,7 @@ namespace Area.Data
             this.SupervisorVisitPlaceComments = new HashSet<SupervisorVisitPlaceComment>();
             this.SupervisorVisitPlaceInfoes = new HashSet<SupervisorVisitPlaceInfo>();
             this.SupervisorVisitPlacePenetrations = new HashSet<SupervisorVisitPlacePenetration>();
+            this.SPPlaceDeliveryProducts = new HashSet<SPPlaceDeliveryProduct>();
         }
     
         public int ID { get; set; }
@@ -48,5 +49,7 @@ namespace Area.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupervisorVisitPlacePenetration> SupervisorVisitPlacePenetrations { get; set; }
         public virtual VisitPlace VisitPlace { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SPPlaceDeliveryProduct> SPPlaceDeliveryProducts { get; set; }
     }
 }

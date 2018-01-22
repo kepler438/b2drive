@@ -18,6 +18,7 @@ namespace Area.Data
         public VisitPlaceWareHouse()
         {
             this.ProductRecivedDelivereds = new HashSet<ProductRecivedDelivered>();
+            this.WareHouseProducts = new HashSet<WareHouseProduct>();
         }
     
         public int ID { get; set; }
@@ -33,5 +34,7 @@ namespace Area.Data
         public virtual ICollection<ProductRecivedDelivered> ProductRecivedDelivereds { get; set; }
         public virtual WareHouse WareHouse { get; set; }
         public virtual VisitPlace VisitPlace { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WareHouseProduct> WareHouseProducts { get; set; }
     }
 }

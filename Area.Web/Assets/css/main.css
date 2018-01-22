@@ -46,6 +46,10 @@
     position: relative;
 }
 
+.modal-backdrop, .modal-backdrop.fade.in {
+    opacity: 0 !important;
+}
+
 @media (max-width: 576px) {
     .btn-orange-st {
         display: block !important;
