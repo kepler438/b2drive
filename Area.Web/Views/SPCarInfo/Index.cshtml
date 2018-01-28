@@ -25,9 +25,10 @@
                 <div class="tab-content">
                     @if (Model != null && Model.CheckinDate != null)
                     {
-                        <div class="sidebyside">
-                            <a href="/sphome" class="btn btn-small btn-warning one pull-left"><i class="btn-icon-only icon-circle-arrow-left"> Geri Gel </i></a> 
-                        </div>
+                    <div class="sidebyside">
+                        <a href="/sphome" class="btn btn-small btn-warning one pull-left"><i class="btn-icon-only icon-circle-arrow-left"> Geri Gel </i></a>
+                        <a href="/spcarinfo/checkoutpage/@Url.RequestContext.RouteData.Values["id"]" class="btn btn-small btn-success two pull-right">Araç İade Sayfası<i class="btn-icon-only icon-circle-arrow-right">  </i></a>
+                    </div>
 
                     }
                     else

@@ -27,14 +27,17 @@ namespace Area.Data
         public Nullable<System.DateTime> CheckinDate { get; set; }
         public string CheckinLatitude { get; set; }
         public string CheckinLongitude { get; set; }
+        public Nullable<System.DateTime> CheckoutDate { get; set; }
+        public string CheckoutLatitude { get; set; }
+        public string CheckoutLongitude { get; set; }
         public System.DateTime CreateDate { get; set; }
         public bool IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductRecivedDelivered> ProductRecivedDelivereds { get; set; }
+        public virtual VisitPlace VisitPlace { get; set; }
         public virtual WareHouse WareHouse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WareHouseProduct> WareHouseProducts { get; set; }
-        public virtual VisitPlace VisitPlace { get; set; }
     }
 }

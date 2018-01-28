@@ -35,7 +35,25 @@ namespace Area.Web.Controllers
             }
             return RedirectToAction("/" + input.VisitID);
         }
-         
+
+        [Route("spcarinfo/checkoutpage/{id?}")]
+        public ActionResult CheckOutPage(int? id)
+        {
+            var carinfo = db.VisitPlaceCarInfoes.Where(p => p.VisitPlaceID == id).FirstOrDefault();
+            return View(carinfo); 
+        }
+
+        [Route("checkoutspcar")]
+        [HttpPost]
+        public ActionResult CheckoutSpCar(Location input)
+        {
+            var carinfo = db.VisitPlaceCarInfoes.Where(p => p.VisitPlaceID == input.VisitID).FirstOrDefault();
+            carinfo.CheckoutDate = DateTime.Now;
+            db.Entry(carinfo);
+            db.SaveChanges();
+            return Redirect("/sphome");
+        }
+
         public class Location
         {
             public string Latitude { get; set; }

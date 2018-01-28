@@ -25,11 +25,12 @@ namespace Area.Data
         public string Note { get; set; }
         public System.DateTime CreateDate { get; set; }
         public bool IsActive { get; set; }
+        public Nullable<bool> IsDeliveryWareHouse { get; set; }
     
         public virtual Product Product { get; set; }
         public virtual User User { get; set; }
-        public virtual VisitPlaceWareHouse VisitPlaceWareHouse { get; set; }
         public virtual VisitPlace VisitPlace { get; set; }
         public virtual SupervisorVisitPlace SupervisorVisitPlace { get; set; }
+        public virtual VisitPlaceWareHouse VisitPlaceWareHouse { get; set; }
     }
 }

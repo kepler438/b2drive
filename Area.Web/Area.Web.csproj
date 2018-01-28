@@ -319,6 +319,9 @@
     <Content Include="Views\AdminPlaceControl\Index.cshtml" />
     <Content Include="Views\AdminPlaceControl\Supervisor.cshtml" />
     <Content Include="Views\SPPlace\PlaceOwnerComment.cshtml" />
+    <Content Include="Views\SPCarInfo\CheckoutSpCar.cshtml" />
+    <Content Include="Views\SPCarInfo\CheckOutPage.cshtml" />
+    <Content Include="Views\WareHouse\ProductDelivery.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

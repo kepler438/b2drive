@@ -28,6 +28,15 @@ namespace Area.Web.Controllers
             return View(result);
         }
 
+        [Route("warehouse/productdelivery/{id?}")]
+        public ActionResult ProductDelivery(int? id)
+        {
+            var result = db.ProductRecivedDelivereds.Include(x => x.Product.ProductSubCategory.ProductCategory).Where(p => p.IsActive == true && p.VisitPlaceWareHouseID == id).ToList();
+            ViewData["visitplaceWareHouse"] = db.VisitPlaceWareHouses.Where(p => p.ID == id).FirstOrDefault();
+            ViewData["ProductCategory"] = new SelectList(db.ProductCategories.Where(p => p.IsActive == true), "ID", "Name");
+            return View(result);
+        }
+
         [Route("warehouse/GetSubCategories/{categoryid?}")]
         public JsonResult GetSubCategories(string categoryid)
         {

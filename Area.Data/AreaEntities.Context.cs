@@ -45,7 +45,6 @@ namespace Area.Data
         public virtual DbSet<UserLogInformation> UserLogInformations { get; set; }
         public virtual DbSet<UserPassword> UserPasswords { get; set; }
         public virtual DbSet<VisitPlaceInfo> VisitPlaceInfoes { get; set; }
-        public virtual DbSet<VisitPlaceWareHouse> VisitPlaceWareHouses { get; set; }
         public virtual DbSet<WareHouse> WareHouses { get; set; }
         public virtual DbSet<WareHouseProduct> WareHouseProducts { get; set; }
         public virtual DbSet<SPPlaceDeliveryProduct> SPPlaceDeliveryProducts { get; set; }
@@ -53,5 +52,6 @@ namespace Area.Data
         public virtual DbSet<SupervisorVisitPlace> SupervisorVisitPlaces { get; set; }
         public virtual DbSet<SupervisorVisitPlaceComment> SupervisorVisitPlaceComments { get; set; }
         public virtual DbSet<VisitPlaceCarInfo> VisitPlaceCarInfoes { get; set; }
+        public virtual DbSet<VisitPlaceWareHouse> VisitPlaceWareHouses { get; set; }
     }
 }
