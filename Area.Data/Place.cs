@@ -17,8 +17,8 @@ namespace Area.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Place()
         {
-            this.SupervisorVisitPlaces = new HashSet<SupervisorVisitPlace>();
             this.VisitPlaces = new HashSet<VisitPlace>();
+            this.SupervisorVisitPlaces = new HashSet<SupervisorVisitPlace>();
         }
     
         public int ID { get; set; }
@@ -29,8 +29,8 @@ namespace Area.Data
     
         public virtual Region Region { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupervisorVisitPlace> SupervisorVisitPlaces { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VisitPlace> VisitPlaces { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupervisorVisitPlace> SupervisorVisitPlaces { get; set; }
     }
 }

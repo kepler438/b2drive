@@ -1,5 +1,5 @@
 ﻿.btn-orange-st {
-    margin-top: .5em !important;
+    margin-top: 0.8em !important;
     width: 114px !important;
 }
 
@@ -9,10 +9,11 @@
 
 .btn-blue-st {
     width: 61px;
+    margin-top: .5rem;
 }
 
 .btn-red-st {
-    margin-top: .5em;
+    margin-top: .0em;
 }
 
 .btn-delete-img {

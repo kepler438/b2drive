@@ -18,14 +18,15 @@ namespace Area.Data
         public SupervisorVisitPlace()
         {
             this.ProductRecivedDelivereds = new HashSet<ProductRecivedDelivered>();
-            this.SupervisorVisitPlaceComments = new HashSet<SupervisorVisitPlaceComment>();
+            this.SPPlaceDeliveryProducts = new HashSet<SPPlaceDeliveryProduct>();
             this.SupervisorVisitPlaceInfoes = new HashSet<SupervisorVisitPlaceInfo>();
             this.SupervisorVisitPlacePenetrations = new HashSet<SupervisorVisitPlacePenetration>();
-            this.SPPlaceDeliveryProducts = new HashSet<SPPlaceDeliveryProduct>();
+            this.SupervisorVisitPlaceComments = new HashSet<SupervisorVisitPlaceComment>();
         }
     
         public int ID { get; set; }
         public int VisitPlaceID { get; set; }
+        public Nullable<int> ParentVisitPlaceID { get; set; }
         public Nullable<int> PersonID { get; set; }
         public int PlaceID { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
@@ -35,21 +36,22 @@ namespace Area.Data
         public string CheckinLongitude { get; set; }
         public string PlacePositiveComment { get; set; }
         public string PlaceNegativeComment { get; set; }
+        public Nullable<bool> IsApproved { get; set; }
         public System.DateTime CreateDate { get; set; }
         public bool IsActive { get; set; }
     
         public virtual Place Place { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductRecivedDelivered> ProductRecivedDelivereds { get; set; }
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupervisorVisitPlaceComment> SupervisorVisitPlaceComments { get; set; }
+        public virtual ICollection<SPPlaceDeliveryProduct> SPPlaceDeliveryProducts { get; set; }
+        public virtual User User { get; set; }
+        public virtual VisitPlace VisitPlace { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupervisorVisitPlaceInfo> SupervisorVisitPlaceInfoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupervisorVisitPlacePenetration> SupervisorVisitPlacePenetrations { get; set; }
-        public virtual VisitPlace VisitPlace { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SPPlaceDeliveryProduct> SPPlaceDeliveryProducts { get; set; }
+        public virtual ICollection<SupervisorVisitPlaceComment> SupervisorVisitPlaceComments { get; set; }
     }
 }

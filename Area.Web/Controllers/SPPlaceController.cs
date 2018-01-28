@@ -75,6 +75,30 @@ namespace Area.Web.Controllers
             return View(evalVM);
         }
 
+        [Route("spplace/placeownercomment/{id?}")]
+        public ActionResult PlaceOwnerComment(int? id)
+        {
+            int userID = Convert.ToInt32(Session["UserId"]);
+            ViewData["supervisorVisitPlace"] = db.SupervisorVisitPlaces.Where(p => p.ID == id).FirstOrDefault();
+
+            var evalVM = new Evaluation();
+            foreach (var item in db.RaitingQuestions.Where(p => p.IsActive == true))
+            {
+                evalVM.Questions.Add(new Question()
+                {
+                    ID = item.ID,
+                    QuestionText = item.Name,
+                    Answers = new List<Answer>()
+                            {
+                                new Answer() { ID = 1 , AnswerText = "İyi"},
+                                new Answer() { ID = 2 , AnswerText = "Orta"},
+                                new Answer() { ID = 3 , AnswerText = "Yetersiz"},
+                           },
+                });
+            }
+            return View(evalVM);
+        }
+
         [Route("spplace/inspectioninfo/{id?}")]
         public ActionResult InspectionInfo(int? id)
         { 
@@ -204,7 +228,32 @@ namespace Area.Web.Controllers
             comment.PlacePositiveComment = input.PlacePositiveComment;
             db.Entry(comment);
             db.SaveChanges(); 
-            return Redirect("spplace/inspectioninfo/"+input.visitplaceID);
+            return Redirect("spplace/placeownercomment/"+input.visitplaceID);
+        }
+
+        [Route("saveownercomment")]
+        [HttpPost]
+        public ActionResult SaveOwnerComment(Evaluation input)
+        {
+            db.SupervisorVisitPlaceComments.RemoveRange(db.SupervisorVisitPlaceComments.Where(x => x.SupervisorVisitPlaceID == input.visitplaceID && x.PlaceOwner == true));
+            db.SaveChanges();
+            foreach (var item in input.Questions)
+            {
+                SupervisorVisitPlaceComment comm = new SupervisorVisitPlaceComment();
+                comm.RaitingID = item.ID;
+                comm.RaitingStar = item.SelectedAnswer;
+                comm.CreateDate = DateTime.Now;
+                comm.PlaceOwner = true;
+                comm.SupervisorVisitPlaceID = input.visitplaceID;
+                db.SupervisorVisitPlaceComments.Add(comm);
+                db.SaveChanges();
+            }
+            var comment = db.SupervisorVisitPlaces.Find(input.visitplaceID);
+            comment.PlaceNegativeComment = input.PlaceNegativeComment;
+            comment.PlacePositiveComment = input.PlacePositiveComment;
+            db.Entry(comment);
+            db.SaveChanges();
+            return Redirect("spplace/inspectioninfo/" + input.visitplaceID);
         }
 
         [Route("saveinspectioninfo")]

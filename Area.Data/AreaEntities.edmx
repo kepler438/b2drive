@@ -173,6 +173,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VisitPlaceID" Type="int" Nullable="false" />
+          <Property Name="ParentVisitPlaceID" Type="int" />
           <Property Name="PersonID" Type="int" />
           <Property Name="PlaceID" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="datetime" />
@@ -182,6 +183,7 @@
           <Property Name="CheckinLongitude" Type="nvarchar" MaxLength="500" />
           <Property Name="PlacePositiveComment" Type="nvarchar(max)" />
           <Property Name="PlaceNegativeComment" Type="nvarchar(max)" />
+          <Property Name="IsApproved" Type="bit" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
@@ -190,6 +192,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlaceOwner" Type="bit" />
           <Property Name="SupervisorVisitPlaceID" Type="int" Nullable="false" />
           <Property Name="RaitingID" Type="int" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" />
@@ -294,6 +297,7 @@
           <Property Name="CheckinDate" Type="datetime" />
           <Property Name="CheckinLatitude" Type="nvarchar" MaxLength="500" />
           <Property Name="CheckinLongitude" Type="nvarchar" MaxLength="500" />
+          <Property Name="CheckoutDate" Type="datetime" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
@@ -1072,13 +1076,11 @@
           <EntitySet Name="RaitingQuestions" EntityType="B2DriveForPostModel.RaitingQuestion" />
           <EntitySet Name="Regions" EntityType="B2DriveForPostModel.Region" />
           <EntitySet Name="RentACars" EntityType="B2DriveForPostModel.RentACar" />
-          <EntitySet Name="SupervisorVisitPlaceComments" EntityType="B2DriveForPostModel.SupervisorVisitPlaceComment" />
           <EntitySet Name="SupervisorVisitPlaceInfoes" EntityType="B2DriveForPostModel.SupervisorVisitPlaceInfo" />
           <EntitySet Name="SupervisorVisitPlacePenetrations" EntityType="B2DriveForPostModel.SupervisorVisitPlacePenetration" />
           <EntitySet Name="Users" EntityType="B2DriveForPostModel.User" />
           <EntitySet Name="UserLogInformations" EntityType="B2DriveForPostModel.UserLogInformation" />
           <EntitySet Name="UserPasswords" EntityType="B2DriveForPostModel.UserPassword" />
-          <EntitySet Name="VisitPlaceCarInfoes" EntityType="B2DriveForPostModel.VisitPlaceCarInfo" />
           <EntitySet Name="VisitPlaceInfoes" EntityType="B2DriveForPostModel.VisitPlaceInfo" />
           <EntitySet Name="VisitPlaceWareHouses" EntityType="B2DriveForPostModel.VisitPlaceWareHouse" />
           <EntitySet Name="WareHouses" EntityType="B2DriveForPostModel.WareHouse" />
@@ -1130,14 +1132,6 @@
             <End Role="User" EntitySet="Users" />
             <End Role="ProductSale" EntitySet="ProductSales" />
           </AssociationSet>
-          <AssociationSet Name="FK_SupervisorVisitPlaceComment_RaitingQuestion" Association="B2DriveForPostModel.FK_SupervisorVisitPlaceComment_RaitingQuestion">
-            <End Role="RaitingQuestion" EntitySet="RaitingQuestions" />
-            <End Role="SupervisorVisitPlaceComment" EntitySet="SupervisorVisitPlaceComments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VisitPlaceCarInfo_RentACar" Association="B2DriveForPostModel.FK_VisitPlaceCarInfo_RentACar">
-            <End Role="RentACar" EntitySet="RentACars" />
-            <End Role="VisitPlaceCarInfo" EntitySet="VisitPlaceCarInfoes" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserLogInformation_User" Association="B2DriveForPostModel.FK_UserLogInformation_User">
             <End Role="User" EntitySet="Users" />
             <End Role="UserLogInformation" EntitySet="UserLogInformations" />
@@ -1158,30 +1152,19 @@
             <End Role="Permission" EntitySet="Permissions" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <EntitySet Name="SupervisorVisitPlaces" EntityType="B2DriveForPostModel.SupervisorVisitPlace" />
-          <AssociationSet Name="FK_SupervisorVisitPlace_Place" Association="B2DriveForPostModel.FK_SupervisorVisitPlace_Place">
-            <End Role="Place" EntitySet="Places" />
-            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
+          <EntitySet Name="WareHouseProducts" EntityType="B2DriveForPostModel.WareHouseProduct" />
+          <AssociationSet Name="FK_WareHouseProduct_Product" Association="B2DriveForPostModel.FK_WareHouseProduct_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="WareHouseProduct" EntitySet="WareHouseProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductRecivedDelivered_SupervisorVisitPlace" Association="B2DriveForPostModel.FK_ProductRecivedDelivered_SupervisorVisitPlace">
-            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
-            <End Role="ProductRecivedDelivered" EntitySet="ProductRecivedDelivereds" />
+          <AssociationSet Name="FK_WareHouseProduct_VisitPlaceWareHouse" Association="B2DriveForPostModel.FK_WareHouseProduct_VisitPlaceWareHouse">
+            <End Role="VisitPlaceWareHouse" EntitySet="VisitPlaceWareHouses" />
+            <End Role="WareHouseProduct" EntitySet="WareHouseProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK_SupervisorVisitPlace_User" Association="B2DriveForPostModel.FK_SupervisorVisitPlace_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SupervisorVisitPlaceComment_SupervisorVisitPlace1" Association="B2DriveForPostModel.FK_SupervisorVisitPlaceComment_SupervisorVisitPlace1">
-            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
-            <End Role="SupervisorVisitPlaceComment" EntitySet="SupervisorVisitPlaceComments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SupervisorVisitPlaceInfo_SupervisorVisitPlace" Association="B2DriveForPostModel.FK_SupervisorVisitPlaceInfo_SupervisorVisitPlace">
-            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
-            <End Role="SupervisorVisitPlaceInfo" EntitySet="SupervisorVisitPlaceInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace">
-            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
-            <End Role="SupervisorVisitPlacePenetration" EntitySet="SupervisorVisitPlacePenetrations" />
+          <EntitySet Name="SPPlaceDeliveryProducts" EntityType="B2DriveForPostModel.SPPlaceDeliveryProduct" />
+          <AssociationSet Name="FK_SPPlaceDeliveryProducts_Product" Association="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="SPPlaceDeliveryProduct" EntitySet="SPPlaceDeliveryProducts" />
           </AssociationSet>
           <EntitySet Name="VisitPlaces" EntityType="B2DriveForPostModel.VisitPlace" />
           <AssociationSet Name="FK_AvailableUserVisit_VisitPlace" Association="B2DriveForPostModel.FK_AvailableUserVisit_VisitPlace">
@@ -1212,17 +1195,9 @@
             <End Role="Region" EntitySet="Regions" />
             <End Role="VisitPlace" EntitySet="VisitPlaces" />
           </AssociationSet>
-          <AssociationSet Name="FK_SupervisorVisitPlace_VisitPlace" Association="B2DriveForPostModel.FK_SupervisorVisitPlace_VisitPlace">
-            <End Role="VisitPlace" EntitySet="VisitPlaces" />
-            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
-          </AssociationSet>
           <AssociationSet Name="FK_VisitPlace_User" Association="B2DriveForPostModel.FK_VisitPlace_User">
             <End Role="User" EntitySet="Users" />
             <End Role="VisitPlace" EntitySet="VisitPlaces" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VisitPlaceCarInfo_VisitPlace" Association="B2DriveForPostModel.FK_VisitPlaceCarInfo_VisitPlace">
-            <End Role="VisitPlace" EntitySet="VisitPlaces" />
-            <End Role="VisitPlaceCarInfo" EntitySet="VisitPlaceCarInfoes" />
           </AssociationSet>
           <AssociationSet Name="FK_VisitPlaceInfo_VisitPlace" Association="B2DriveForPostModel.FK_VisitPlaceInfo_VisitPlace">
             <End Role="VisitPlace" EntitySet="VisitPlaces" />
@@ -1232,23 +1207,52 @@
             <End Role="VisitPlace" EntitySet="VisitPlaces" />
             <End Role="VisitPlaceWareHouse" EntitySet="VisitPlaceWareHouses" />
           </AssociationSet>
-          <EntitySet Name="WareHouseProducts" EntityType="B2DriveForPostModel.WareHouseProduct" />
-          <AssociationSet Name="FK_WareHouseProduct_Product" Association="B2DriveForPostModel.FK_WareHouseProduct_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="WareHouseProduct" EntitySet="WareHouseProducts" />
+          <EntitySet Name="SupervisorVisitPlaces" EntityType="B2DriveForPostModel.SupervisorVisitPlace" />
+          <AssociationSet Name="FK_SupervisorVisitPlace_Place" Association="B2DriveForPostModel.FK_SupervisorVisitPlace_Place">
+            <End Role="Place" EntitySet="Places" />
+            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
           </AssociationSet>
-          <AssociationSet Name="FK_WareHouseProduct_VisitPlaceWareHouse" Association="B2DriveForPostModel.FK_WareHouseProduct_VisitPlaceWareHouse">
-            <End Role="VisitPlaceWareHouse" EntitySet="VisitPlaceWareHouses" />
-            <End Role="WareHouseProduct" EntitySet="WareHouseProducts" />
-          </AssociationSet>
-          <EntitySet Name="SPPlaceDeliveryProducts" EntityType="B2DriveForPostModel.SPPlaceDeliveryProduct" />
-          <AssociationSet Name="FK_SPPlaceDeliveryProducts_Product" Association="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="SPPlaceDeliveryProduct" EntitySet="SPPlaceDeliveryProducts" />
+          <AssociationSet Name="FK_ProductRecivedDelivered_SupervisorVisitPlace" Association="B2DriveForPostModel.FK_ProductRecivedDelivered_SupervisorVisitPlace">
+            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
+            <End Role="ProductRecivedDelivered" EntitySet="ProductRecivedDelivereds" />
           </AssociationSet>
           <AssociationSet Name="FK_SPPlaceDeliveryProducts_SupervisorVisitPlace" Association="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_SupervisorVisitPlace">
             <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
             <End Role="SPPlaceDeliveryProduct" EntitySet="SPPlaceDeliveryProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupervisorVisitPlace_User" Association="B2DriveForPostModel.FK_SupervisorVisitPlace_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupervisorVisitPlace_VisitPlace" Association="B2DriveForPostModel.FK_SupervisorVisitPlace_VisitPlace">
+            <End Role="VisitPlace" EntitySet="VisitPlaces" />
+            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupervisorVisitPlaceInfo_SupervisorVisitPlace" Association="B2DriveForPostModel.FK_SupervisorVisitPlaceInfo_SupervisorVisitPlace">
+            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
+            <End Role="SupervisorVisitPlaceInfo" EntitySet="SupervisorVisitPlaceInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace">
+            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
+            <End Role="SupervisorVisitPlacePenetration" EntitySet="SupervisorVisitPlacePenetrations" />
+          </AssociationSet>
+          <EntitySet Name="SupervisorVisitPlaceComments" EntityType="B2DriveForPostModel.SupervisorVisitPlaceComment" />
+          <AssociationSet Name="FK_SupervisorVisitPlaceComment_RaitingQuestion" Association="B2DriveForPostModel.FK_SupervisorVisitPlaceComment_RaitingQuestion">
+            <End Role="RaitingQuestion" EntitySet="RaitingQuestions" />
+            <End Role="SupervisorVisitPlaceComment" EntitySet="SupervisorVisitPlaceComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupervisorVisitPlaceComment_SupervisorVisitPlace1" Association="B2DriveForPostModel.FK_SupervisorVisitPlaceComment_SupervisorVisitPlace1">
+            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
+            <End Role="SupervisorVisitPlaceComment" EntitySet="SupervisorVisitPlaceComments" />
+          </AssociationSet>
+          <EntitySet Name="VisitPlaceCarInfoes" EntityType="B2DriveForPostModel.VisitPlaceCarInfo" />
+          <AssociationSet Name="FK_VisitPlaceCarInfo_RentACar" Association="B2DriveForPostModel.FK_VisitPlaceCarInfo_RentACar">
+            <End Role="RentACar" EntitySet="RentACars" />
+            <End Role="VisitPlaceCarInfo" EntitySet="VisitPlaceCarInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VisitPlaceCarInfo_VisitPlace" Association="B2DriveForPostModel.FK_VisitPlaceCarInfo_VisitPlace">
+            <End Role="VisitPlace" EntitySet="VisitPlaces" />
+            <End Role="VisitPlaceCarInfo" EntitySet="VisitPlaceCarInfoes" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AvailableUserVisit">
@@ -1284,8 +1288,8 @@
           <Property Name="Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Region" Relationship="B2DriveForPostModel.FK_Place_Region" FromRole="Place" ToRole="Region" />
-          <NavigationProperty Name="SupervisorVisitPlaces" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_Place" FromRole="Place" ToRole="SupervisorVisitPlace" />
           <NavigationProperty Name="VisitPlaces" Relationship="B2DriveForPostModel.FK_VisitPlace_Place" FromRole="Place" ToRole="VisitPlace" />
+          <NavigationProperty Name="SupervisorVisitPlaces" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_Place" FromRole="Place" ToRole="SupervisorVisitPlace" />
         </EntityType>
         <EntityType Name="PlaceCheckInfo">
           <Key>
@@ -1371,8 +1375,8 @@
           <NavigationProperty Name="Product" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_Product" FromRole="ProductRecivedDelivered" ToRole="Product" />
           <NavigationProperty Name="User" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_User" FromRole="ProductRecivedDelivered" ToRole="User" />
           <NavigationProperty Name="VisitPlaceWareHouse" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_VisitPlaceWareHouse" FromRole="ProductRecivedDelivered" ToRole="VisitPlaceWareHouse" />
-          <NavigationProperty Name="SupervisorVisitPlace" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_SupervisorVisitPlace" FromRole="ProductRecivedDelivered" ToRole="SupervisorVisitPlace" />
           <NavigationProperty Name="VisitPlace" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_VisitPlace" FromRole="ProductRecivedDelivered" ToRole="VisitPlace" />
+          <NavigationProperty Name="SupervisorVisitPlace" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_SupervisorVisitPlace" FromRole="ProductRecivedDelivered" ToRole="SupervisorVisitPlace" />
         </EntityType>
         <EntityType Name="ProductSale">
           <Key>
@@ -1432,19 +1436,6 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="VisitPlaceCarInfoes" Relationship="B2DriveForPostModel.FK_VisitPlaceCarInfo_RentACar" FromRole="RentACar" ToRole="VisitPlaceCarInfo" />
         </EntityType>
-        <EntityType Name="SupervisorVisitPlaceComment">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SupervisorVisitPlaceID" Type="Int32" Nullable="false" />
-          <Property Name="RaitingID" Type="Int32" Nullable="false" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RaitingStar" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="RaitingQuestion" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlaceComment_RaitingQuestion" FromRole="SupervisorVisitPlaceComment" ToRole="RaitingQuestion" />
-          <NavigationProperty Name="SupervisorVisitPlace" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlaceComment_SupervisorVisitPlace1" FromRole="SupervisorVisitPlaceComment" ToRole="SupervisorVisitPlace" />
-        </EntityType>
         <EntityType Name="SupervisorVisitPlaceInfo">
           <Key>
             <PropertyRef Name="ID" />
@@ -1494,8 +1485,8 @@
           <NavigationProperty Name="UserPasswords" Relationship="B2DriveForPostModel.FK_UserPassword_User" FromRole="User" ToRole="UserPassword" />
           <NavigationProperty Name="VisitPlaceInfoes" Relationship="B2DriveForPostModel.FK_VisitPlaceInfo_User" FromRole="User" ToRole="VisitPlaceInfo" />
           <NavigationProperty Name="Permissions" Relationship="B2DriveForPostModel.User_Permission" FromRole="User" ToRole="Permission" />
-          <NavigationProperty Name="SupervisorVisitPlaces" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_User" FromRole="User" ToRole="SupervisorVisitPlace" />
           <NavigationProperty Name="VisitPlaces" Relationship="B2DriveForPostModel.FK_VisitPlace_User" FromRole="User" ToRole="VisitPlace" />
+          <NavigationProperty Name="SupervisorVisitPlaces" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_User" FromRole="User" ToRole="SupervisorVisitPlace" />
         </EntityType>
         <EntityType Name="UserLogInformation">
           <Key>
@@ -1519,27 +1510,6 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="User" Relationship="B2DriveForPostModel.FK_UserPassword_User" FromRole="UserPassword" ToRole="User" />
-        </EntityType>
-        <EntityType Name="VisitPlaceCarInfo">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="VisitPlaceID" Type="Int32" Nullable="false" />
-          <Property Name="RentACarID" Type="Int32" Nullable="false" />
-          <Property Name="CarReceivePoint" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="CarDeliveryPoint" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="CarReceiveDate" Type="DateTime" Precision="3" />
-          <Property Name="CarDeliveryDate" Type="DateTime" Precision="3" />
-          <Property Name="CarBrandName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CarModelName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CheckinDate" Type="DateTime" Precision="3" />
-          <Property Name="CheckinLatitude" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CheckinLongitude" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="RentACar" Relationship="B2DriveForPostModel.FK_VisitPlaceCarInfo_RentACar" FromRole="VisitPlaceCarInfo" ToRole="RentACar" />
-          <NavigationProperty Name="VisitPlace" Relationship="B2DriveForPostModel.FK_VisitPlaceCarInfo_VisitPlace" FromRole="VisitPlaceCarInfo" ToRole="VisitPlace" />
         </EntityType>
         <EntityType Name="VisitPlaceInfo">
           <Key>
@@ -1576,8 +1546,8 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ProductRecivedDelivereds" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_VisitPlaceWareHouse" FromRole="VisitPlaceWareHouse" ToRole="ProductRecivedDelivered" />
           <NavigationProperty Name="WareHouse" Relationship="B2DriveForPostModel.FK_VisitPlaceWareHouse_WareHouse" FromRole="VisitPlaceWareHouse" ToRole="WareHouse" />
-          <NavigationProperty Name="VisitPlace" Relationship="B2DriveForPostModel.FK_VisitPlaceWareHouse_VisitPlace" FromRole="VisitPlaceWareHouse" ToRole="VisitPlace" />
           <NavigationProperty Name="WareHouseProducts" Relationship="B2DriveForPostModel.FK_WareHouseProduct_VisitPlaceWareHouse" FromRole="VisitPlaceWareHouse" ToRole="WareHouseProduct" />
+          <NavigationProperty Name="VisitPlace" Relationship="B2DriveForPostModel.FK_VisitPlaceWareHouse_VisitPlace" FromRole="VisitPlaceWareHouse" ToRole="VisitPlace" />
         </EntityType>
         <EntityType Name="WareHouse">
           <Key>
@@ -1733,30 +1703,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SupervisorVisitPlaceComment_RaitingQuestion">
-          <End Type="B2DriveForPostModel.RaitingQuestion" Role="RaitingQuestion" Multiplicity="1" />
-          <End Type="B2DriveForPostModel.SupervisorVisitPlaceComment" Role="SupervisorVisitPlaceComment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RaitingQuestion">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupervisorVisitPlaceComment">
-              <PropertyRef Name="RaitingID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VisitPlaceCarInfo_RentACar">
-          <End Type="B2DriveForPostModel.RentACar" Role="RentACar" Multiplicity="1" />
-          <End Type="B2DriveForPostModel.VisitPlaceCarInfo" Role="VisitPlaceCarInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RentACar">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="VisitPlaceCarInfo">
-              <PropertyRef Name="RentACarID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserLogInformation_User">
           <End Type="B2DriveForPostModel.User" Role="User" Multiplicity="1" />
           <End Type="B2DriveForPostModel.UserLogInformation" Role="UserLogInformation" Multiplicity="*" />
@@ -1809,101 +1755,67 @@
           <End Type="B2DriveForPostModel.Permission" Role="Permission" Multiplicity="*" />
           <End Type="B2DriveForPostModel.User" Role="User" Multiplicity="*" />
         </Association>
-        <EntityType Name="SupervisorVisitPlace">
+        <EntityType Name="WareHouseProduct">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="VisitPlaceID" Type="Int32" Nullable="false" />
-          <Property Name="PersonID" Type="Int32" />
-          <Property Name="PlaceID" Type="Int32" Nullable="false" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
-          <Property Name="CheckinDate" Type="DateTime" Precision="3" />
-          <Property Name="CheckinLatitude" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CheckinLongitude" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PlacePositiveComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PlaceNegativeComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VisitPlaceWareHouseID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Place" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_Place" FromRole="SupervisorVisitPlace" ToRole="Place" />
-          <NavigationProperty Name="ProductRecivedDelivereds" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_SupervisorVisitPlace" FromRole="SupervisorVisitPlace" ToRole="ProductRecivedDelivered" />
-          <NavigationProperty Name="User" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_User" FromRole="SupervisorVisitPlace" ToRole="User" />
-          <NavigationProperty Name="SupervisorVisitPlaceComments" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlaceComment_SupervisorVisitPlace1" FromRole="SupervisorVisitPlace" ToRole="SupervisorVisitPlaceComment" />
-          <NavigationProperty Name="SupervisorVisitPlaceInfoes" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlaceInfo_SupervisorVisitPlace" FromRole="SupervisorVisitPlace" ToRole="SupervisorVisitPlaceInfo" />
-          <NavigationProperty Name="SupervisorVisitPlacePenetrations" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" FromRole="SupervisorVisitPlace" ToRole="SupervisorVisitPlacePenetration" />
-          <NavigationProperty Name="VisitPlace" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_VisitPlace" FromRole="SupervisorVisitPlace" ToRole="VisitPlace" />
-          <NavigationProperty Name="SPPlaceDeliveryProducts" Relationship="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_SupervisorVisitPlace" FromRole="SupervisorVisitPlace" ToRole="SPPlaceDeliveryProduct" />
+          <NavigationProperty Name="Product" Relationship="B2DriveForPostModel.FK_WareHouseProduct_Product" FromRole="WareHouseProduct" ToRole="Product" />
+          <NavigationProperty Name="VisitPlaceWareHouse" Relationship="B2DriveForPostModel.FK_WareHouseProduct_VisitPlaceWareHouse" FromRole="WareHouseProduct" ToRole="VisitPlaceWareHouse" />
         </EntityType>
-        <Association Name="FK_SupervisorVisitPlace_Place">
-          <End Type="B2DriveForPostModel.Place" Role="Place" Multiplicity="1" />
-          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="*" />
+        <Association Name="FK_WareHouseProduct_Product">
+          <End Type="B2DriveForPostModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="B2DriveForPostModel.WareHouseProduct" Role="WareHouseProduct" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Place">
+            <Principal Role="Product">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="SupervisorVisitPlace">
-              <PropertyRef Name="PlaceID" />
+            <Dependent Role="WareHouseProduct">
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductRecivedDelivered_SupervisorVisitPlace">
-          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="0..1" />
-          <End Type="B2DriveForPostModel.ProductRecivedDelivered" Role="ProductRecivedDelivered" Multiplicity="*" />
+        <Association Name="FK_WareHouseProduct_VisitPlaceWareHouse">
+          <End Type="B2DriveForPostModel.VisitPlaceWareHouse" Role="VisitPlaceWareHouse" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.WareHouseProduct" Role="WareHouseProduct" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SupervisorVisitPlace">
+            <Principal Role="VisitPlaceWareHouse">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="ProductRecivedDelivered">
-              <PropertyRef Name="SupervisorVisitPlaceID" />
+            <Dependent Role="WareHouseProduct">
+              <PropertyRef Name="VisitPlaceWareHouseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SupervisorVisitPlace_User">
-          <End Type="B2DriveForPostModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="*" />
+        <EntityType Name="SPPlaceDeliveryProduct">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupervisorVisitPlaceID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_Product" FromRole="SPPlaceDeliveryProduct" ToRole="Product" />
+          <NavigationProperty Name="SupervisorVisitPlace" Relationship="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_SupervisorVisitPlace" FromRole="SPPlaceDeliveryProduct" ToRole="SupervisorVisitPlace" />
+        </EntityType>
+        <Association Name="FK_SPPlaceDeliveryProducts_Product">
+          <End Type="B2DriveForPostModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.SPPlaceDeliveryProduct" Role="SPPlaceDeliveryProduct" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Product">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="SupervisorVisitPlace">
-              <PropertyRef Name="PersonID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SupervisorVisitPlaceComment_SupervisorVisitPlace1">
-          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="1" />
-          <End Type="B2DriveForPostModel.SupervisorVisitPlaceComment" Role="SupervisorVisitPlaceComment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SupervisorVisitPlace">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupervisorVisitPlaceComment">
-              <PropertyRef Name="SupervisorVisitPlaceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SupervisorVisitPlaceInfo_SupervisorVisitPlace">
-          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="1" />
-          <End Type="B2DriveForPostModel.SupervisorVisitPlaceInfo" Role="SupervisorVisitPlaceInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SupervisorVisitPlace">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupervisorVisitPlaceInfo">
-              <PropertyRef Name="SupervisorVisitPlaceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace">
-          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="0..1" />
-          <End Type="B2DriveForPostModel.SupervisorVisitPlacePenetration" Role="SupervisorVisitPlacePenetration" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SupervisorVisitPlace">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupervisorVisitPlacePenetration">
-              <PropertyRef Name="SupervisorVisitPlaceID" />
+            <Dependent Role="SPPlaceDeliveryProduct">
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1928,11 +1840,11 @@
           <NavigationProperty Name="ProductRecivedDelivereds" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_VisitPlace" FromRole="VisitPlace" ToRole="ProductRecivedDelivered" />
           <NavigationProperty Name="ProductSales" Relationship="B2DriveForPostModel.FK_ProductSale_VisitPlace" FromRole="VisitPlace" ToRole="ProductSale" />
           <NavigationProperty Name="Region" Relationship="B2DriveForPostModel.FK_VisitPlace_Region" FromRole="VisitPlace" ToRole="Region" />
-          <NavigationProperty Name="SupervisorVisitPlaces" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_VisitPlace" FromRole="VisitPlace" ToRole="SupervisorVisitPlace" />
           <NavigationProperty Name="User" Relationship="B2DriveForPostModel.FK_VisitPlace_User" FromRole="VisitPlace" ToRole="User" />
-          <NavigationProperty Name="VisitPlaceCarInfoes" Relationship="B2DriveForPostModel.FK_VisitPlaceCarInfo_VisitPlace" FromRole="VisitPlace" ToRole="VisitPlaceCarInfo" />
           <NavigationProperty Name="VisitPlaceInfoes" Relationship="B2DriveForPostModel.FK_VisitPlaceInfo_VisitPlace" FromRole="VisitPlace" ToRole="VisitPlaceInfo" />
           <NavigationProperty Name="VisitPlaceWareHouses" Relationship="B2DriveForPostModel.FK_VisitPlaceWareHouse_VisitPlace" FromRole="VisitPlace" ToRole="VisitPlaceWareHouse" />
+          <NavigationProperty Name="SupervisorVisitPlaces" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_VisitPlace" FromRole="VisitPlace" ToRole="SupervisorVisitPlace" />
+          <NavigationProperty Name="VisitPlaceCarInfoes" Relationship="B2DriveForPostModel.FK_VisitPlaceCarInfo_VisitPlace" FromRole="VisitPlace" ToRole="VisitPlaceCarInfo" />
         </EntityType>
         <Association Name="FK_AvailableUserVisit_VisitPlace">
           <End Type="B2DriveForPostModel.VisitPlace" Role="VisitPlace" Multiplicity="1" />
@@ -2018,18 +1930,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SupervisorVisitPlace_VisitPlace">
-          <End Type="B2DriveForPostModel.VisitPlace" Role="VisitPlace" Multiplicity="1" />
-          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VisitPlace">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupervisorVisitPlace">
-              <PropertyRef Name="VisitPlaceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_VisitPlace_User">
           <End Type="B2DriveForPostModel.User" Role="User" Multiplicity="0..1" />
           <End Type="B2DriveForPostModel.VisitPlace" Role="VisitPlace" Multiplicity="*" />
@@ -2039,18 +1939,6 @@
             </Principal>
             <Dependent Role="VisitPlace">
               <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VisitPlaceCarInfo_VisitPlace">
-          <End Type="B2DriveForPostModel.VisitPlace" Role="VisitPlace" Multiplicity="1" />
-          <End Type="B2DriveForPostModel.VisitPlaceCarInfo" Role="VisitPlaceCarInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VisitPlace">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="VisitPlaceCarInfo">
-              <PropertyRef Name="VisitPlaceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2078,67 +1966,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="WareHouseProduct">
+        <EntityType Name="SupervisorVisitPlace">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="VisitPlaceWareHouseID" Type="Int32" Nullable="false" />
-          <Property Name="ProductID" Type="Int32" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VisitPlaceID" Type="Int32" Nullable="false" />
+          <Property Name="ParentVisitPlaceID" Type="Int32" />
+          <Property Name="PersonID" Type="Int32" />
+          <Property Name="PlaceID" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="CheckinDate" Type="DateTime" Precision="3" />
+          <Property Name="CheckinLatitude" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CheckinLongitude" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PlacePositiveComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceNegativeComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsApproved" Type="Boolean" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="B2DriveForPostModel.FK_WareHouseProduct_Product" FromRole="WareHouseProduct" ToRole="Product" />
-          <NavigationProperty Name="VisitPlaceWareHouse" Relationship="B2DriveForPostModel.FK_WareHouseProduct_VisitPlaceWareHouse" FromRole="WareHouseProduct" ToRole="VisitPlaceWareHouse" />
+          <NavigationProperty Name="Place" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_Place" FromRole="SupervisorVisitPlace" ToRole="Place" />
+          <NavigationProperty Name="ProductRecivedDelivereds" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_SupervisorVisitPlace" FromRole="SupervisorVisitPlace" ToRole="ProductRecivedDelivered" />
+          <NavigationProperty Name="SPPlaceDeliveryProducts" Relationship="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_SupervisorVisitPlace" FromRole="SupervisorVisitPlace" ToRole="SPPlaceDeliveryProduct" />
+          <NavigationProperty Name="User" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_User" FromRole="SupervisorVisitPlace" ToRole="User" />
+          <NavigationProperty Name="VisitPlace" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_VisitPlace" FromRole="SupervisorVisitPlace" ToRole="VisitPlace" />
+          <NavigationProperty Name="SupervisorVisitPlaceInfoes" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlaceInfo_SupervisorVisitPlace" FromRole="SupervisorVisitPlace" ToRole="SupervisorVisitPlaceInfo" />
+          <NavigationProperty Name="SupervisorVisitPlacePenetrations" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" FromRole="SupervisorVisitPlace" ToRole="SupervisorVisitPlacePenetration" />
+          <NavigationProperty Name="SupervisorVisitPlaceComments" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlaceComment_SupervisorVisitPlace1" FromRole="SupervisorVisitPlace" ToRole="SupervisorVisitPlaceComment" />
         </EntityType>
-        <Association Name="FK_WareHouseProduct_Product">
-          <End Type="B2DriveForPostModel.Product" Role="Product" Multiplicity="0..1" />
-          <End Type="B2DriveForPostModel.WareHouseProduct" Role="WareHouseProduct" Multiplicity="*" />
+        <Association Name="FK_SupervisorVisitPlace_Place">
+          <End Type="B2DriveForPostModel.Place" Role="Place" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Product">
+            <Principal Role="Place">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="WareHouseProduct">
-              <PropertyRef Name="ProductID" />
+            <Dependent Role="SupervisorVisitPlace">
+              <PropertyRef Name="PlaceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_WareHouseProduct_VisitPlaceWareHouse">
-          <End Type="B2DriveForPostModel.VisitPlaceWareHouse" Role="VisitPlaceWareHouse" Multiplicity="1" />
-          <End Type="B2DriveForPostModel.WareHouseProduct" Role="WareHouseProduct" Multiplicity="*" />
+        <Association Name="FK_ProductRecivedDelivered_SupervisorVisitPlace">
+          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="0..1" />
+          <End Type="B2DriveForPostModel.ProductRecivedDelivered" Role="ProductRecivedDelivered" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="VisitPlaceWareHouse">
+            <Principal Role="SupervisorVisitPlace">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="WareHouseProduct">
-              <PropertyRef Name="VisitPlaceWareHouseID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="SPPlaceDeliveryProduct">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SupervisorVisitPlaceID" Type="Int32" Nullable="false" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_Product" FromRole="SPPlaceDeliveryProduct" ToRole="Product" />
-          <NavigationProperty Name="SupervisorVisitPlace" Relationship="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_SupervisorVisitPlace" FromRole="SPPlaceDeliveryProduct" ToRole="SupervisorVisitPlace" />
-        </EntityType>
-        <Association Name="FK_SPPlaceDeliveryProducts_Product">
-          <End Type="B2DriveForPostModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="B2DriveForPostModel.SPPlaceDeliveryProduct" Role="SPPlaceDeliveryProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SPPlaceDeliveryProduct">
-              <PropertyRef Name="ProductID" />
+            <Dependent Role="ProductRecivedDelivered">
+              <PropertyRef Name="SupervisorVisitPlaceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2151,6 +2027,138 @@
             </Principal>
             <Dependent Role="SPPlaceDeliveryProduct">
               <PropertyRef Name="SupervisorVisitPlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupervisorVisitPlace_User">
+          <End Type="B2DriveForPostModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupervisorVisitPlace">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupervisorVisitPlace_VisitPlace">
+          <End Type="B2DriveForPostModel.VisitPlace" Role="VisitPlace" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VisitPlace">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupervisorVisitPlace">
+              <PropertyRef Name="VisitPlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupervisorVisitPlaceInfo_SupervisorVisitPlace">
+          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.SupervisorVisitPlaceInfo" Role="SupervisorVisitPlaceInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupervisorVisitPlace">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupervisorVisitPlaceInfo">
+              <PropertyRef Name="SupervisorVisitPlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace">
+          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="0..1" />
+          <End Type="B2DriveForPostModel.SupervisorVisitPlacePenetration" Role="SupervisorVisitPlacePenetration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupervisorVisitPlace">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupervisorVisitPlacePenetration">
+              <PropertyRef Name="SupervisorVisitPlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SupervisorVisitPlaceComment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlaceOwner" Type="Boolean" />
+          <Property Name="SupervisorVisitPlaceID" Type="Int32" Nullable="false" />
+          <Property Name="RaitingID" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RaitingStar" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="RaitingQuestion" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlaceComment_RaitingQuestion" FromRole="SupervisorVisitPlaceComment" ToRole="RaitingQuestion" />
+          <NavigationProperty Name="SupervisorVisitPlace" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlaceComment_SupervisorVisitPlace1" FromRole="SupervisorVisitPlaceComment" ToRole="SupervisorVisitPlace" />
+        </EntityType>
+        <Association Name="FK_SupervisorVisitPlaceComment_RaitingQuestion">
+          <End Type="B2DriveForPostModel.RaitingQuestion" Role="RaitingQuestion" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.SupervisorVisitPlaceComment" Role="SupervisorVisitPlaceComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RaitingQuestion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupervisorVisitPlaceComment">
+              <PropertyRef Name="RaitingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupervisorVisitPlaceComment_SupervisorVisitPlace1">
+          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.SupervisorVisitPlaceComment" Role="SupervisorVisitPlaceComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupervisorVisitPlace">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupervisorVisitPlaceComment">
+              <PropertyRef Name="SupervisorVisitPlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="VisitPlaceCarInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VisitPlaceID" Type="Int32" Nullable="false" />
+          <Property Name="RentACarID" Type="Int32" Nullable="false" />
+          <Property Name="CarReceivePoint" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CarDeliveryPoint" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CarReceiveDate" Type="DateTime" Precision="3" />
+          <Property Name="CarDeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="CarBrandName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CarModelName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CheckinDate" Type="DateTime" Precision="3" />
+          <Property Name="CheckinLatitude" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CheckinLongitude" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CheckoutDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="RentACar" Relationship="B2DriveForPostModel.FK_VisitPlaceCarInfo_RentACar" FromRole="VisitPlaceCarInfo" ToRole="RentACar" />
+          <NavigationProperty Name="VisitPlace" Relationship="B2DriveForPostModel.FK_VisitPlaceCarInfo_VisitPlace" FromRole="VisitPlaceCarInfo" ToRole="VisitPlace" />
+        </EntityType>
+        <Association Name="FK_VisitPlaceCarInfo_RentACar">
+          <End Type="B2DriveForPostModel.RentACar" Role="RentACar" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.VisitPlaceCarInfo" Role="VisitPlaceCarInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RentACar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VisitPlaceCarInfo">
+              <PropertyRef Name="RentACarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VisitPlaceCarInfo_VisitPlace">
+          <End Type="B2DriveForPostModel.VisitPlace" Role="VisitPlace" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.VisitPlaceCarInfo" Role="VisitPlaceCarInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VisitPlace">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VisitPlaceCarInfo">
+              <PropertyRef Name="VisitPlaceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2324,18 +2332,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SupervisorVisitPlaceComments">
-            <EntityTypeMapping TypeName="B2DriveForPostModel.SupervisorVisitPlaceComment">
-              <MappingFragment StoreEntitySet="SupervisorVisitPlaceComment">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="RaitingStar" ColumnName="RaitingStar" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="RaitingID" ColumnName="RaitingID" />
-                <ScalarProperty Name="SupervisorVisitPlaceID" ColumnName="SupervisorVisitPlaceID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SupervisorVisitPlaceInfoes">
             <EntityTypeMapping TypeName="B2DriveForPostModel.SupervisorVisitPlaceInfo">
               <MappingFragment StoreEntitySet="SupervisorVisitPlaceInfo">
@@ -2400,26 +2396,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VisitPlaceCarInfoes">
-            <EntityTypeMapping TypeName="B2DriveForPostModel.VisitPlaceCarInfo">
-              <MappingFragment StoreEntitySet="VisitPlaceCarInfo">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CheckinLongitude" ColumnName="CheckinLongitude" />
-                <ScalarProperty Name="CheckinLatitude" ColumnName="CheckinLatitude" />
-                <ScalarProperty Name="CheckinDate" ColumnName="CheckinDate" />
-                <ScalarProperty Name="CarModelName" ColumnName="CarModelName" />
-                <ScalarProperty Name="CarBrandName" ColumnName="CarBrandName" />
-                <ScalarProperty Name="CarDeliveryDate" ColumnName="CarDeliveryDate" />
-                <ScalarProperty Name="CarReceiveDate" ColumnName="CarReceiveDate" />
-                <ScalarProperty Name="CarDeliveryPoint" ColumnName="CarDeliveryPoint" />
-                <ScalarProperty Name="CarReceivePoint" ColumnName="CarReceivePoint" />
-                <ScalarProperty Name="RentACarID" ColumnName="RentACarID" />
-                <ScalarProperty Name="VisitPlaceID" ColumnName="VisitPlaceID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="VisitPlaceInfoes">
             <EntityTypeMapping TypeName="B2DriveForPostModel.VisitPlaceInfo">
               <MappingFragment StoreEntitySet="VisitPlaceInfo">
@@ -2472,41 +2448,6 @@
               <ScalarProperty Name="Id" ColumnName="PermissionId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="SupervisorVisitPlaces">
-            <EntityTypeMapping TypeName="B2DriveForPostModel.SupervisorVisitPlace">
-              <MappingFragment StoreEntitySet="SupervisorVisitPlace">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="PlaceNegativeComment" ColumnName="PlaceNegativeComment" />
-                <ScalarProperty Name="PlacePositiveComment" ColumnName="PlacePositiveComment" />
-                <ScalarProperty Name="CheckinLongitude" ColumnName="CheckinLongitude" />
-                <ScalarProperty Name="CheckinLatitude" ColumnName="CheckinLatitude" />
-                <ScalarProperty Name="CheckinDate" ColumnName="CheckinDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
-                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
-                <ScalarProperty Name="VisitPlaceID" ColumnName="VisitPlaceID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VisitPlaces">
-            <EntityTypeMapping TypeName="B2DriveForPostModel.VisitPlace">
-              <MappingFragment StoreEntitySet="VisitPlace">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="CheckInfoID" ColumnName="CheckInfoID" />
-                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
-                <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="WareHouseProducts">
             <EntityTypeMapping TypeName="B2DriveForPostModel.WareHouseProduct">
               <MappingFragment StoreEntitySet="WareHouseProduct">
@@ -2529,6 +2470,77 @@
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="SupervisorVisitPlaceID" ColumnName="SupervisorVisitPlaceID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisitPlaces">
+            <EntityTypeMapping TypeName="B2DriveForPostModel.VisitPlace">
+              <MappingFragment StoreEntitySet="VisitPlace">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="CheckInfoID" ColumnName="CheckInfoID" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupervisorVisitPlaces">
+            <EntityTypeMapping TypeName="B2DriveForPostModel.SupervisorVisitPlace">
+              <MappingFragment StoreEntitySet="SupervisorVisitPlace">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="PlaceNegativeComment" ColumnName="PlaceNegativeComment" />
+                <ScalarProperty Name="PlacePositiveComment" ColumnName="PlacePositiveComment" />
+                <ScalarProperty Name="CheckinLongitude" ColumnName="CheckinLongitude" />
+                <ScalarProperty Name="CheckinLatitude" ColumnName="CheckinLatitude" />
+                <ScalarProperty Name="CheckinDate" ColumnName="CheckinDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="ParentVisitPlaceID" ColumnName="ParentVisitPlaceID" />
+                <ScalarProperty Name="VisitPlaceID" ColumnName="VisitPlaceID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupervisorVisitPlaceComments">
+            <EntityTypeMapping TypeName="B2DriveForPostModel.SupervisorVisitPlaceComment">
+              <MappingFragment StoreEntitySet="SupervisorVisitPlaceComment">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="RaitingStar" ColumnName="RaitingStar" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="RaitingID" ColumnName="RaitingID" />
+                <ScalarProperty Name="SupervisorVisitPlaceID" ColumnName="SupervisorVisitPlaceID" />
+                <ScalarProperty Name="PlaceOwner" ColumnName="PlaceOwner" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisitPlaceCarInfoes">
+            <EntityTypeMapping TypeName="B2DriveForPostModel.VisitPlaceCarInfo">
+              <MappingFragment StoreEntitySet="VisitPlaceCarInfo">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CheckoutDate" ColumnName="CheckoutDate" />
+                <ScalarProperty Name="CheckinLongitude" ColumnName="CheckinLongitude" />
+                <ScalarProperty Name="CheckinLatitude" ColumnName="CheckinLatitude" />
+                <ScalarProperty Name="CheckinDate" ColumnName="CheckinDate" />
+                <ScalarProperty Name="CarModelName" ColumnName="CarModelName" />
+                <ScalarProperty Name="CarBrandName" ColumnName="CarBrandName" />
+                <ScalarProperty Name="CarDeliveryDate" ColumnName="CarDeliveryDate" />
+                <ScalarProperty Name="CarReceiveDate" ColumnName="CarReceiveDate" />
+                <ScalarProperty Name="CarDeliveryPoint" ColumnName="CarDeliveryPoint" />
+                <ScalarProperty Name="CarReceivePoint" ColumnName="CarReceivePoint" />
+                <ScalarProperty Name="RentACarID" ColumnName="RentACarID" />
+                <ScalarProperty Name="VisitPlaceID" ColumnName="VisitPlaceID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

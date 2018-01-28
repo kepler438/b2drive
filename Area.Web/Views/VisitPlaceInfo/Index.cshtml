@@ -55,8 +55,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="note">Mekan Hakkında Olumlu Yorumlar</label>
                                     <div class="controls">
-                                        @Html.TextAreaFor(model => model.PlacePositiveComment,   new { @class = "span4" } )
-
+                                        @Html.TextAreaFor(model => model.PlacePositiveComment,   new { @class = "span4" } ) 
                                     </div>
                                 </div>
 
@@ -81,12 +80,12 @@
                                     </div>
                                 </div>
 
-                                <div class="control-group">
+                                @*<div class="control-group">
                                     <label class="control-label" for="note">Mekanda Satılan Ürünler</label>
                                     <div class="controls">
                                         @Html.TextAreaFor(model => model.PlaceSaleProduct, new { @class = "span4" })
                                     </div>
-                                </div> 
+                                </div>*@ 
                                 <input name="VisitPlaceID" type="hidden" value="@Url.RequestContext.RouteData.Values["id"]" />
                                 <input name="ID" type="hidden" value="@Model.ID" /> 
                                 <button type="submit" class="btn btn-primary pull-right two">Kaydet</button>

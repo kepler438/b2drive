@@ -1,15 +1,27 @@
-﻿@model IEnumerable<Area.Data.VisitPlace>
-
+﻿
+@using System;
+@using System.Collections.Generic;
+@using System.Data.Entity;
+@using System.Linq;
+@using System.Net;
+@using System.Web.Mvc;
+@using Area.Data;
+@using Area.Data.Enums;
+@using Area.Web.Attributes;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Supervisor";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    B2DriveForPostEntities db = new B2DriveForPostEntities();
+    var resultPlace = db.SupervisorVisitPlaces.Include(v => v.Place).Include(v => v.VisitPlace.User).ToList(); 
+   
 }
 
 <div class="span12">
     <div class="widget widget-table action-table">
-        <div class="widget-header"> 
+        <div class="widget-header">
             <i class="icon-th-list"></i>
-            <h3>Personel Onaylanmamış Noktalar</h3> 
+            <h3>Supervisor Onaylanmamış Noktalar</h3>
         </div>
         <!-- /widget-header -->
         <div class="widget-content">
@@ -17,7 +29,7 @@
                 <thead>
                     <tr>
                         <th>
-                           Mekan Adı
+                            Mekan Adı
                         </th>
                         <th>
                             Başlangıç Tarihi
@@ -32,7 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Where(p=>p.IsApproved == false).OrderByDescending(p=>p.StartDate))
+                    @foreach (var item in resultPlace.Where(p => p.IsApproved == false).OrderByDescending(p => p.StartDate))
                     {
                         <tr>
                             <td>
@@ -45,11 +57,11 @@
                                 @Html.DisplayFor(modelItem => item.EndDate)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.User.FirstName)  @Html.DisplayFor(modelItem => item.User.LastName)
+                                @Html.DisplayFor(modelItem => item.VisitPlace.User.FirstName)  @Html.DisplayFor(modelItem => item.VisitPlace.User.LastName)
                             </td>
 
                             <td>
-                                <a href="@(Url.Action("GotoPlace/" + item.ID))" target="_blank">Noktaya Git</a>
+                                <a href="@(Url.Action("GotoPlace/" + item.VisitPlaceID))" target="_blank">Noktaya Git</a>
                                 |
                                 <a href="#myModal@(item.ID)" data-toggle="modal">Onayla</a>
                                 <div id="myModal@(item.ID)" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -78,7 +90,7 @@
     <div class="widget widget-table action-table">
         <div class="widget-header">
             <i class="icon-th-list"></i>
-            <h3>Personel Onaylanmış Noktalar</h3>
+            <h3>Supervisor Onaylanmış Noktalar</h3>
         </div>
         <!-- /widget-header -->
         <div class="widget-content">
@@ -101,7 +113,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Where(p => p.IsApproved == true).OrderByDescending(p => p.StartDate))
+                    @foreach (var item in resultPlace.Where(p => p.IsApproved == true).OrderByDescending(p => p.StartDate))
                     {
                         <tr>
                             <td>
@@ -115,9 +127,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.User.FirstName)  @Html.DisplayFor(modelItem => item.User.LastName)
-                            </td> 
+                            </td>
                             <td>
-                                <a href="@(Url.Action("GotoPlace/" + item.ID))" target="_blank">Noktaya Git</a> 
+                                <a href="@(Url.Action("GotoPlace/" + item.VisitPlaceID))" target="_blank">Noktaya Git</a>
                                 <a href="#myModal@(item.ID)" data-toggle="modal">Onayla</a>
                                 <div id="myModal@(item.ID)" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-header">
@@ -140,4 +152,4 @@
         </div>
     </div>
 </div>
- 
+

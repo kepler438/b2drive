@@ -15,6 +15,7 @@ namespace Area.Data
     public partial class SupervisorVisitPlaceComment
     {
         public int ID { get; set; }
+        public Nullable<bool> PlaceOwner { get; set; }
         public int SupervisorVisitPlaceID { get; set; }
         public int RaitingID { get; set; }
         public string Comment { get; set; }

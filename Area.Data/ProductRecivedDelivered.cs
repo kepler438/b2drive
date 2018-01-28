@@ -29,7 +29,7 @@ namespace Area.Data
         public virtual Product Product { get; set; }
         public virtual User User { get; set; }
         public virtual VisitPlaceWareHouse VisitPlaceWareHouse { get; set; }
-        public virtual SupervisorVisitPlace SupervisorVisitPlace { get; set; }
         public virtual VisitPlace VisitPlace { get; set; }
+        public virtual SupervisorVisitPlace SupervisorVisitPlace { get; set; }
     }
 }

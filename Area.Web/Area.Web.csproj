@@ -317,6 +317,8 @@
     <Content Include="Views\AdminPickNavigation\Edit.cshtml" />
     <Content Include="Views\AdminPickNavigation\Index.cshtml" />
     <Content Include="Views\AdminPlaceControl\Index.cshtml" />
+    <Content Include="Views\AdminPlaceControl\Supervisor.cshtml" />
+    <Content Include="Views\SPPlace\PlaceOwnerComment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

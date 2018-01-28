@@ -8,7 +8,7 @@
         using (B2DriveForPostEntities db = new B2DriveForPostEntities())
         {
             int userId = Convert.ToInt32(Session["UserId"]);
-            var user = db.Users.Where(x => x.ID == userId).Include(x=>x.Permissions).FirstOrDefault();
+            var user = db.Users.Where(x => x.ID == userId).Include(x => x.Permissions).FirstOrDefault();
             UserType = user.Permissions.First().Id;
         }
     }
@@ -32,14 +32,16 @@
                     <li class=""><a href="#"><i class="icon-list"></i><span>Kütüphane</span> </a> </li>
                 </ul>
             }
-            else if (UserType== (int)EnumUserType.Supervisor)
+            else if (UserType == (int)EnumUserType.Supervisor)
             {
                 <ul class="mainnav">
                     <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "sphome" ? "active" : string.Empty)"><a href="/sphome"><i class="icon-calendar"></i><span>Ziyaretlerim</span> </a> </li>
                     @if (((string)ViewContext.RouteData.Values["controller"]).ToLower() == "spcarinfo")
                     {
-                        <li class="active"><a href="#">
-                            <i class="icon-list-alt"></i><span>CheckIn</span></a> 
+                        <li class="active">
+                            <a href="#">
+                                <i class="icon-list-alt"></i><span>CheckIn</span>
+                            </a>
                         </li>
                     }
                     @if (((string)ViewContext.RouteData.Values["controller"]).ToLower() == "warehouse")
@@ -58,24 +60,32 @@
                             </a>
                         </li>
                     }
-                    @if (((string)ViewContext.RouteData.Values["controller"]).ToLower() == "spplace" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "detail" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "penetration")
+                    @if (((string)ViewContext.RouteData.Values["controller"]).ToLower() == "spplace" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "detail" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "penetration" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "deliveryproduct")
                     {
-                        <li class="@(((string)ViewContext.RouteData.Values["action"]).ToLower() == "inspection" | ((string)ViewContext.RouteData.Values["action"]).ToLower() == "ınspection"   ? "active" : "")">  
+                        <li class="@(((string)ViewContext.RouteData.Values["action"]).ToLower() == "inspection" | ((string)ViewContext.RouteData.Values["action"]).ToLower() == "ınspection"   ? "active" : "")">
                             <a href="#">
                                 <i class="icon-camera-retro"></i><span>Denetim</span>
                             </a>
                         </li>
                     }
 
-                @if (((string)ViewContext.RouteData.Values["controller"]).ToLower() == "spplace" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "detail" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "penetration")
-                {
-                    <li class="@(((string)ViewContext.RouteData.Values["action"]).ToLower() == "inspectioncomment"  | ((string)ViewContext.RouteData.Values["action"]).ToLower() == "ınspectioncomment" ? "active" : "")">
-                        <a href="#">
-                            <i class="icon-comment"></i><span>Personel Değerlendirme Formu</span>
-                        </a>
-                    </li>
-                }
-                    @if (((string)ViewContext.RouteData.Values["controller"]).ToLower() == "spplace" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "detail" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "penetration")
+                    @if (((string)ViewContext.RouteData.Values["controller"]).ToLower() == "spplace" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "detail" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "penetration" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "deliveryproduct")
+                    {
+                        <li class="@(((string)ViewContext.RouteData.Values["action"]).ToLower() == "inspectioncomment"  | ((string)ViewContext.RouteData.Values["action"]).ToLower() == "ınspectioncomment" ? "active" : "")">
+                            <a href="#">
+                                <i class="icon-comment"></i><span>Personel Değerlendirme Formu</span>
+                            </a>
+                        </li>
+                    }
+                    @if (((string)ViewContext.RouteData.Values["controller"]).ToLower() == "spplace" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "detail" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "penetration" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "deliveryproduct")
+                    {
+                        <li class="@(((string)ViewContext.RouteData.Values["action"]).ToLower() == "placeownercomment"  | ((string)ViewContext.RouteData.Values["action"]).ToLower() == "placeownercomment" ? "active" : "")">
+                            <a href="#">
+                                <i class="icon-comment"></i><span>Mekan Yetkilisi Değerlendirme Formu</span>
+                            </a>
+                        </li>
+                    }
+                    @if (((string)ViewContext.RouteData.Values["controller"]).ToLower() == "spplace" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "detail" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "penetration" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "deliveryproduct")
                     {
                         <li class="@(((string)ViewContext.RouteData.Values["action"]).ToLower() == "inspectioninfo"  | ((string)ViewContext.RouteData.Values["action"]).ToLower() == "ınspectioninfo" ? "active" : "")">
                             <a href="#">
@@ -90,7 +100,15 @@
                                 <i class="icon-money"></i><span>Penatrasyon</span>
                             </a>
                         </li>
-                    } 
+                    }
+                    @if (((string)ViewContext.RouteData.Values["action"]).ToLower() == "deliveryproduct")
+                    {
+                        <li class="active">
+                            <a href="#">
+                                <i class="icon-shopping-cart"></i><span>Teslim Edilecek Ürünler</span>
+                            </a>
+                        </li>
+                    }
                 </ul>
             }
             else if (UserType == (int)EnumUserType.Admin)
@@ -120,12 +138,13 @@
                     <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "picknavigation" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "placecontrol" ? "active" : string.Empty)">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-map-marker"></i><span>Nokta Yönetimi</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/adminplacecontrol">Denetle ve Onayla</a></li>
-                            <li><a href="/adminpicknavigation">Atama Yap</a></li>
+                            <li><a href="/adminplacecontrol">Personel Denetle ve Onayla</a></li>
+                            <li><a href="/adminplacecontrol/supervisor">Supervisor Denetle ve Onayla</a></li>
+                            @*<li><a href="/adminpicknavigation">Atama Yap</a></li>*@
                             @*<li><a href="/adminplace/Index">Mekan</a></li>*@
                         </ul>
                     </li>
-                     
+
                 </ul>
             }
             else if (UserType == (int)EnumUserType.Customer)
@@ -143,6 +162,6 @@
                     <li class=""><a href="#"><i class="icon-camera-retro"></i><span>Mekan Foto</span> </a> </li>
                 </ul>
             }
-        </div> 
-    </div> 
+        </div>
+    </div>
 </div> 

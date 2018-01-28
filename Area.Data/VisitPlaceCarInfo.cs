@@ -26,6 +26,7 @@ namespace Area.Data
         public Nullable<System.DateTime> CheckinDate { get; set; }
         public string CheckinLatitude { get; set; }
         public string CheckinLongitude { get; set; }
+        public Nullable<System.DateTime> CheckoutDate { get; set; }
         public System.DateTime CreateDate { get; set; }
         public bool IsActive { get; set; }
     

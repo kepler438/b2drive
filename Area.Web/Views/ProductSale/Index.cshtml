@@ -20,6 +20,16 @@
 
         productCategoryList = new SelectList(db.ProductCategories.Where(p => p.IsActive == true), "ID", "Name", productEntity.ProductSubCategory.CategoryID);
     }
+    int totalTested = 0;
+    if (Session["AdminControl"] != null && Convert.ToBoolean(Session["AdminControl"]))
+    {
+        int visitPlaceID = Convert.ToInt32(Url.RequestContext.RouteData.Values["id"]);
+        var info = db.VisitPlaceInfoes.Where(p => p.VisitPlaceID == visitPlaceID).FirstOrDefault();
+        if (info != null)
+        {
+            totalTested = Convert.ToInt32(info.PeopleToTasted);
+        }
+    }
 
 }
 
@@ -212,6 +222,12 @@
                             </tbody>
                         </table>
                     </div>
+                    @if (Session["AdminControl"] != null && Convert.ToBoolean(Session["AdminControl"]))
+                    {
+                        <div style="text-align:center;color:red">
+                            <h4>Tadım yaptırılan kişi sayısına göre ortalama harcanan : @(totalTested * 2) CL</h4>
+                        </div>
+                    }
                 </div>
             </div>
         }

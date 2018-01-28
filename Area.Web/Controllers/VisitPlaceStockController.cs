@@ -21,7 +21,8 @@ namespace Area.Web.Controllers
             var categoryList = db.ProductCategories.Where(p => p.IsActive == true).ToList();
             categoryList.Add(new ProductCategory()
             { ID = 0, Name = "Lütfen Bir Kategori Seçiniz." });
-            ViewData["productCategory"] = new SelectList(categoryList.OrderBy(p => p.ID), "ID", "Name");
+            ViewData["productCategory"] = new SelectList(db.ProductCategories.Where(p => p.IsActive == true && p.ID != 2), "ID", "Name");
+            //ViewData["productCategory"] = new SelectList(categoryList.OrderBy(p => p.ID), "ID", "Name");
             var productsalesList = db.ProductSales.Where(p => p.IsActive == true && p.VisitPlaceID == id && p.SaleType == 3).ToList();
             return View(productsalesList);
         }

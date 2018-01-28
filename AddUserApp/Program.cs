@@ -81,16 +81,16 @@ namespace AddUserApp
                         newUserPassword.Vcode = keyNew;
                         db.UserPasswords.Add(newUserPassword);
                         db.SaveChanges();
-                        Console.WriteLine("Hll Kardeş Ekledin!");
+                        Console.WriteLine("Eklendi!");
                     }
                     else
                     {
-                        Console.WriteLine("Bu Kullanıcı var Kardeş !!");
+                        Console.WriteLine("Var olan kullanıcı !!");
                     }
                 }
                 catch
                 {
-                    Console.WriteLine("Lanet Olsun Eklemedi. Sebebi Neydi Ki ?");
+                    Console.WriteLine("Hata oluştu");
                 }
             }
             Console.ReadLine();
