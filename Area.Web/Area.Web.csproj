@@ -208,6 +208,7 @@
     <Compile Include="Attributes\VerifyUserAttribute.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdminRegionController.cs" />
+    <Compile Include="Controllers\AdminUsersController.cs" />
     <Compile Include="Controllers\CheckInController.cs" />
     <Compile Include="Controllers\CheckOutController.cs" />
     <Compile Include="Controllers\CustomerHomeController.cs" />
@@ -322,6 +323,11 @@
     <Content Include="Views\SPCarInfo\CheckoutSpCar.cshtml" />
     <Content Include="Views\SPCarInfo\CheckOutPage.cshtml" />
     <Content Include="Views\WareHouse\ProductDelivery.cshtml" />
+    <Content Include="Views\AdminUsers\Create.cshtml" />
+    <Content Include="Views\AdminUsers\Delete.cshtml" />
+    <Content Include="Views\AdminUsers\Details.cshtml" />
+    <Content Include="Views\AdminUsers\Edit.cshtml" />
+    <Content Include="Views\AdminUsers\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
