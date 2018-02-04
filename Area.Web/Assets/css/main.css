@@ -51,6 +51,17 @@
     opacity: 0 !important;
 }
 
+.footer {
+    position: absolute !important;
+    width: 100% !important;
+    bottom: 0px !important;
+}
+
+.main {
+    padding-bottom: 0em;
+    border-bottom: none;
+}
+
 @media (max-width: 576px) {
     .btn-orange-st {
         display: block !important;
