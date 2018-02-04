@@ -15,7 +15,7 @@
             <div class="tabbable">
                 <div class="tab-content">
                     <div class="tab-pane active" id="formcontrols">
-                        @using (Html.BeginForm("Edit", "AdminRegion", FormMethod.Post, new { @id = "edit-profile", @class = "form-horizontal" }))
+                        @using (Html.BeginForm("Edit", "AdminSupervisorVisit", FormMethod.Post, new { @id = "edit-profile", @class = "form-horizontal" }))
                         {
 
                             <fieldset>
@@ -47,41 +47,7 @@
                                         @Html.DropDownList("PlaceID", null, htmlAttributes: new { @class = "form-control" })
                                     </div>
                                 </div>
-
-                                <div class="control-group">
-                                    <label class="control-label" for="quantity">Bölge Adı</label>
-                                    <div class="controls">
-                                        @Html.DropDownList("RegionID", null, htmlAttributes: new { @class = "form-control" })
-                                    </div>
-                                </div>
-
-                                <div class="control-group">
-                                    <label class="control-label" for="quantity">-</label>
-                                    <div class="controls">
-                                        @Html.DropDownList("CheckInfoID", null, htmlAttributes: new { @class = "form-control" })
-                                    </div>
-                                </div>
-
-                                <div class="control-group">
-                                    <label class="control-label" for="quantity">Onay</label>
-                                    <div class="controls">
-                                        @Html.EditorFor(model => model.IsApproved)
-                                    </div>
-                                </div>
-
-                                <div class="control-group">
-                                    <label class="control-label" for="quantity">Oluşturma Tarihi</label>
-                                    <div class="controls">
-                                        @Html.EditorFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                </div>
-
-                                <div class="control-group">
-                                    <label class="control-label" for="note">Durumu</label>
-                                    <div class="controls">
-                                        @Html.EditorFor(model => model.IsActive)
-                                    </div>
-                                </div>
+                                     
                                 @Html.ActionLink("Listeye Geri Dön", "Index", new { htmlAttributes = new { @class = "form-control" } })
                                 <button type="submit" class="btn btn-primary pull-right two">Kaydet</button>
 

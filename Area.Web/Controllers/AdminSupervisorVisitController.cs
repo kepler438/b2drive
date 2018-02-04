@@ -60,10 +60,12 @@ namespace Area.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,UserID,StartDate,EndDate,PlaceID,RegionID,CheckInfoID,IsApproved,CreateDate,IsActive")] VisitPlace visitPlace)
+        public ActionResult Create([Bind(Include = "ID,UserID,StartDate,EndDate,PlaceID")] VisitPlace visitPlace)
         {
             if (ModelState.IsValid)
             {
+                visitPlace.CreateDate = DateTime.Now;
+                visitPlace.IsActive = true;
                 db.VisitPlaces.Add(visitPlace);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -100,7 +102,7 @@ namespace Area.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,UserID,StartDate,EndDate,PlaceID,RegionID,CheckInfoID,IsApproved,CreateDate,IsActive")] VisitPlace visitPlace)
+        public ActionResult Edit([Bind(Include = "ID,UserID,StartDate,EndDate,PlaceID")] VisitPlace visitPlace)
         {
             if (ModelState.IsValid)
             {
