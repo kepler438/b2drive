@@ -11,26 +11,26 @@ using Area.Data.Enums;
 
 namespace Area.Web.Controllers
 {
-    public class UserAssignedVisitController : Controller
+    public class AdminSupervisorVisitController : Controller
     {
         private B2DriveForPostEntities db = new B2DriveForPostEntities();
 
-        // GET: UserAssignedVisit
+        // GET: AdminSupervisorVisit
         public ActionResult Index()
         {
             var visitPlaces = db.VisitPlaces.Include(v => v.Place).Include(v => v.PlaceCheckInfo).Include(v => v.Region).Include(v => v.User);
             List<VisitPlace> resultPlace = new List<VisitPlace>();
             foreach (var item in visitPlaces)
             {
-                if (item.User.Permissions.FirstOrDefault().Id == (int)EnumUserType.Personnel)
+                if (item.User.Permissions.FirstOrDefault().Id == (int)EnumUserType.Supervisor)
                 {
                     resultPlace.Add(item);
                 }
             }
-            return View(resultPlace.OrderByDescending(p=>p.StartDate));
+            return View(resultPlace);
         }
 
-        // GET: UserAssignedVisit/Details/5
+        // GET: AdminSupervisorVisit/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -45,22 +45,22 @@ namespace Area.Web.Controllers
             return View(visitPlace);
         }
 
-        // GET: UserAssignedVisit/Create
+        // GET: AdminSupervisorVisit/Create
         public ActionResult Create()
         {
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name");
             ViewBag.CheckInfoID = new SelectList(db.PlaceCheckInfoes, "ID", "CheckinLatitude");
             ViewBag.RegionID = new SelectList(db.Regions, "ID", "Name");
-            ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Personnel), "ID", "FirstName");
+            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName");
             return View();
         }
 
-        // POST: UserAssignedVisit/Create
+        // POST: AdminSupervisorVisit/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,UserID,StartDate,EndDate,PlaceID,RegionID,CheckInfoID,CreateDate,IsActive")] VisitPlace visitPlace)
+        public ActionResult Create([Bind(Include = "ID,UserID,StartDate,EndDate,PlaceID,RegionID,CheckInfoID,IsApproved,CreateDate,IsActive")] VisitPlace visitPlace)
         {
             if (ModelState.IsValid)
             {
@@ -72,25 +72,11 @@ namespace Area.Web.Controllers
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", visitPlace.PlaceID);
             ViewBag.CheckInfoID = new SelectList(db.PlaceCheckInfoes, "ID", "CheckinLatitude", visitPlace.CheckInfoID);
             ViewBag.RegionID = new SelectList(db.Regions, "ID", "Name", visitPlace.RegionID);
-            ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Personnel), "ID", "FirstName", visitPlace.UserID);
+            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName", visitPlace.UserID);
             return View(visitPlace);
         }
 
-        private List<User> GetTypedUserList(EnumUserType usertype)
-        {
-            List<User> result = new List<User>();
-            var userList = db.Users;
-            foreach (var item in userList)
-            {
-                if (item.Permissions.FirstOrDefault().Id == (int)usertype)
-                {
-                    result.Add(item);
-                }
-            }
-            return result;
-        }
-
-        // GET: UserAssignedVisit/Edit/5
+        // GET: AdminSupervisorVisit/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -105,16 +91,16 @@ namespace Area.Web.Controllers
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", visitPlace.PlaceID);
             ViewBag.CheckInfoID = new SelectList(db.PlaceCheckInfoes, "ID", "CheckinLatitude", visitPlace.CheckInfoID);
             ViewBag.RegionID = new SelectList(db.Regions, "ID", "Name", visitPlace.RegionID);
-            ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Personnel), "ID", "FirstName", visitPlace.UserID);
+            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName", visitPlace.UserID);
             return View(visitPlace);
         }
 
-        // POST: UserAssignedVisit/Edit/5
+        // POST: AdminSupervisorVisit/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,UserID,StartDate,EndDate,PlaceID,RegionID,CheckInfoID,CreateDate,IsActive")] VisitPlace visitPlace)
+        public ActionResult Edit([Bind(Include = "ID,UserID,StartDate,EndDate,PlaceID,RegionID,CheckInfoID,IsApproved,CreateDate,IsActive")] VisitPlace visitPlace)
         {
             if (ModelState.IsValid)
             {
@@ -125,11 +111,11 @@ namespace Area.Web.Controllers
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", visitPlace.PlaceID);
             ViewBag.CheckInfoID = new SelectList(db.PlaceCheckInfoes, "ID", "CheckinLatitude", visitPlace.CheckInfoID);
             ViewBag.RegionID = new SelectList(db.Regions, "ID", "Name", visitPlace.RegionID);
-            ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Personnel), "ID", "FirstName", visitPlace.UserID);
+            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName", visitPlace.UserID);
             return View(visitPlace);
         }
 
-        // GET: UserAssignedVisit/Delete/5
+        // GET: AdminSupervisorVisit/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -144,7 +130,7 @@ namespace Area.Web.Controllers
             return View(visitPlace);
         }
 
-        // POST: UserAssignedVisit/Delete/5
+        // POST: AdminSupervisorVisit/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

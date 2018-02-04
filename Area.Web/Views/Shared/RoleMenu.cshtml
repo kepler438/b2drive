@@ -134,19 +134,24 @@
                             <li><a href="/Products/Index">Ürünler</a></li>
                         </ul>
                     </li>
-                    <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "userassignedvisit" ? "active" : string.Empty)"><a href="/usermanager"><i class="icon-group"></i><span>Kullanıcı Yönetimi</span> </a> </li>
-                     
+                    <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "adminusers" ? "active" : string.Empty)"><a href="/adminusers"><i class="icon-group"></i><span>Kullanıcı Yönetimi</span> </a> </li>
+
                     @*<li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "createuser" ? "active" : string.Empty)"><a href="/createuser"><i class="icon-user"></i><span>Kullanıcı Oluştur</span> </a> </li>*@
 
-                    <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "adminregion" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "adminplace" ? "active" : string.Empty)">
+                    @*<li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "adminregion" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "adminplace" ? "active" : string.Empty)">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-sitemap"></i><span>Bölge/Mekan Yönetimi</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="/adminregion/Index">Bölge</a></li>
-                            @*<li><a href="/adminplace/Index">Mekan</a></li>*@
+                            <li><a href="/adminplace/Index">Mekan</a></li
+                        </ul>
+                    </li>*@ 
+                    <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "picknavigation")">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-map-marker"></i><span>Personel/Supervisor Yönetimi</span> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/userassignedvisit">Personel Mekan Atama</a></li>
+                            <li><a href="/adminsupervisorvisit">Supervisor Mekan Atama</a></li>
                         </ul>
                     </li>
-                    <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "userassignedvisit" ? "active" : string.Empty)"><a href="/userassignedvisit"><i class="icon-group"></i><span>Personel Yönetimi</span> </a> </li>
-
 
                     <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "picknavigation" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "placecontrol" ? "active" : string.Empty)">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-map-marker"></i><span>Nokta Yönetimi</span> <b class="caret"></b></a>
