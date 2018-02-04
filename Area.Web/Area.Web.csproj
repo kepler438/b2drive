@@ -208,8 +208,12 @@
     <Compile Include="Attributes\VerifyUserAttribute.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdminRegionController.cs" />
+    <Compile Include="Controllers\AdminSPPlaceDeliveryProductsController.cs" />
     <Compile Include="Controllers\AdminSupervisorVisitController.cs" />
+    <Compile Include="Controllers\AdminSupervisorVisitPlacesController.cs" />
     <Compile Include="Controllers\AdminUsersController.cs" />
+    <Compile Include="Controllers\AdminVisitPlaceCarInfoesController.cs" />
+    <Compile Include="Controllers\AdminVisitPlaceWareHousesController.cs" />
     <Compile Include="Controllers\CheckInController.cs" />
     <Compile Include="Controllers\CheckOutController.cs" />
     <Compile Include="Controllers\CustomerHomeController.cs" />
@@ -222,6 +226,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductSubCategoriesController.cs" />
     <Compile Include="Controllers\ReceivedProductsController.cs" />
+    <Compile Include="Controllers\RentACarsController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SPCarInfoController.cs" />
     <Compile Include="Controllers\SPHomeController.cs" />
@@ -332,6 +337,31 @@
     <Content Include="Views\AdminSupervisorVisit\Details.cshtml" />
     <Content Include="Views\AdminSupervisorVisit\Edit.cshtml" />
     <Content Include="Views\AdminSupervisorVisit\Index.cshtml" />
+    <Content Include="Views\AdminSupervisorVisitPlaces\Create.cshtml" />
+    <Content Include="Views\AdminSupervisorVisitPlaces\Delete.cshtml" />
+    <Content Include="Views\AdminSupervisorVisitPlaces\Details.cshtml" />
+    <Content Include="Views\AdminSupervisorVisitPlaces\Edit.cshtml" />
+    <Content Include="Views\AdminSupervisorVisitPlaces\Index.cshtml" />
+    <Content Include="Views\RentACars\Create.cshtml" />
+    <Content Include="Views\RentACars\Delete.cshtml" />
+    <Content Include="Views\RentACars\Details.cshtml" />
+    <Content Include="Views\RentACars\Edit.cshtml" />
+    <Content Include="Views\RentACars\Index.cshtml" />
+    <Content Include="Views\AdminVisitPlaceCarInfoes\Create.cshtml" />
+    <Content Include="Views\AdminVisitPlaceCarInfoes\Delete.cshtml" />
+    <Content Include="Views\AdminVisitPlaceCarInfoes\Details.cshtml" />
+    <Content Include="Views\AdminVisitPlaceCarInfoes\Edit.cshtml" />
+    <Content Include="Views\AdminVisitPlaceCarInfoes\Index.cshtml" />
+    <Content Include="Views\AdminVisitPlaceWareHouses\Create.cshtml" />
+    <Content Include="Views\AdminVisitPlaceWareHouses\Delete.cshtml" />
+    <Content Include="Views\AdminVisitPlaceWareHouses\Details.cshtml" />
+    <Content Include="Views\AdminVisitPlaceWareHouses\Edit.cshtml" />
+    <Content Include="Views\AdminVisitPlaceWareHouses\Index.cshtml" />
+    <Content Include="Views\AdminSPPlaceDeliveryProducts\Create.cshtml" />
+    <Content Include="Views\AdminSPPlaceDeliveryProducts\Delete.cshtml" />
+    <Content Include="Views\AdminSPPlaceDeliveryProducts\Details.cshtml" />
+    <Content Include="Views\AdminSPPlaceDeliveryProducts\Edit.cshtml" />
+    <Content Include="Views\AdminSPPlaceDeliveryProducts\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

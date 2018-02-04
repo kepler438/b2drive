@@ -1,0 +1,99 @@
+﻿@model Area.Data.VisitPlaceWareHouse
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>VisitPlaceWareHouse</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckinDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckinDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckinLatitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckinLatitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckinLongitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckinLongitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckoutDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckoutDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckoutLatitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckoutLatitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckoutLongitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckoutLongitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VisitPlace.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VisitPlace.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WareHouse.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WareHouse.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

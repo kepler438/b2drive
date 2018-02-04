@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Area.Data.SupervisorVisitPlace>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentVisitPlaceID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckinDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckinLatitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckinLongitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlacePositiveComment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlaceNegativeComment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Place.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VisitPlace.ID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentVisitPlaceID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckinDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckinLatitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckinLongitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlacePositiveComment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlaceNegativeComment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsApproved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Place.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VisitPlace.ID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
