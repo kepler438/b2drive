@@ -15,7 +15,7 @@
             <div class="tabbable">
                 <div class="tab-content">
                     <div class="tab-pane active" id="formcontrols">
-                        @using (Html.BeginForm("Edit", "AdminRegion", FormMethod.Post, new { @id = "edit-profile", @class = "form-horizontal" }))
+                        @using (Html.BeginForm("Edit", "AdminUsers", FormMethod.Post, new { @id = "edit-profile", @class = "form-horizontal" }))
                         {
 
                             <fieldset>
@@ -54,14 +54,7 @@
                                         @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
-
-                                <div class="control-group">
-                                    <label class="control-label" for="quantity">Oluşturma Tarihi</label>
-                                    <div class="controls">
-                                        @Html.EditorFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                </div>
-
+                                
                                 <div class="control-group">
                                     <label class="control-label" for="note">Durumu</label>
                                     <div class="controls">

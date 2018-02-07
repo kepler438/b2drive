@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Area.Data;
+using Area.Web.Helper;
 
 namespace Area.Web.Controllers
 {
@@ -17,7 +18,7 @@ namespace Area.Web.Controllers
         // GET: AdminUsers
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            return View(db.Users.ToList().OrderByDescending(p=>p.ID));
         }
          
         // GET: AdminUsers/Create
@@ -25,18 +26,32 @@ namespace Area.Web.Controllers
         {
             return View();
         }
-
-        // POST: AdminUsers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Phone,MailAddress,UserName,CreateDate,IsActive")] User user)
+        public ActionResult Create(User user)
         {
             if (ModelState.IsValid)
             {
+                Permission perm = db.Permissions.Where(x => x.Id ==user.permission).FirstOrDefault();
+                if (perm != null)
+                {
+                    user.Permissions.Add(perm);
+                }
+                user.CreateDate = DateTime.Now;
                 db.Users.Add(user);
+                db.SaveChanges(); 
+
+                Area.Data.UserPassword newUserPassword = new UserPassword();
+                var keyNew = LogHelper.GeneratePassword(10);
+                var password = LogHelper.EncodePassword(user.Password, keyNew);
+                newUserPassword.CreatedDate = DateTime.Now;
+                newUserPassword.IsActive = true;
+                newUserPassword.UserId = user.ID;
+                newUserPassword.Password = password;
+                newUserPassword.Vcode = keyNew;
+                db.UserPasswords.Add(newUserPassword);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
@@ -57,45 +72,25 @@ namespace Area.Web.Controllers
             }
             return View(user);
         }
-
-        // POST: AdminUsers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Phone,MailAddress,UserName,CreateDate,IsActive")] User user)
+        public ActionResult Edit(User user)
         {
             if (ModelState.IsValid)
             {
+                user.CreateDate = DateTime.Now;
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(user);
         }
-
-        // GET: AdminUsers/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // POST: AdminUsers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        
         public ActionResult DeleteConfirmed(int id)
         {
             User user = db.Users.Find(id);
-            db.Users.Remove(user);
+            user.IsActive = false;
+            db.Entry(user).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -108,5 +103,6 @@ namespace Area.Web.Controllers
             }
             base.Dispose(disposing);
         }
+         
     }
 }

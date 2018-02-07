@@ -51,19 +51,16 @@ namespace Area.Web.Controllers
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name");
             ViewBag.CheckInfoID = new SelectList(db.PlaceCheckInfoes, "ID", "CheckinLatitude");
             ViewBag.RegionID = new SelectList(db.Regions, "ID", "Name");
-            ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Personnel), "ID", "FirstName");
+            ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Personnel), "ID", "UserName");
             return View();
         }
-
-        // POST: UserAssignedVisit/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,UserID,StartDate,EndDate,PlaceID,RegionID,CheckInfoID,CreateDate,IsActive")] VisitPlace visitPlace)
+         
+        [HttpPost] 
+        public ActionResult Create(VisitPlace visitPlace)
         {
             if (ModelState.IsValid)
             {
+                visitPlace.CreateDate = DateTime.Now;
                 db.VisitPlaces.Add(visitPlace);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -112,12 +109,12 @@ namespace Area.Web.Controllers
         // POST: UserAssignedVisit/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,UserID,StartDate,EndDate,PlaceID,RegionID,CheckInfoID,CreateDate,IsActive")] VisitPlace visitPlace)
+        [HttpPost] 
+        public ActionResult Edit(VisitPlace visitPlace)
         {
             if (ModelState.IsValid)
             {
+                visitPlace.CreateDate = DateTime.Now;
                 db.Entry(visitPlace).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

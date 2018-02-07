@@ -27,9 +27,21 @@ namespace Area.Web.Controllers
                     resultPlace.Add(item);
                 }
             }
-            return View(resultPlace);
+            return View(resultPlace.OrderByDescending(p=>p.StartDate));
         }
-
+        private List<User> GetTypedUserList(EnumUserType usertype)
+        {
+            List<User> result = new List<User>();
+            var userList = db.Users;
+            foreach (var item in userList)
+            {
+                if (item.Permissions.FirstOrDefault().Id == (int)usertype)
+                {
+                    result.Add(item);
+                }
+            }
+            return result;
+        }
         // GET: AdminSupervisorVisit/Details/5
         public ActionResult Details(int? id)
         {
@@ -51,16 +63,15 @@ namespace Area.Web.Controllers
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name");
             ViewBag.CheckInfoID = new SelectList(db.PlaceCheckInfoes, "ID", "CheckinLatitude");
             ViewBag.RegionID = new SelectList(db.Regions, "ID", "Name");
-            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName");
+            ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Supervisor), "ID", "FirstName");
             return View();
         }
 
         // POST: AdminSupervisorVisit/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,UserID,StartDate,EndDate,PlaceID")] VisitPlace visitPlace)
+        [HttpPost] 
+        public ActionResult Create(VisitPlace visitPlace)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +85,7 @@ namespace Area.Web.Controllers
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", visitPlace.PlaceID);
             ViewBag.CheckInfoID = new SelectList(db.PlaceCheckInfoes, "ID", "CheckinLatitude", visitPlace.CheckInfoID);
             ViewBag.RegionID = new SelectList(db.Regions, "ID", "Name", visitPlace.RegionID);
-            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName", visitPlace.UserID);
+            ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Supervisor), "ID", "FirstName", visitPlace.UserID);
             return View(visitPlace);
         }
 
@@ -93,16 +104,15 @@ namespace Area.Web.Controllers
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", visitPlace.PlaceID);
             ViewBag.CheckInfoID = new SelectList(db.PlaceCheckInfoes, "ID", "CheckinLatitude", visitPlace.CheckInfoID);
             ViewBag.RegionID = new SelectList(db.Regions, "ID", "Name", visitPlace.RegionID);
-            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName", visitPlace.UserID);
+            ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Supervisor), "ID", "FirstName", visitPlace.UserID);
             return View(visitPlace);
         }
 
         // POST: AdminSupervisorVisit/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,UserID,StartDate,EndDate,PlaceID")] VisitPlace visitPlace)
+        [HttpPost] 
+        public ActionResult Edit(VisitPlace visitPlace)
         {
             if (ModelState.IsValid)
             {
@@ -113,7 +123,7 @@ namespace Area.Web.Controllers
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", visitPlace.PlaceID);
             ViewBag.CheckInfoID = new SelectList(db.PlaceCheckInfoes, "ID", "CheckinLatitude", visitPlace.CheckInfoID);
             ViewBag.RegionID = new SelectList(db.Regions, "ID", "Name", visitPlace.RegionID);
-            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName", visitPlace.UserID);
+            ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Supervisor), "ID", "FirstName", visitPlace.UserID);
             return View(visitPlace);
         }
 
@@ -133,8 +143,7 @@ namespace Area.Web.Controllers
         }
 
         // POST: AdminSupervisorVisit/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ActionName("Delete")] 
         public ActionResult DeleteConfirmed(int id)
         {
             VisitPlace visitPlace = db.VisitPlaces.Find(id);

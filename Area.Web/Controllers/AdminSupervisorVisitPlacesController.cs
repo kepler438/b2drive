@@ -14,36 +14,66 @@ namespace Area.Web.Controllers
     {
         private B2DriveForPostEntities db = new B2DriveForPostEntities();
 
-         
+        public class ItemDrp
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+        }
+
         // GET: AdminSupervisorVisitPlaces/Create
         public ActionResult Create(int id)
         {
+            List<ItemDrp> visitList = new List<ItemDrp>();
+            foreach (var item in db.VisitPlaces)
+            {
+                visitList.Add(new ItemDrp { Name = item.Place.Name + " - " + item.User.UserName + " - " + item.StartDate.ToString("MM-dd-yyyy"), ID = item.ID });
+            }
+
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name");
-            ViewBag.PersonID = new SelectList(db.Users, "ID", "FirstName");
-            ViewBag.VisitPlaceID = new SelectList(db.VisitPlaces, "ID", "ID");
+            ViewBag.PersonID = new SelectList(db.Users, "ID", "UserName");
+            ViewBag.ParentVisitPlaceID = new SelectList(visitList, "ID", "Name");
             return View();
         }
 
-        // POST: AdminSupervisorVisitPlaces/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,VisitPlaceID,ParentVisitPlaceID,PersonID,PlaceID,StartDate,EndDate,CheckinDate,CheckinLatitude,CheckinLongitude,PlacePositiveComment,PlaceNegativeComment,IsApproved,CreateDate,IsActive")] SupervisorVisitPlace supervisorVisitPlace)
+        public ActionResult Create(SupervisorVisitPlace supervisorVisitPlace)
         {
+            SupervisorVisitPlace visitPlace = db.SupervisorVisitPlaces.Where(p => p.VisitPlaceID == supervisorVisitPlace.VisitPlaceID).FirstOrDefault(); 
             if (ModelState.IsValid)
             {
-                db.SupervisorVisitPlaces.Add(supervisorVisitPlace);
-                db.SaveChanges();
+                if (visitPlace == null)
+                {
+                    supervisorVisitPlace.CreateDate = DateTime.Now;
+                    supervisorVisitPlace.IsApproved = false;
+                    db.SupervisorVisitPlaces.Add(supervisorVisitPlace);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    visitPlace.ParentVisitPlaceID = supervisorVisitPlace.ParentVisitPlaceID;
+                    visitPlace.StartDate = supervisorVisitPlace.StartDate;
+                    visitPlace.EndDate = supervisorVisitPlace.EndDate;
+                    visitPlace.IsActive = supervisorVisitPlace.IsActive;
+                    visitPlace.IsApproved = false;
+
+                    db.Entry(visitPlace).State = EntityState.Modified; 
+                    db.SaveChanges();
+                }
+
+
                 return RedirectToAction("Index");
             }
-
+            List<ItemDrp> visitList = new List<ItemDrp>();
+            foreach (var item in db.VisitPlaces)
+            {
+                visitList.Add(new ItemDrp { Name = item.Place.Name + " " + item.StartDate, ID = item.ID });
+            }
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", supervisorVisitPlace.PlaceID);
             ViewBag.PersonID = new SelectList(db.Users, "ID", "FirstName", supervisorVisitPlace.PersonID);
-            ViewBag.VisitPlaceID = new SelectList(db.VisitPlaces, "ID", "ID", supervisorVisitPlace.VisitPlaceID);
+            ViewBag.ParentVisitPlaceID = new SelectList(visitList, "ID", "Name");
             return View(supervisorVisitPlace);
         }
-         
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

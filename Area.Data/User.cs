@@ -11,7 +11,8 @@ namespace Area.Data
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -37,7 +38,14 @@ namespace Area.Data
         public string UserName { get; set; }
         public System.DateTime CreateDate { get; set; }
         public bool IsActive { get; set; }
-    
+
+        [NotMapped]
+        public string Password { get; set; }
+
+        [NotMapped]
+        public int permission { get; set; }
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AvailableUserVisit> AvailableUserVisits { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
