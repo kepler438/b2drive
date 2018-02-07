@@ -26,9 +26,8 @@ namespace Area.Web.Controllers
         // POST: AdminVisitPlaceCarInfoes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,VisitPlaceID,RentACarID,CarReceivePoint,CarDeliveryPoint,CarReceiveDate,CarDeliveryDate,CarBrandName,CarModelName,CheckinDate,CheckinLatitude,CheckinLongitude,CheckoutDate,CreateDate,IsActive")] VisitPlaceCarInfo visitPlaceCarInfo)
+        [HttpPost] 
+        public ActionResult Create(VisitPlaceCarInfo visitPlaceCarInfo)
         {
             if (ModelState.IsValid)
             {

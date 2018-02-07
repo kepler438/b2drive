@@ -41,8 +41,8 @@
 
     <script>
         $(function () {
-            $(".datepicker").datepicker();
-            $("#anim").on("change", function () {
+            $(".datepicker").datepicker({ dateFormat: 'dd-mm-yy' }).val();
+            $("#anim").on("change", function () { 
                 $(".datepicker").datepicker("option", "showAnim", $(this).val());
             });
         });
