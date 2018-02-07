@@ -24,9 +24,9 @@ namespace Area.Web.Controllers
         public ActionResult Create(int id)
         {
             List<ItemDrp> visitList = new List<ItemDrp>();
-            foreach (var item in db.VisitPlaces)
+            foreach (var item in db.VisitPlaces.Where(p=>p.StartDate > DateTime.Now))
             {
-                visitList.Add(new ItemDrp { Name = item.Place.Name + " - " + item.User.UserName + " - " + item.StartDate.ToString("MM-dd-yyyy"), ID = item.ID });
+                visitList.Add(new ItemDrp { Name = item.Place.Name + " - " + item.User.UserName, ID = item.ID });
             }
 
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name");
@@ -64,9 +64,9 @@ namespace Area.Web.Controllers
                 return RedirectToAction("Index");
             }
             List<ItemDrp> visitList = new List<ItemDrp>();
-            foreach (var item in db.VisitPlaces)
+            foreach (var item in db.VisitPlaces.Where(p => p.StartDate > DateTime.Now))
             {
-                visitList.Add(new ItemDrp { Name = item.Place.Name + " " + item.StartDate, ID = item.ID });
+                visitList.Add(new ItemDrp { Name = item.Place.Name + " - " + item.User.UserName, ID = item.ID });
             }
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", supervisorVisitPlace.PlaceID);
             ViewBag.PersonID = new SelectList(db.Users, "ID", "FirstName", supervisorVisitPlace.PersonID);
