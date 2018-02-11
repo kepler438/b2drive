@@ -69,13 +69,17 @@
                             <td>@Html.DisplayFor(modelItem => item.RentACar.Address)  </td>
                             <td>@Html.DisplayFor(modelItem => item.CarReceiveDate)</td>
                             <td class="td-actions">
-                                <a href="spcarinfo/@item.VisitPlaceID" class="btn btn-small btn-success">
+                                <a href="spcarinfo/@item.VisitPlaceID" class="btn btn-small btn-success btn-git">
                                     Git
+                                    <i class="btn-icon-only icon-circle-arrow-right"></i>
+                                </a>
+                                <a href="#" class="btn btn-small btn-info btn-arac-teslim">
+                                    Araç Teslim Et
                                     <i class="btn-icon-only icon-circle-arrow-right"></i>
                                 </a>
                             </td>
                         </tr>
-                        }
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -106,8 +110,8 @@
                             <td>@Html.DisplayFor(modelItem => item.WareHouse.Name) </td>
                             <td>@Html.DisplayFor(modelItem => item.WareHouse.Address)  </td>
                             <td class="td-actions">
-                                <a href="/warehouse/detail/@item.ID" class="btn btn-small btn-success">Depodan Ürün Al<i class="btn-icon-only icon-circle-arrow-right">  </i></a>
-                                <a href="/warehouse/productdelivery/@item.ID" class="btn btn-small btn-success">Ürün Teslim Et<i class="btn-icon-only icon-circle-arrow-right">  </i></a>
+                                <a href="/warehouse/detail/@item.ID" class="btn btn-small btn-success btn-depo-urun">Depodan Ürün Al<i class="btn-icon-only icon-circle-arrow-right">  </i></a>
+                                <a href="/warehouse/productdelivery/@item.ID" class="btn btn-small btn-info btn-depo-teslim">Depoya Ürün Teslim Et<i class="btn-icon-only icon-circle-arrow-right">  </i></a>
                             </td>
                         </tr>
                         }
