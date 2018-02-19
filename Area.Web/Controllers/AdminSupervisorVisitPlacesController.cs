@@ -24,7 +24,7 @@ namespace Area.Web.Controllers
         public ActionResult Create(int id)
         {
             List<ItemDrp> visitList = new List<ItemDrp>();
-            foreach (var item in db.VisitPlaces.Where(p=>p.StartDate > DateTime.Now))
+            foreach (var item in db.VisitPlaces.Where(p=>p.StartDate > DateTime.Now && p.Place != null))
             {
                 visitList.Add(new ItemDrp { Name = item.Place.Name + " - " + item.User.UserName, ID = item.ID });
             }
@@ -32,46 +32,57 @@ namespace Area.Web.Controllers
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name");
             ViewBag.PersonID = new SelectList(db.Users, "ID", "UserName");
             ViewBag.ParentVisitPlaceID = new SelectList(visitList, "ID", "Name");
+
+            ViewData["visitPlaceList"] = db.SupervisorVisitPlaces.Where(p => p.VisitPlaceID == id).Include(p=>p.ParentVisitPlaceID).ToList();
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(SupervisorVisitPlace supervisorVisitPlace)
         {
-            SupervisorVisitPlace visitPlace = db.SupervisorVisitPlaces.Where(p => p.VisitPlaceID == supervisorVisitPlace.VisitPlaceID).FirstOrDefault(); 
-            if (ModelState.IsValid)
-            {
-                if (visitPlace == null)
-                {
-                    supervisorVisitPlace.CreateDate = DateTime.Now;
-                    supervisorVisitPlace.IsApproved = false;
-                    db.SupervisorVisitPlaces.Add(supervisorVisitPlace);
-                    db.SaveChanges();
-                }
-                else
-                {
-                    visitPlace.ParentVisitPlaceID = supervisorVisitPlace.ParentVisitPlaceID;
-                    visitPlace.StartDate = supervisorVisitPlace.StartDate;
-                    visitPlace.EndDate = supervisorVisitPlace.EndDate;
-                    visitPlace.IsActive = supervisorVisitPlace.IsActive;
-                    visitPlace.IsApproved = false;
-
-                    db.Entry(visitPlace).State = EntityState.Modified; 
-                    db.SaveChanges();
-                }
+            var place = db.VisitPlaces.Where(p => p.ID == supervisorVisitPlace.ParentVisitPlaceID).FirstOrDefault();
+            supervisorVisitPlace.CreateDate = DateTime.Now;
+            supervisorVisitPlace.IsApproved = false;
+            supervisorVisitPlace.PlaceID = place.Place.ID;
+            db.SupervisorVisitPlaces.Add(supervisorVisitPlace);
+            db.SaveChanges();
 
 
-                return RedirectToAction("Index");
-            }
-            List<ItemDrp> visitList = new List<ItemDrp>();
-            foreach (var item in db.VisitPlaces.Where(p => p.StartDate > DateTime.Now))
-            {
-                visitList.Add(new ItemDrp { Name = item.Place.Name + " - " + item.User.UserName, ID = item.ID });
-            }
-            ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", supervisorVisitPlace.PlaceID);
-            ViewBag.PersonID = new SelectList(db.Users, "ID", "FirstName", supervisorVisitPlace.PersonID);
-            ViewBag.ParentVisitPlaceID = new SelectList(visitList, "ID", "Name");
-            return View(supervisorVisitPlace);
+            //SupervisorVisitPlace visitPlace = db.SupervisorVisitPlaces.Where(p => p.VisitPlaceID == supervisorVisitPlace.VisitPlaceID).FirstOrDefault(); 
+            //if (ModelState.IsValid)
+            //{
+            //    if (visitPlace == null)
+            //    {
+            //        supervisorVisitPlace.CreateDate = DateTime.Now;
+            //        supervisorVisitPlace.IsApproved = false;
+            //        db.SupervisorVisitPlaces.Add(supervisorVisitPlace);
+            //        db.SaveChanges();
+            //    }
+            //    else
+            //    {
+            //        visitPlace.ParentVisitPlaceID = supervisorVisitPlace.ParentVisitPlaceID;
+            //        visitPlace.StartDate = supervisorVisitPlace.StartDate;
+            //        visitPlace.EndDate = supervisorVisitPlace.EndDate;
+            //        visitPlace.IsActive = supervisorVisitPlace.IsActive;
+            //        visitPlace.IsApproved = false;
+
+            //        db.Entry(visitPlace).State = EntityState.Modified; 
+            //        db.SaveChanges();
+            //    }
+
+
+            //    return RedirectToAction("Index");
+            //}
+            //List<ItemDrp> visitList = new List<ItemDrp>();
+            //foreach (var item in db.VisitPlaces.Where(p => p.StartDate > DateTime.Now && p.Place != null))
+            //{
+            //    visitList.Add(new ItemDrp { Name = item.Place.Name + " - " + item.User.UserName, ID = item.ID });
+            //}
+            //ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", supervisorVisitPlace.PlaceID);
+            //ViewBag.PersonID = new SelectList(db.Users, "ID", "FirstName", supervisorVisitPlace.PersonID);
+            //ViewBag.ParentVisitPlaceID = new SelectList(visitList, "ID", "Name");
+            //return View(supervisorVisitPlace);
+            return RedirectToAction("/Create/"+ supervisorVisitPlace.VisitPlaceID);
         }
 
         protected override void Dispose(bool disposing)

@@ -16,11 +16,7 @@
         </div>
         <div class="widget-content">
             <table class="table table-striped table-bordered">
-                <tr>
-
-                    <th>
-                        Mekan Adı
-                    </th>
+                <tr> 
                     <th>
                         Başlangıç Tarihi
                     </th>
@@ -39,10 +35,7 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Place.Name)
-                        </td>
+                    <tr> 
                         <td>
                             @Html.DisplayFor(modelItem => item.StartDate)
                         </td>
@@ -56,7 +49,7 @@
                             @Html.DisplayFor(modelItem => item.IsActive)
                         </td> 
                         <td>
-                            <a href="/adminsupervisorvisitplaces/create/@(item.ID)">Gün Ekle</a> |
+                            <a href="/adminsupervisorvisitplaces/create/@(item.ID)">Ziyaret Ekle</a> |
                             <a href="/adminvisitplacecarinfoes/create/@(item.ID)">Araç Ekle</a> |
                             <a href="/adminvisitplacewarehouses/create/@(item.ID)">Depo Ekle</a> |
                             <a href="/adminspplacedeliveryproducts/create/@(item.ID)">Teslim edilecek ürün Ekle</a> | 

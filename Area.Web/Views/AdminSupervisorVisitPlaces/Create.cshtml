@@ -3,76 +3,113 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var visitPlaceList = (List<Area.Data.SupervisorVisitPlace>)ViewData["visitPlaceList"];
 }
-
 
 <div class="span12">
     <div class="widget ">
         <div class="widget-header">
             <i class="icon-user"></i>
-            <h3>-</h3>
-        </div>
+            <h3>Ziyaret Ekle</h3>
+        </div> 
         <div class="widget-content">
             <div class="tabbable">
                 <div class="tab-content">
                     <div class="tab-pane active" id="formcontrols">
-
                         @using (Html.BeginForm("Create", "AdminSupervisorVisitPlaces", FormMethod.Post, new { @id = "edit-profile", @class = "form-horizontal" }))
-                        { 
-                        <fieldset>
-                            @*<div class="control-group">
-            <label class="control-label" for="quantity">Ziyaret Seçiniz</label>
-            <div class="controls">
-                @Html.DropDownList("VisitPlaceID", null, htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>*@
-                            <input type="hidden" name="VisitPlaceID" value="@Url.RequestContext.RouteData.Values["id"]" />
-                            <div class="control-group">
-                                <label class="control-label" for="quantity">Denetleyeceği Personel Ziyareti</label>
-                                <div class="controls">
-                                    @Html.DropDownList("ParentVisitPlaceID", null, htmlAttributes: new { @class = "form-control" })
+                        {
+                            <fieldset>
+                                <input type="hidden" name="VisitPlaceID" value="@Url.RequestContext.RouteData.Values["id"]" />
+                                <div class="control-group">
+                                    <label class="control-label" for="quantity">Denetleyeceği Personel Ziyareti</label>
+                                    <div class="controls">
+                                        @Html.DropDownList("ParentVisitPlaceID", null, htmlAttributes: new { @class = "form-control" })
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="control-group">
-                                <label class="control-label" for="quantity">Personal İsmi</label>
-                                <div class="controls">
-                                    @Html.DropDownList("PersonID", null, htmlAttributes: new { @class = "form-control" })
+                                <div class="control-group">
+                                    <label class="control-label" for="quantity">Personal İsmi</label>
+                                    <div class="controls">
+                                        @Html.DropDownList("PersonID", null, htmlAttributes: new { @class = "form-control" })
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="control-group">
-                                <label class="control-label" for="quantity">Başlangıç Tarihi</label>
-                                <div class="controls datetimepicker1">
-                                    <span class="add-on">
-                                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                                    </span>
+                                <div class="control-group">
+                                    <label class="control-label" for="quantity">Başlangıç Tarihi</label>
+                                    <div class="controls datetimepicker1">
+                                        <span class="add-on">
+                                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="control-group">
-                                <label class="control-label" for="quantity">Bitiş Tarihi</label>
-                                <div class="controls datetimepicker1">
-                                    <span class="add-on">
-                                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
-                                    </span>
+                                <div class="control-group">
+                                    <label class="control-label" for="quantity">Bitiş Tarihi</label>
+                                    <div class="controls datetimepicker1">
+                                        <span class="add-on">
+                                            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="control-group">
-                                <label class="control-label" for="note">Durumu</label>
-                                <div class="controls">
-                                    @Html.EditorFor(model => model.IsActive)
+                                <div class="control-group">
+                                    <label class="control-label" for="note">Durumu</label>
+                                    <div class="controls">
+                                        @Html.EditorFor(model => model.IsActive)
+                                    </div>
                                 </div>
-                            </div>
-                            <a href="/adminsupervisorvisit" class="form-control">Listeye Geri Dön</a>
-                            <button type="submit" class="btn btn-primary pull-right two">Kaydet</button>
-                        </fieldset>
+                                <a href="/adminsupervisorvisit" class="form-control">Listeye Geri Dön</a>
+                                <button type="submit" class="btn btn-primary pull-right two">Kaydet</button>
+                            </fieldset>
                         }
-
                     </div>
                 </div>
             </div>
         </div>
+
+        <br />
+        @if (visitPlaceList.Count > 0)
+        {
+            <div class="widget-header">
+                <i class="icon-user"></i>
+                <h3>Ziyaretler Listesi</h3>
+            </div>
+            <div class="widget-content">
+                <div class="tabbable">
+                    <div class="tab-content"> 
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th> Ziyaret Mekanı ve Personeli </th>
+                                    <th> Başlangıç Tarihi </th>
+                                    <th> Bitiş Tarihi </th>  
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in visitPlaceList)
+                                {
+                                    <tr>
+                                        <td>@item.ParentVisitPlaceID </td>
+                                        <td>@item.StartDate </td>
+                                        <td>@item.EndDate </td> 
+                                        @*<td class="td-actions">
+                                            <a href="/receivedproducts/delete/@item.ID" class="btn btn-danger btn-small">
+                                                <i class="btn-icon-only icon-remove"> </i>
+                                            </a>
+                                            <a href="/receivedproducts/edit/@item.ID" class="btn btn-success btn-small">
+                                                <i class="btn-icon-only icon-edit"> </i>
+                                            </a>
+
+                                        </td>*@
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
+
+ 
