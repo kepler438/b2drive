@@ -33,7 +33,7 @@
                                         @Html.DropDownList("PersonID", null, htmlAttributes: new { @class = "form-control" })
                                     </div>
                                 </div>
-
+                                 
                                 <div class="control-group">
                                     <label class="control-label" for="quantity">Başlangıç Tarihi</label>
                                     <div class="controls datetimepicker1">
@@ -89,7 +89,7 @@
                                 @foreach (var item in visitPlaceList)
                                 {
                                     <tr>
-                                        <td>@item.ParentVisitPlaceID </td>
+                                        <td>@item.VisitPlace1.Place.Name </td>
                                         <td>@item.StartDate </td>
                                         <td>@item.EndDate </td> 
                                         @*<td class="td-actions">

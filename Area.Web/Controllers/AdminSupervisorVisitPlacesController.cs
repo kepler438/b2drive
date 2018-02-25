@@ -33,7 +33,7 @@ namespace Area.Web.Controllers
             ViewBag.PersonID = new SelectList(db.Users, "ID", "UserName");
             ViewBag.ParentVisitPlaceID = new SelectList(visitList, "ID", "Name");
 
-            ViewData["visitPlaceList"] = db.SupervisorVisitPlaces.Where(p => p.VisitPlaceID == id).Include(p=>p.ParentVisitPlaceID).ToList();
+            ViewData["visitPlaceList"] = db.SupervisorVisitPlaces.Where(p => p.VisitPlaceID == id).Include(p=>p.VisitPlace1).ToList();
             return View();
         }
 

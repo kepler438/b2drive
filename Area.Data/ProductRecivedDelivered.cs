@@ -18,6 +18,7 @@ namespace Area.Data
         public int UserID { get; set; }
         public int ProductID { get; set; }
         public Nullable<int> VisitPlaceWareHouseID { get; set; }
+        public Nullable<bool> IsDeliveryWareHouse { get; set; }
         public Nullable<int> SupervisorVisitPlaceID { get; set; }
         public Nullable<byte> ProductType { get; set; }
         public int VisitPlaceID { get; set; }
@@ -25,12 +26,11 @@ namespace Area.Data
         public string Note { get; set; }
         public System.DateTime CreateDate { get; set; }
         public bool IsActive { get; set; }
-        public Nullable<bool> IsDeliveryWareHouse { get; set; }
     
         public virtual Product Product { get; set; }
+        public virtual SupervisorVisitPlace SupervisorVisitPlace { get; set; }
         public virtual User User { get; set; }
         public virtual VisitPlace VisitPlace { get; set; }
-        public virtual SupervisorVisitPlace SupervisorVisitPlace { get; set; }
         public virtual VisitPlaceWareHouse VisitPlaceWareHouse { get; set; }
     }
 }

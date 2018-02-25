@@ -21,9 +21,10 @@ namespace Area.Data
             this.PlacePhotoes = new HashSet<PlacePhoto>();
             this.ProductRecivedDelivereds = new HashSet<ProductRecivedDelivered>();
             this.ProductSales = new HashSet<ProductSale>();
-            this.VisitPlaceInfoes = new HashSet<VisitPlaceInfo>();
             this.SupervisorVisitPlaces = new HashSet<SupervisorVisitPlace>();
+            this.SupervisorVisitPlaces1 = new HashSet<SupervisorVisitPlace>();
             this.VisitPlaceCarInfoes = new HashSet<VisitPlaceCarInfo>();
+            this.VisitPlaceInfoes = new HashSet<VisitPlaceInfo>();
             this.VisitPlaceWareHouses = new HashSet<VisitPlaceWareHouse>();
         }
     
@@ -49,13 +50,15 @@ namespace Area.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductSale> ProductSales { get; set; }
         public virtual Region Region { get; set; }
-        public virtual User User { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VisitPlaceInfo> VisitPlaceInfoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupervisorVisitPlace> SupervisorVisitPlaces { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupervisorVisitPlace> SupervisorVisitPlaces1 { get; set; }
+        public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VisitPlaceCarInfo> VisitPlaceCarInfoes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VisitPlaceInfo> VisitPlaceInfoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VisitPlaceWareHouse> VisitPlaceWareHouses { get; set; }
     }

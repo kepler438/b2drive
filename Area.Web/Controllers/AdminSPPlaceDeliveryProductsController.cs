@@ -17,31 +17,50 @@ namespace Area.Web.Controllers
          
         // GET: AdminSPPlaceDeliveryProducts/Create
         public ActionResult Create(int id)
-        {
-            ViewBag.ProductID = new SelectList(db.Products, "ID", "Name");
-            ViewBag.SupervisorVisitPlaceID = new SelectList(db.SupervisorVisitPlaces, "ID", "CheckinLatitude");
-            return View();
+        { 
+            var categoryList = db.ProductCategories.Where(p => p.IsActive == true).ToList();
+            categoryList.Add(new ProductCategory()
+            { ID = 0, Name = "Lütfen Bir Kategori Seçiniz." });
+            ViewData["productCategory"] = new SelectList(categoryList.OrderBy(p => p.ID), "ID", "Name");
+            var spplaceList = db.SPPlaceDeliveryProducts.Where(p => p.IsActive == true && p.SupervisorVisitPlaceID == id ).ToList();
+            return View(spplaceList); 
         }
-
-        // POST: AdminSPPlaceDeliveryProducts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,SupervisorVisitPlaceID,ProductID,Quantity,Note,CreateDate,IsActive")] SPPlaceDeliveryProduct sPPlaceDeliveryProduct)
+         
+        [HttpPost] 
+        public ActionResult Create(SPPlaceDeliveryProduct sPPlaceDeliveryProduct)
         {
             if (ModelState.IsValid)
             {
+                sPPlaceDeliveryProduct.CreateDate = DateTime.Now;
+                sPPlaceDeliveryProduct.IsActive = true;
                 db.SPPlaceDeliveryProducts.Add(sPPlaceDeliveryProduct);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.SaveChanges(); 
             }
 
-            ViewBag.ProductID = new SelectList(db.Products, "ID", "Name", sPPlaceDeliveryProduct.ProductID);
-            ViewBag.SupervisorVisitPlaceID = new SelectList(db.SupervisorVisitPlaces, "ID", "CheckinLatitude", sPPlaceDeliveryProduct.SupervisorVisitPlaceID);
-            return View(sPPlaceDeliveryProduct);
+            var categoryList = db.ProductCategories.Where(p => p.IsActive == true).ToList();
+            categoryList.Add(new ProductCategory()
+            { ID = 0, Name = "Lütfen Bir Kategori Seçiniz." });
+            ViewData["productCategory"] = new SelectList(categoryList.OrderBy(p => p.ID), "ID", "Name");
+            var spplaceList = db.SPPlaceDeliveryProducts.Where(p => p.IsActive == true && p.SupervisorVisitPlaceID == sPPlaceDeliveryProduct.SupervisorVisitPlaceID).ToList();
+            return View(spplaceList);
         }
-          
+
+        [Route("adminspplacedeliveryproducts/GetSubCategories/{categoryid?}")]
+        public JsonResult GetSubCategories(string categoryid)
+        {
+            int catId = string.IsNullOrEmpty(categoryid) ? 0 : Convert.ToInt32(categoryid);
+            var list = db.ProductSubCategories.Where(x => x.CategoryID == catId).ToList();
+            return Json(new SelectList(list, "ID", "Name"));
+        }
+
+        [Route("adminspplacedeliveryproducts/GetProducts/{subcategoryid?}")]
+        public JsonResult GetProducts(string subcategoryid)
+        {
+            int subCatId = string.IsNullOrEmpty(subcategoryid) ? 0 : Convert.ToInt32(subcategoryid);
+            var list = db.Products.Where(x => x.SubCategoryID == subCatId).ToList();
+            return Json(new SelectList(list, "ID", "Name"));
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

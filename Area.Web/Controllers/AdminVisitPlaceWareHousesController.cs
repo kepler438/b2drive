@@ -13,36 +13,49 @@ namespace Area.Web.Controllers
     public class AdminVisitPlaceWareHousesController : Controller
     {
         private B2DriveForPostEntities db = new B2DriveForPostEntities();
-         
-        
 
         // GET: AdminVisitPlaceWareHouses/Create
         public ActionResult Create(int id)
         {
             ViewBag.VisitPlaceID = new SelectList(db.VisitPlaces, "ID", "ID");
             ViewBag.WareHouseID = new SelectList(db.WareHouses, "ID", "Name");
-            return View();
+            var warehouse = db.VisitPlaceWareHouses.Where(p => p.VisitPlaceID == id).Include(p=>p.WareHouse).FirstOrDefault();
+            if (warehouse != null)
+            {
+                return View(warehouse);
+            }
+            else
+            {
+                return View();
+            }
         }
 
-        // POST: AdminVisitPlaceWareHouses/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,VisitPlaceID,WareHouseID,CheckinDate,CheckinLatitude,CheckinLongitude,CheckoutDate,CheckoutLatitude,CheckoutLongitude,CreateDate,IsActive")] VisitPlaceWareHouse visitPlaceWareHouse)
+        public ActionResult Create(VisitPlaceWareHouse visitPlaceWareHouse)
         {
-            if (ModelState.IsValid)
+            if (visitPlaceWareHouse.VisitPlaceID > 0)
             {
-                db.VisitPlaceWareHouses.Add(visitPlaceWareHouse);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.VisitPlaceID = new SelectList(db.VisitPlaces, "ID", "ID", visitPlaceWareHouse.VisitPlaceID);
-            ViewBag.WareHouseID = new SelectList(db.WareHouses, "ID", "Name", visitPlaceWareHouse.WareHouseID);
+                var warehouse = db.VisitPlaceWareHouses.Where(p => p.VisitPlaceID == visitPlaceWareHouse.VisitPlaceID).FirstOrDefault();
+                if (warehouse != null)
+                {
+                    warehouse.WareHouseID = visitPlaceWareHouse.WareHouseID;
+                    warehouse.IsActive = visitPlaceWareHouse.IsActive;
+                    db.Entry(warehouse).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Redirect("/adminsupervisorvisit");
+                }
+                else
+                {
+                    visitPlaceWareHouse.ID = 0;
+                    visitPlaceWareHouse.CreateDate = DateTime.Now;
+                    db.VisitPlaceWareHouses.Add(visitPlaceWareHouse);
+                    db.SaveChanges();
+                    return Redirect("/adminsupervisorvisit");
+                }
+            } 
             return View(visitPlaceWareHouse);
         }
-          
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
