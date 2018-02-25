@@ -21,9 +21,27 @@ namespace Area.Web.Controllers
             var categoryList = db.ProductCategories.Where(p => p.IsActive == true).ToList();
             categoryList.Add(new ProductCategory()
             { ID = 0, Name = "Lütfen Bir Kategori Seçiniz." });
-            ViewData["productCategory"] = new SelectList(categoryList.OrderBy(p => p.ID), "ID", "Name");
-            var spplaceList = db.SPPlaceDeliveryProducts.Where(p => p.IsActive == true && p.SupervisorVisitPlaceID == id ).ToList();
-            return View(spplaceList); 
+            ViewData["productCategory"] = new SelectList(categoryList.OrderBy(p => p.ID), "ID", "Name"); 
+            var spvisitPlacelist = db.SupervisorVisitPlaces.Where(p => p.VisitPlaceID == id).Include(p => p.Place).ToList();
+            List<Place> placeList = new List<Place>();
+            foreach (var item in spvisitPlacelist)
+            {
+                placeList.Add(new Place()
+                { ID = item.ID, Name = item.Place.Name });
+            }
+             
+            List<SPPlaceDeliveryProduct> resultList = new List<SPPlaceDeliveryProduct>();
+            foreach (var item in spvisitPlacelist)
+            {
+                var products = db.SPPlaceDeliveryProducts.Where(p => p.IsActive == true && p.SupervisorVisitPlaceID == item.ID).ToList();
+                foreach (var pro in products)
+                {
+                    resultList.Add(pro);
+                }
+            }
+
+            ViewBag.SupervisorVisitPlaceID = new SelectList(placeList, "ID", "Name");
+            return View(resultList); 
         }
          
         [HttpPost] 
@@ -36,31 +54,37 @@ namespace Area.Web.Controllers
                 db.SPPlaceDeliveryProducts.Add(sPPlaceDeliveryProduct);
                 db.SaveChanges(); 
             }
+           var spvisit =  db.SupervisorVisitPlaces.Where(p => p.ID == sPPlaceDeliveryProduct.SupervisorVisitPlaceID).FirstOrDefault();
+            //var categoryList = db.ProductCategories.Where(p => p.IsActive == true).ToList();
+            //categoryList.Add(new ProductCategory()
+            //{ ID = 0, Name = "Lütfen Bir Kategori Seçiniz." });
+            //ViewData["productCategory"] = new SelectList(categoryList.OrderBy(p => p.ID), "ID", "Name");
 
-            var categoryList = db.ProductCategories.Where(p => p.IsActive == true).ToList();
-            categoryList.Add(new ProductCategory()
-            { ID = 0, Name = "Lütfen Bir Kategori Seçiniz." });
-            ViewData["productCategory"] = new SelectList(categoryList.OrderBy(p => p.ID), "ID", "Name");
-            var spplaceList = db.SPPlaceDeliveryProducts.Where(p => p.IsActive == true && p.SupervisorVisitPlaceID == sPPlaceDeliveryProduct.SupervisorVisitPlaceID).ToList();
-            return View(spplaceList);
+            //List<SPPlaceDeliveryProduct> resultList = new List<SPPlaceDeliveryProduct>(); 
+            //List<Place> placeList = new List<Place>();
+            //foreach (var item in spvisitPlacelist)
+            //{
+            //    placeList.Add(new Place()
+            //    { ID = item.ID, Name = item.Place.Name });
+            //}
+            //ViewBag.SupervisorVisitPlaceID = new SelectList(placeList, "ID", "Name");
+            return Redirect("/AdminSPPlaceDeliveryProducts/Create/"+ spvisit.VisitPlaceID);
         }
 
-        [Route("adminspplacedeliveryproducts/GetSubCategories/{categoryid?}")]
-        public JsonResult GetSubCategories(string categoryid)
+        [Route("adminspplacedeliveryproducts/getsubcategory/{id}")]
+        public JsonResult GetSubCategory(int id)
         {
-            int catId = string.IsNullOrEmpty(categoryid) ? 0 : Convert.ToInt32(categoryid);
-            var list = db.ProductSubCategories.Where(x => x.CategoryID == catId).ToList();
-            return Json(new SelectList(list, "ID", "Name"));
+            var subcategories = db.ProductSubCategories.Where(p => p.CategoryID == id).ToList();
+            return Json(new SelectList(subcategories, "ID", "Name"));
         }
 
-        [Route("adminspplacedeliveryproducts/GetProducts/{subcategoryid?}")]
-        public JsonResult GetProducts(string subcategoryid)
+        [Route("adminspplacedeliveryproducts/getproduct/{id}")]
+        public JsonResult GetProduct(int id)
         {
-            int subCatId = string.IsNullOrEmpty(subcategoryid) ? 0 : Convert.ToInt32(subcategoryid);
-            var list = db.Products.Where(x => x.SubCategoryID == subCatId).ToList();
-            return Json(new SelectList(list, "ID", "Name"));
+            var products = db.Products.Where(p => p.SubCategoryID == id).ToList();
+            return Json(new SelectList(products, "ID", "Name"));
         }
-
+         
         protected override void Dispose(bool disposing)
         {
             if (disposing)

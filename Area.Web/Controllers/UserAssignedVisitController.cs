@@ -61,6 +61,7 @@ namespace Area.Web.Controllers
             if (ModelState.IsValid)
             {
                 visitPlace.CreateDate = DateTime.Now;
+                visitPlace.IsApproved = false;
                 db.VisitPlaces.Add(visitPlace);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -114,8 +115,12 @@ namespace Area.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                visitPlace.CreateDate = DateTime.Now;
-                db.Entry(visitPlace).State = EntityState.Modified;
+                VisitPlace vst = db.VisitPlaces.Find(visitPlace.ID);
+                vst.StartDate = visitPlace.StartDate;
+                vst.EndDate = visitPlace.EndDate;
+                vst.PlaceID = visitPlace.PlaceID; 
+                vst.IsActive = visitPlace.IsActive;
+                db.Entry(vst).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
