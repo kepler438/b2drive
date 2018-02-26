@@ -72,25 +72,25 @@
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                 <h3 id="myModalLabel">Ziyaret edilecek mekanlar</h3>
                                             </div>
-                                            <div class="modal-body"> 
-                                              @{
-                                                  using (B2DriveForPostEntities db = new B2DriveForPostEntities())
-                                                  {
-                                                      var placeList = db.SupervisorVisitPlaces.Where(p => p.VisitPlaceID == item.ID).Include(v => v.VisitPlace).Include(v => v.Place); 
-                                                      foreach (var place in placeList)
-                                                      {
-                                                        <p> * @place.Place.Name - @place.Place.Address</p>
-                                                      } 
-                                                  } 
-                                            } 
+                                            <div class="modal-body">
+                                                @{
+                                                    using (B2DriveForPostEntities db = new B2DriveForPostEntities())
+                                                    {
+                                                        var placeList = db.SupervisorVisitPlaces.Where(p => p.VisitPlaceID == item.ID).Include(v => v.VisitPlace).Include(v => v.Place);
+                                                        foreach (var place in placeList)
+                                                        {
+                                                            <p> * @place.Place.Name - @place.Place.Address</p>
+                                                        }
+                                                    }
+                                                }
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button> 
+                                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                                             </div>
                                         </div>
                                     }
-                                    </td> 
-                                </tr>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -103,7 +103,7 @@
 
     }
 
-    @if (Model.Where(p => p.EndDate < DateTime.Now).OrderByDescending(x=>x.StartDate).Count() > 0)
+    @if (Model.Where(p => p.EndDate < DateTime.Now).OrderByDescending(x => x.StartDate).Count() > 0)
     {
         <div class="widget widget-table action-table">
             <div class="widget-header">
@@ -119,18 +119,22 @@
                             <th> Adresi </th>
                             <th> Başlangıç Tarihi </th>
                             <th> Bitiş Tarihi </th>
+                            <th class="td-actions"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model.Where(p => p.EndDate < DateTime.Now))
                         {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Place.Name) </td>
-                            <td>@Html.DisplayFor(modelItem => item.Place.Address) </td>
-                            <td>@Html.DisplayFor(modelItem => item.StartDate)  </td>
-                            <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
-                            @*<td class="td-actions"><a href="javascript:;" class="btn btn-small btn-success">Göster <i class="btn-icon-only icon-circle-arrow-right">  </i></a></td>*@
-                        </tr>
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Place.Name) </td>
+                                <td>@Html.DisplayFor(modelItem => item.Place.Address) </td>
+                                <td>@Html.DisplayFor(modelItem => item.StartDate)  </td>
+                                <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
+                                @*<td class="td-actions"><a href="javascript:;" class="btn btn-small btn-success">Göster <i class="btn-icon-only icon-circle-arrow-right">  </i></a></td>*@
+                                <td class="td-actions">
+                                    <a href="@(hrefString + item.ID)" class="btn btn-small btn-success">Git <i class="btn-icon-only icon-circle-arrow-right">  </i></a> 
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
