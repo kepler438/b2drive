@@ -3,14 +3,14 @@
     $(this).before($("<div/>", {
         id: 'filediv'
     }).fadeIn('slow').append(
-      $("<input/>", {
-          name: 'file[]',
-          type: 'file',
-          id: 'file',
-          multiple: 'multiple',
-          accept: 'image/*'
-      })
-    ));
+        $("<input/>", {
+            name: 'file[]',
+            type: 'file',
+            id: 'file',
+            multiple: 'multiple',
+            accept: 'image/*'
+        })
+        ));
 });
 
 $('#upload').click(function (e) {
@@ -46,9 +46,9 @@ $("#file").on('change', function () {
         $("[id^=previewImg]").remove();
         $.each(this.files, function (i, img) {
             var reader = new FileReader(),
-              newElement = $("<div id='previewImg" + i + "' class='previewBox'><img /></div>"),
-              deleteBtn = $("<span class='delete' onClick='deletePreview(this, " + i + ")'>X</span>").prependTo(newElement),
-              preview = newElement.find("img");
+                newElement = $("<div id='previewImg" + i + "' class='previewBox'><img /></div>"),
+                deleteBtn = $("<span class='delete' onClick='deletePreview(this, " + i + ")'>X</span>").prependTo(newElement),
+                preview = newElement.find("img");
 
             reader.onloadend = function () {
                 preview.attr("src", reader.result);
@@ -134,5 +134,6 @@ $(window).on("load", function (e) {
     var paddingList = $('.myPadding');
     for (var i = 0; i < paddingList.length; i++) {
         $(($(paddingList[i]).children())[0]).attr("style", "margin-left:15px")
-    } });
+    }
+});
 

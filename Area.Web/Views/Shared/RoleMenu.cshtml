@@ -156,6 +156,7 @@
                     <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "picknavigation" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "placecontrol" ? "active" : string.Empty)">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-map-marker"></i><span>Nokta Yönetimi</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            <li><a href="/adminplace">Mekan Ekle</a></li>
                             <li><a href="/adminplacecontrol">Personel Denetle ve Onayla</a></li>
                             <li><a href="/adminplacecontrol/supervisor">Supervisor Denetle ve Onayla</a></li>
                             @*<li><a href="/adminpicknavigation">Atama Yap</a></li>*@
@@ -168,7 +169,7 @@
             else if (UserType == (int)EnumUserType.Customer)
             {
                 <ul class="mainnav">
-                    <li class="active"><a href="/"><i class="icon-dashboard"></i><span>Raporlar</span> </a> </li>
+                    <li class="active"><a href="/CustomerHome"><i class="icon-dashboard"></i><span>Raporlar</span> </a> </li>
                     @*<li class=""><a href="#"><i class="icon-table"></i><span>Müsaitlik Durumu</span> </a> </li>
                     <li class=""><a href="#"><i class="icon-trophy"></i><span>Şef Mekanları</span> </a> </li>
                     <li class=""><a href="#"><i class="icon-certificate"></i><span>Sarflar</span> </a> </li>

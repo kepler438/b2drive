@@ -207,6 +207,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Attributes\VerifyUserAttribute.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminPlaceController.cs" />
     <Compile Include="Controllers\AdminRegionController.cs" />
     <Compile Include="Controllers\AdminSPPlaceDeliveryProductsController.cs" />
     <Compile Include="Controllers\AdminSupervisorVisitController.cs" />
@@ -344,6 +345,11 @@
     <Content Include="Views\AdminVisitPlaceCarInfoes\Create.cshtml" />
     <Content Include="Views\AdminVisitPlaceWareHouses\Create.cshtml" />
     <Content Include="Views\AdminSPPlaceDeliveryProducts\Create.cshtml" />
+    <Content Include="Views\AdminPlace\Create.cshtml" />
+    <Content Include="Views\AdminPlace\Delete.cshtml" />
+    <Content Include="Views\AdminPlace\Details.cshtml" />
+    <Content Include="Views\AdminPlace\Edit.cshtml" />
+    <Content Include="Views\AdminPlace\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
