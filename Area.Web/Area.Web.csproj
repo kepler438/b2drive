@@ -219,9 +219,11 @@
     <Compile Include="Controllers\CheckOutController.cs" />
     <Compile Include="Controllers\CustomerHomeController.cs" />
     <Compile Include="Controllers\CustomerPlaceMapController.cs" />
+    <Compile Include="Controllers\CustomerReportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AdminPickNavigationController.cs" />
     <Compile Include="Controllers\AdminPlaceControlController.cs" />
+    <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\ProductCategoriesController.cs" />
     <Compile Include="Controllers\ProductSaleController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -350,6 +352,16 @@
     <Content Include="Views\AdminPlace\Details.cshtml" />
     <Content Include="Views\AdminPlace\Edit.cshtml" />
     <Content Include="Views\AdminPlace\Index.cshtml" />
+    <Content Include="Views\Invoices\Index.cshtml" />
+    <Content Include="Views\Invoices\Edit.cshtml" />
+    <Content Include="Views\Invoices\Create.cshtml" />
+    <Content Include="Views\CustomerReport\SamePlace.cshtml" />
+    <Content Include="Views\CustomerReport\DifferentPlace.cshtml" />
+    <Content Include="Views\CustomerReport\ConversionAndUKS.cshtml" />
+    <Content Include="Views\CustomerReport\PlaceOccupancyRate.cshtml" />
+    <Content Include="Views\CustomerReport\GeneralEvaluationReport.cshtml" />
+    <Content Include="Views\CustomerReport\ConversionPlaceRate.cshtml" />
+    <Content Include="Views\CustomerReport\UksRate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

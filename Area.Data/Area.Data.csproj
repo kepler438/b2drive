@@ -67,11 +67,41 @@
     <Compile Include="AvailableUserVisit.cs">
       <DependentUpon>AreaEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="City.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="CustomEntity\Answer.cs" />
     <Compile Include="CustomEntity\Evaluation.cs" />
     <Compile Include="CustomEntity\Question.cs" />
     <Compile Include="Enums\EnumUserType.cs" />
     <Compile Include="Enums\ProductSaleType.cs" />
+    <Compile Include="GetConversionAndUKS_Result.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetConversionPlaceRate_Result.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetDifferentPlace_Result.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetGeneralEvaluation_Result.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetPlaceOccupancyRate_Result.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetPointActivities_Result.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetSamePlace_Result.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetUKSRate_Result.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Permission.cs">
       <DependentUpon>AreaEntities.tt</DependentUpon>
     </Compile>

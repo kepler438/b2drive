@@ -12,27 +12,18 @@ namespace Area.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Place
+    public partial class City
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Place()
+        public City()
         {
-            this.SupervisorVisitPlaces = new HashSet<SupervisorVisitPlace>();
-            this.VisitPlaces = new HashSet<VisitPlace>();
+            this.Places = new HashSet<Place>();
         }
     
         public int ID { get; set; }
-        public Nullable<int> RegionID { get; set; }
-        public Nullable<int> CityID { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public bool IsActive { get; set; }
+        public string CityName { get; set; }
     
-        public virtual City City { get; set; }
-        public virtual Region Region { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupervisorVisitPlace> SupervisorVisitPlaces { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VisitPlace> VisitPlaces { get; set; }
+        public virtual ICollection<Place> Places { get; set; }
     }
 }

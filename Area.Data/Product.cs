@@ -27,6 +27,7 @@ namespace Area.Data
         public int ID { get; set; }
         public Nullable<int> SubCategoryID { get; set; }
         public string Name { get; set; }
+        public Nullable<int> CLValue { get; set; }
         public System.DateTime CreateDate { get; set; }
         public bool IsActive { get; set; }
     

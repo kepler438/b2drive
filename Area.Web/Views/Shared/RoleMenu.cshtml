@@ -139,12 +139,12 @@
                     @*<li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "createuser" ? "active" : string.Empty)"><a href="/createuser"><i class="icon-user"></i><span>Kullanıcı Oluştur</span> </a> </li>*@
 
                     @*<li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "adminregion" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "adminplace" ? "active" : string.Empty)">
-                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-sitemap"></i><span>Bölge/Mekan Yönetimi</span> <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/adminregion/Index">Bölge</a></li>
-                            <li><a href="/adminplace/Index">Mekan</a></li
-                        </ul>
-                    </li>*@ 
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-sitemap"></i><span>Bölge/Mekan Yönetimi</span> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/adminregion/Index">Bölge</a></li>
+                                <li><a href="/adminplace/Index">Mekan</a></li
+                            </ul>
+                        </li>*@
                     <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "picknavigation")">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-cog"></i><span>Personel/Supervisor Yönetimi</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -164,21 +164,28 @@
                         </ul>
                     </li>
 
+                    @*TODO EKLE BUNU*@
+                    <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "invoices" ? "active" : string.Empty)"><a href="/invoices"><i class="icon-group"></i><span>Fatura Yönetimi</span> </a> </li>
+
                 </ul>
             }
             else if (UserType == (int)EnumUserType.Customer)
             {
                 <ul class="mainnav">
-                    <li class="active"><a href="/CustomerHome"><i class="icon-dashboard"></i><span>Raporlar</span> </a> </li>
-                    @*<li class=""><a href="#"><i class="icon-table"></i><span>Müsaitlik Durumu</span> </a> </li>
-                    <li class=""><a href="#"><i class="icon-trophy"></i><span>Şef Mekanları</span> </a> </li>
-                    <li class=""><a href="#"><i class="icon-certificate"></i><span>Sarflar</span> </a> </li>
-                    <li class=""><a href="#"><i class="icon-briefcase"></i><span>Mekan Raporları</span> </a> </li>
-                    <li class=""><a href="#"><i class="icon-money"></i><span>Satış Raporları</span> </a> </li>
-                    <li class=""><a href="#"><i class="icon-gift"></i><span>Harcanan Ürünler</span> </a> </li>
-                    <li class=""><a href="#"><i class="icon-signin"></i><span>Stok Raporları</span> </a> </li>
-                    <li class=""><a href="#"><i class="icon-truck"></i><span>Depo Envanteri</span> </a> </li>
-                    <li class=""><a href="#"><i class="icon-camera-retro"></i><span>Mekan Foto</span> </a> </li>*@
+                    <li class=" @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "customerhome" ? "active" : string.Empty)"><a href="/customerhome"><i class="icon-dashboard"></i><span>Raporlar</span> </a> </li>
+                    <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "customerreport" ? "active" : string.Empty)">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-table"></i><span>Detayli Raporlar</span> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/customerreport/differentplace">Farkli Mekanlar</a></li>
+                            <li><a href="/customerreport/sameplace">Tekrar Eden Mekanlar</a></li>
+                            <li><a href="/customerreport/conversionanduks">Conversion - Ulasilan Kisi Sayisi</a></li>
+                            <li><a href="/customerreport/generalevaluationreport">Genel Degerlendirme Raporu</a></li>
+                            <li><a href="/customerreport/placeoccupancyrate">Doluluk Oranlari</a></li>
+                            <li><a href="/customerreport/uksrate">U.K.S Orani</a></li>
+                            <li><a href="/customerreport/conversionplacerate">Mekan Bazli Conversion</a></li>
+
+                        </ul>
+                    </li>
                 </ul>
             }
         </div>

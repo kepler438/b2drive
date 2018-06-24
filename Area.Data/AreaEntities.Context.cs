@@ -12,6 +12,8 @@ namespace Area.Data
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class B2DriveForPostEntities : DbContext
     {
@@ -26,6 +28,8 @@ namespace Area.Data
         }
     
         public virtual DbSet<AvailableUserVisit> AvailableUserVisits { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Place> Places { get; set; }
         public virtual DbSet<PlaceCheckInfo> PlaceCheckInfoes { get; set; }
@@ -53,5 +57,125 @@ namespace Area.Data
         public virtual DbSet<VisitPlaceWareHouse> VisitPlaceWareHouses { get; set; }
         public virtual DbSet<WareHouse> WareHouses { get; set; }
         public virtual DbSet<WareHouseProduct> WareHouseProducts { get; set; }
+    
+        public virtual ObjectResult<GetConversionAndUKS_Result> GetConversionAndUKS(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var placeIDParameter = placeID.HasValue ?
+                new ObjectParameter("PlaceID", placeID) :
+                new ObjectParameter("PlaceID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetConversionAndUKS_Result>("GetConversionAndUKS", startDateParameter, endDateParameter, placeIDParameter);
+        }
+    
+        public virtual ObjectResult<GetConversionPlaceRate_Result> GetConversionPlaceRate(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var placeIDParameter = placeID.HasValue ?
+                new ObjectParameter("PlaceID", placeID) :
+                new ObjectParameter("PlaceID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetConversionPlaceRate_Result>("GetConversionPlaceRate", startDateParameter, endDateParameter, placeIDParameter);
+        }
+    
+        public virtual ObjectResult<GetDifferentPlace_Result> GetDifferentPlace(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDifferentPlace_Result>("GetDifferentPlace", startDateParameter, endDateParameter);
+        }
+    
+        public virtual ObjectResult<GetGeneralEvaluation_Result> GetGeneralEvaluation(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var placeIDParameter = placeID.HasValue ?
+                new ObjectParameter("PlaceID", placeID) :
+                new ObjectParameter("PlaceID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetGeneralEvaluation_Result>("GetGeneralEvaluation", startDateParameter, endDateParameter, placeIDParameter);
+        }
+    
+        public virtual ObjectResult<GetPlaceOccupancyRate_Result> GetPlaceOccupancyRate(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var placeIDParameter = placeID.HasValue ?
+                new ObjectParameter("PlaceID", placeID) :
+                new ObjectParameter("PlaceID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPlaceOccupancyRate_Result>("GetPlaceOccupancyRate", startDateParameter, endDateParameter, placeIDParameter);
+        }
+    
+        public virtual ObjectResult<GetPointActivities_Result> GetPointActivities(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPointActivities_Result>("GetPointActivities", startDateParameter, endDateParameter);
+        }
+    
+        public virtual ObjectResult<GetSamePlace_Result> GetSamePlace(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSamePlace_Result>("GetSamePlace", startDateParameter, endDateParameter);
+        }
+    
+        public virtual ObjectResult<GetUKSRate_Result> GetUKSRate(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUKSRate_Result>("GetUKSRate", startDateParameter, endDateParameter);
+        }
     }
 }
