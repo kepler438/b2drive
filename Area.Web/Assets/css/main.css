@@ -51,49 +51,55 @@
     opacity: 0 !important;
 }
 
-.btn-depo-teslim,
-.btn-depo-urun {
-    width: 130px !important;
+.widget-header-st {
+    height: 56px;
 }
 
-.btn-depo-urun {
-    margin-bottom: 10px;
+/*.widget-header-st .span2 {
+        margin-left: 5px;
+        margin-top: 3px;
+    }
+
+        .widget-header-st .span2:nth-child(2) {
+            margin-left: 80px;
+        }
+
+        .widget-header-st .span2:nth-child(3) {
+            margin-left: 80px;
+            margin-top: -2px;
+        }
+
+        .widget-header-st .span2 {
+            margin: 0px;
+        }*/
+
+.filterForm {
+    padding-left: 5px;
 }
 
-.btn-git {
-    width: 82px;
-    margin-bottom: 10px;
+.filterBtnArea {
+    margin-top: 12px;
 }
 
-/*
-.footer {
-    position: absolute !important;
-    width: 100% !important;
-    bottom: 0px !important;
+.innerTableHead,
+.innerTableBody {
+    display: none;
 }
 
-.main {
-    padding-bottom: 0em;
-    border-bottom: none;
+.cursorPointer {
+    cursor: pointer;
 }
 
-  */
+.innerTableHead th {
+    background: yellow !important;
+}
+
+.openInnerTable.selected .innerTableBody td {
+    color: red;
+}
+
 
 @media (max-width: 576px) {
-
-    .btn-git {
-        margin-top: 5px;
-    }
-
-    .btn-arac-teslim {
-        margin-bottom: 5px;
-    }
-
-    .btn-depo-teslim,
-    .btn-depo-urun {
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
     .btn-orange-st {
         display: block !important;
         width: 80% !important;
@@ -113,7 +119,6 @@
     .btn-red-st {
         display: block;
         width: 80%;
-        margin-bottom: 5px;
     }
 
     .table th, .table td {
@@ -130,6 +135,24 @@
         width: 7% !important;
     }
 
+    .filterForm .row > [class*="span"],
+    .filterForm .row-fluid > [class*="span"] {
+        float: none !important;
+    }
+
+    .filterForm .span3 {
+        width: 100% !important;
+    }
+
+        .filterForm .span3 input {
+            width: 97% !important;
+        }
+
+
+        .filterForm .span3 button,
+        .filterForm .span3 select {
+            width: 99%;
+        }
 }
 
 @media (max-width: 767px) {
@@ -144,5 +167,24 @@
 
     .ImageRowSmall {
         margin-left: 2%;
+    }
+
+    .filterBtnArea {
+        margin-top: 13px !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .filterForm .span3 {
+        width: 226px;
+    }
+
+    .widget-header-st {
+        height: 100%;
+    }
+
+    .filterForm .row > [class*="span"],
+    .filterForm .row-fluid > [class*="span"] {
+        float: left;
     }
 }
