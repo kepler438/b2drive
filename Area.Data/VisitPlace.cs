@@ -30,6 +30,7 @@ namespace Area.Data
     
         public int ID { get; set; }
         public Nullable<int> UserID { get; set; }
+        public int ProductSubCategory { get; set; }
         public System.DateTime StartDate { get; set; }
         public System.DateTime EndDate { get; set; }
         public Nullable<int> PlaceID { get; set; }
@@ -49,6 +50,7 @@ namespace Area.Data
         public virtual ICollection<ProductRecivedDelivered> ProductRecivedDelivereds { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductSale> ProductSales { get; set; }
+        public virtual ProductSubCategory ProductSubCategory1 { get; set; }
         public virtual Region Region { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupervisorVisitPlace> SupervisorVisitPlaces { get; set; }

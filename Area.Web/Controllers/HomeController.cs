@@ -21,7 +21,7 @@ namespace Area.Web.Controllers
             using (B2DriveForPostEntities db = new B2DriveForPostEntities())
             {
                 int userId = Convert.ToInt32(Session["UserId"]);
-                var visitPlaces = db.VisitPlaces.Where(p => p.UserID == userId).Include(v => v.Place).Include(v => v.PlaceCheckInfo).Include(v => v.User).Include(v=>v.Region);
+                var visitPlaces = db.VisitPlaces.Where(p => p.UserID == userId).Include(v => v.Place).Include(v => v.PlaceCheckInfo).Include(v => v.User).Include(v=>v.Region).Include(v=>v.ProductSubCategory);
                 return View(visitPlaces.ToList());
             }
         }

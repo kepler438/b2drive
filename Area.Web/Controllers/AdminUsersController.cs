@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Area.Data;
+using Area.Data.CustomEntity;
 using Area.Web.Helper;
 
 namespace Area.Web.Controllers
@@ -28,17 +29,24 @@ namespace Area.Web.Controllers
         }
         
         [HttpPost]
-        public ActionResult Create(User user)
+        public ActionResult Create(InputUser user)
         {
             if (ModelState.IsValid)
             {
+                User saveUser = new User();
                 Permission perm = db.Permissions.Where(x => x.Id ==user.permission).FirstOrDefault();
                 if (perm != null)
                 {
-                    user.Permissions.Add(perm);
+                    saveUser.Permissions.Add(perm);
                 }
-                user.CreateDate = DateTime.Now;
-                db.Users.Add(user);
+                saveUser.FirstName = user.FirstName;
+                saveUser.LastName = user.LastName;
+                saveUser.Phone = user.Phone;
+                saveUser.MailAddress = user.MailAddress;
+                saveUser.UserName = user.UserName;
+                saveUser.IsActive = user.IsActive;
+                saveUser.CreateDate = DateTime.Now;
+                db.Users.Add(saveUser);
                 db.SaveChanges(); 
 
                 Area.Data.UserPassword newUserPassword = new UserPassword();
@@ -46,7 +54,7 @@ namespace Area.Web.Controllers
                 var password = LogHelper.EncodePassword(user.Password, keyNew);
                 newUserPassword.CreatedDate = DateTime.Now;
                 newUserPassword.IsActive = true;
-                newUserPassword.UserId = user.ID;
+                newUserPassword.UserId = saveUser.ID;
                 newUserPassword.Password = password;
                 newUserPassword.Vcode = keyNew;
                 db.UserPasswords.Add(newUserPassword);

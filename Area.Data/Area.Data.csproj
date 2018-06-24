@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="CustomEntity\Answer.cs" />
     <Compile Include="CustomEntity\Evaluation.cs" />
+    <Compile Include="CustomEntity\InputUser.cs" />
     <Compile Include="CustomEntity\Question.cs" />
     <Compile Include="Enums\EnumUserType.cs" />
     <Compile Include="Enums\ProductSaleType.cs" />

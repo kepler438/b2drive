@@ -49,6 +49,7 @@ namespace Area.Web.Controllers
         public ActionResult Create()
         {
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name");
+            ViewBag.ProductSubCategory = new SelectList(db.ProductSubCategories.Where(p=>p.CategoryID != 2), "ID", "Name");
             ViewBag.CheckInfoID = new SelectList(db.PlaceCheckInfoes, "ID", "CheckinLatitude");
             ViewBag.RegionID = new SelectList(db.Regions, "ID", "Name");
             ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Personnel), "ID", "UserName");
@@ -68,6 +69,7 @@ namespace Area.Web.Controllers
             }
 
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", visitPlace.PlaceID);
+            ViewBag.ProductSubCategory = new SelectList(db.ProductSubCategories.Where(p => p.CategoryID != 2), "ID", "Name", visitPlace.ProductSubCategory);
             ViewBag.CheckInfoID = new SelectList(db.PlaceCheckInfoes, "ID", "CheckinLatitude", visitPlace.CheckInfoID);
             ViewBag.RegionID = new SelectList(db.Regions, "ID", "Name", visitPlace.RegionID);
             ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Personnel), "ID", "FirstName", visitPlace.UserID);
@@ -101,6 +103,7 @@ namespace Area.Web.Controllers
                 return HttpNotFound();
             }
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", visitPlace.PlaceID);
+            ViewBag.ProductSubCategory = new SelectList(db.ProductSubCategories.Where(p => p.CategoryID != 2), "ID", "Name", visitPlace.ProductSubCategory);
             ViewBag.CheckInfoID = new SelectList(db.PlaceCheckInfoes, "ID", "CheckinLatitude", visitPlace.CheckInfoID);
             ViewBag.RegionID = new SelectList(db.Regions, "ID", "Name", visitPlace.RegionID);
             ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Personnel), "ID", "FirstName", visitPlace.UserID);
@@ -125,6 +128,7 @@ namespace Area.Web.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", visitPlace.PlaceID);
+            ViewBag.ProductSubCategory = new SelectList(db.ProductSubCategories.Where(p => p.CategoryID != 2), "ID", "Name", visitPlace.ProductSubCategory);
             ViewBag.CheckInfoID = new SelectList(db.PlaceCheckInfoes, "ID", "CheckinLatitude", visitPlace.CheckInfoID);
             ViewBag.RegionID = new SelectList(db.Regions, "ID", "Name", visitPlace.RegionID);
             ViewBag.UserID = new SelectList(GetTypedUserList(EnumUserType.Personnel), "ID", "FirstName", visitPlace.UserID);

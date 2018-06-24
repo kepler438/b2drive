@@ -30,8 +30,10 @@
 
                         <div class="span3">
                             <h5>Başlangıç Tarihi</h5>
-                            <div>
-                                <input type="text" name="startdate" class="form-control" id="datetimepicker1" value="@start" />
+                            <div class="controls datetimepicker1">
+                                <span class="add-on">
+                                    <input type="text" name="startdate" class="form-control" id="datetimepicker1" value="@start" autocomplete="off" />
+                                </span>
                             </div>
                         </div>
 
@@ -39,8 +41,10 @@
                         <div class="span3">
                             <h5>Bitiş Tarihi</h5>
                             <div class="container">
-                                <div>
-                                    <input type="text" name="enddate" class="form-control" id="datetimepicker2" value="@end" />
+                                <div class="controls datetimepicker1">
+                                    <span class="add-on">
+                                        <input type="text" name="enddate" class="form-control" id="datetimepicker2" value="@end"  autocomplete="off" />
+                                    </span>
                                 </div>
                             </div>
                         </div>

@@ -40,6 +40,7 @@
                     <thead>
                         <tr>
                             <th> Mekan Adı </th>
+                            <th> Ürün </th> 
                             <th> Adresi </th>
                             <th> Başlangıç Tarihi </th>
                             <th> Bitiş Tarihi </th>
@@ -50,47 +51,48 @@
                         @foreach (var item in Model.Where(p => p.EndDate > DateTime.Now))
                         {
                             bool region = (UserType == (int)EnumUserType.Supervisor && item.RegionID != null) ? true : false;
-                            <tr>
+                        <tr>
+                            @if (region)
+    {
+                        <td>@Html.DisplayFor(modelItem => item.Region.Name) </td>
+}
+else
+{
+                        <td>@Html.DisplayFor(modelItem => item.Place.Name) </td>
+}
+                            <td>@Html.DisplayFor(modelItem => item.ProductSubCategory1.Name) </td> 
+                            <td>@Html.DisplayFor(modelItem => item.Place.Address) </td>
+                            <td>@Html.DisplayFor(modelItem => item.StartDate)  </td>
+                            <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
+                            <td class="td-actions">
+                                <a href="@(hrefString + item.ID)" class="btn btn-small btn-success">Git <i class="btn-icon-only icon-circle-arrow-right">  </i></a>
                                 @if (region)
-                                {
-                                    <td>@Html.DisplayFor(modelItem => item.Region.Name) </td>
+        {
+                        <a href="#myModal@(item.ID)" class="btn btn-small btn btn-info" data-toggle="modal">Mekanlar</a>
+                        <div id="myModal@(item.ID)" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h3 id="myModalLabel">Ziyaret edilecek mekanlar</h3>
+                            </div>
+                            <div class="modal-body">
+                                @{
+            using (B2DriveForPostEntities db = new B2DriveForPostEntities())
+            {
+                var placeList = db.SupervisorVisitPlaces.Where(p => p.VisitPlaceID == item.ID).Include(v => v.VisitPlace).Include(v => v.Place);
+                foreach (var place in placeList)
+                {
+                        <p> * @place.Place.Name - @place.Place.Address</p>
+}
+}
                                 }
-                                else
-                                {
-                                    <td>@Html.DisplayFor(modelItem => item.Place.Name) </td>
-                                }
-                                <td>@Html.DisplayFor(modelItem => item.Place.Address) </td>
-                                <td>@Html.DisplayFor(modelItem => item.StartDate)  </td>
-                                <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
-                                <td class="td-actions">
-                                    <a href="@(hrefString + item.ID)" class="btn btn-small btn-success">Git <i class="btn-icon-only icon-circle-arrow-right">  </i></a>
-                                    @if (region)
-                                    {
-                                        <a href="#myModal@(item.ID)" class="btn btn-small btn btn-info" data-toggle="modal">Mekanlar</a>
-                                        <div id="myModal@(item.ID)" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                <h3 id="myModalLabel">Ziyaret edilecek mekanlar</h3>
-                                            </div>
-                                            <div class="modal-body">
-                                                @{
-                                                    using (B2DriveForPostEntities db = new B2DriveForPostEntities())
-                                                    {
-                                                        var placeList = db.SupervisorVisitPlaces.Where(p => p.VisitPlaceID == item.ID).Include(v => v.VisitPlace).Include(v => v.Place);
-                                                        foreach (var place in placeList)
-                                                        {
-                                                            <p> * @place.Place.Name - @place.Place.Address</p>
-                                                        }
-                                                    }
-                                                }
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                            </div>
-                                        </div>
-                                    }
-                                </td>
-                            </tr>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                            </div>
+                        </div>
+}
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
