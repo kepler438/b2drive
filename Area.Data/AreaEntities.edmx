@@ -293,7 +293,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
-          <Property Name="ProductSubCategory" Type="int" Nullable="false" />
+          <Property Name="ProductSubCategoryID" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="PlaceID" Type="int" />
@@ -795,7 +795,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="VisitPlace">
-              <PropertyRef Name="ProductSubCategory" />
+              <PropertyRef Name="ProductSubCategoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1808,7 +1808,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" />
-          <Property Name="ProductSubCategory" Type="Int32" Nullable="false" />
+          <Property Name="ProductSubCategoryID" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PlaceID" Type="Int32" />
@@ -1823,7 +1823,7 @@
           <NavigationProperty Name="PlacePhotoes" Relationship="B2DriveForPostModel.FK_PlacePhoto_VisitPlace" FromRole="VisitPlace" ToRole="PlacePhoto" />
           <NavigationProperty Name="ProductRecivedDelivereds" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_VisitPlace" FromRole="VisitPlace" ToRole="ProductRecivedDelivered" />
           <NavigationProperty Name="ProductSales" Relationship="B2DriveForPostModel.FK_ProductSale_VisitPlace" FromRole="VisitPlace" ToRole="ProductSale" />
-          <NavigationProperty Name="ProductSubCategory1" Relationship="B2DriveForPostModel.FK_VisitPlace_ProductSubCategory" FromRole="VisitPlace" ToRole="ProductSubCategory" />
+          <NavigationProperty Name="ProductSubCategory" Relationship="B2DriveForPostModel.FK_VisitPlace_ProductSubCategory" FromRole="VisitPlace" ToRole="ProductSubCategory" />
           <NavigationProperty Name="Region" Relationship="B2DriveForPostModel.FK_VisitPlace_Region" FromRole="VisitPlace" ToRole="Region" />
           <NavigationProperty Name="SupervisorVisitPlaces" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_VisitPlace" FromRole="VisitPlace" ToRole="SupervisorVisitPlace" />
           <NavigationProperty Name="SupervisorVisitPlaces1" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlace_VisitPlaceParent" FromRole="VisitPlace" ToRole="SupervisorVisitPlace" />
@@ -2203,7 +2203,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="VisitPlace">
-              <PropertyRef Name="ProductSubCategory" />
+              <PropertyRef Name="ProductSubCategoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2835,7 +2835,7 @@
                 <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="ProductSubCategory" ColumnName="ProductSubCategory" />
+                <ScalarProperty Name="ProductSubCategoryID" ColumnName="ProductSubCategoryID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
