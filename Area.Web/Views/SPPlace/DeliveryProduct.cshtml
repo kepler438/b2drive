@@ -29,17 +29,18 @@
                         </thead>
                         <tbody>
                             @foreach (var item in productList)
-                            {
-                                <tr>
-                                    <td>@item.Product.ProductSubCategory.ProductCategory.Name </td>
-                                    <td>@item.Product.ProductSubCategory.Name </td>
-                                    <td>@item.Product.Name  </td>
-                                    <td>@item.Quantity</td>
-                                    <td>@item.Note</td>
-                                </tr>
-                            }
+            {
+                <tr>
+                    <td>@item.Product.ProductSubCategory.ProductCategory.Name </td>
+                    <td>@item.Product.ProductSubCategory.Name </td>
+                    <td>@item.Product.Name  </td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Note</td>
+                </tr>
+}
                         </tbody>
                     </table>
+                    <a href="/sphome" class="btn btn-small btn-warning one pull-left"><i class="btn-icon-only icon-circle-arrow-left"> Geri Gel </i></a>
                 </div>
             </div>
         </div>

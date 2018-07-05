@@ -70,10 +70,10 @@
                             <td>@Html.DisplayFor(modelItem => item.CarReceiveDate)</td>
                             <td class="td-actions">
                                 <a href="spcarinfo/@item.VisitPlaceID" class="btn btn-small btn-success btn-git">
-                                    Git
+                                    Araç Teslim Al
                                     <i class="btn-icon-only icon-circle-arrow-right"></i>
                                 </a>
-                                <a href="#" class="btn btn-small btn-info btn-arac-teslim">
+                                <a href="spcarinfo/checkoutpage/@item.VisitPlaceID" class="btn btn-small btn-info btn-arac-teslim">
                                     Araç Teslim Et
                                     <i class="btn-icon-only icon-circle-arrow-right"></i>
                                 </a>
@@ -111,7 +111,7 @@
                             <td>@Html.DisplayFor(modelItem => item.WareHouse.Address)  </td>
                             <td class="td-actions">
                                 <a href="/warehouse/detail/@item.ID" class="btn btn-small btn-success btn-depo-urun">Depodan Ürün Al<i class="btn-icon-only icon-circle-arrow-right">  </i></a>
-                                <a href="/warehouse/productdelivery/@item.ID" class="btn btn-small btn-info btn-depo-teslim">Depoya Ürün Teslim Et<i class="btn-icon-only icon-circle-arrow-right">  </i></a>
+                                <a href="/warehouse/productdelivery/@item.ID" class="btn btn-small btn-info btn-depo-teslim">Ürün Teslim Et<i class="btn-icon-only icon-circle-arrow-right">  </i></a>
                             </td>
                         </tr>
                         }

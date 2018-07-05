@@ -21,8 +21,8 @@
     B2DriveForPostEntities db = new B2DriveForPostEntities();
     var placeList = db.Places.OrderBy(p => p.Name).ToList();
 
-    var productCategoryList = db.ProductCategories.OrderBy(p => p.Name).ToList();
-    var productSubCategoryList = db.ProductSubCategories.OrderBy(p => p.Name).ToList();
+    var productCategoryList = db.ProductCategories.Where(p => p.ID != 2).OrderBy(p => p.Name).ToList();
+    var productSubCategoryList = db.ProductSubCategories.Where(p => p.CategoryID != 2).OrderBy(p => p.Name).ToList();
 }
 <div class="span12">
     <div class="widget widget-table action-table">
