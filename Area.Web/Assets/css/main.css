@@ -47,9 +47,9 @@
     position: relative;
 }
 
-.modal-backdrop, .modal-backdrop.fade.in {
+/*.modal-backdrop, .modal-backdrop.fade.in {
     opacity: 0 !important;
-}
+}*/
 
 .widget-header-st {
     height: 56px;
@@ -98,6 +98,32 @@
     color: red;
 }
 
+.openInnerTable.selected .innerTableBody,
+.openInnerTable.selected .innerTableHead {
+    display: table-row;
+}
+
+.openInnerTable.selected .cursorPointer td {
+    background-color: #DADADA;
+}
+
+.Fourinput-ST {
+    height: 100%;
+    padding: 10px 0px;
+}
+
+.Fourinput-ST .filterForm {
+    margin: 0px;
+}
+
+
+.Fourinput-ST .span3 {
+    width: 240px;
+}
+
+.span3.filterBtnArea {
+    width: 6%;
+}
 
 @media (max-width: 576px) {
     .btn-orange-st {

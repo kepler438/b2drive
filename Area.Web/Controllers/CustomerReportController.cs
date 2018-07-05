@@ -13,7 +13,9 @@ namespace Area.Web.Controllers
         {
             input.startdate = input.startdate == null ? GetNullStartDate() : input.startdate;
             input.enddate = input.enddate == null ? GetNullEndDate() : input.enddate;
-            var result = db.GetSamePlace(input.startdate, input.enddate);
+            input.CategoryID = input.CategoryID == 0 ? null : input.CategoryID;
+            input.SubCategoryID = input.SubCategoryID == 0 ? null : input.SubCategoryID;
+            var result = db.GetSamePlace(input.startdate, input.enddate,input.CategoryID,input.SubCategoryID);
             return View(result);
         }
 
@@ -21,7 +23,9 @@ namespace Area.Web.Controllers
         {
             input.startdate = input.startdate == null ? GetNullStartDate() : input.startdate;
             input.enddate = input.enddate == null ? GetNullEndDate() : input.enddate;
-            var result = db.GetDifferentPlace(input.startdate, input.enddate);
+            input.CategoryID = input.CategoryID == 0 ? null : input.CategoryID;
+            input.SubCategoryID = input.SubCategoryID == 0 ? null : input.SubCategoryID;
+            var result = db.GetDifferentPlace(input.startdate, input.enddate, input.CategoryID, input.SubCategoryID);
             return View(result);
         }
 
@@ -30,7 +34,9 @@ namespace Area.Web.Controllers
             input.startdate = input.startdate == null ? GetNullStartDate() : input.startdate;
             input.enddate = input.enddate == null ? GetNullEndDate() : input.enddate;
             input.place = input.place == 0 ? null : input.place;
-            var result = db.GetConversionAndUKS(input.startdate, input.enddate, input.place);
+            input.CategoryID = input.CategoryID == 0 ? null : input.CategoryID;
+            input.SubCategoryID = input.SubCategoryID == 0 ? null : input.SubCategoryID;
+            var result = db.GetConversionAndUKS(input.startdate, input.enddate, input.place, input.CategoryID, input.SubCategoryID);
             return View(result);
         }
 
@@ -39,7 +45,9 @@ namespace Area.Web.Controllers
             input.startdate = input.startdate == null ? GetNullStartDate() : input.startdate;
             input.enddate = input.enddate == null ? GetNullEndDate() : input.enddate;
             input.place = input.place == 0 ? null : input.place;
-            var result = db.GetPlaceOccupancyRate(input.startdate, input.enddate, input.place);
+            input.CategoryID = input.CategoryID == 0 ? null : input.CategoryID;
+            input.SubCategoryID = input.SubCategoryID == 0 ? null : input.SubCategoryID;
+            var result = db.GetPlaceOccupancyRate(input.startdate, input.enddate, input.place, input.CategoryID, input.SubCategoryID);
             return View(result);
         }
 
@@ -48,7 +56,9 @@ namespace Area.Web.Controllers
             input.startdate = input.startdate == null ? GetNullStartDate() : input.startdate;
             input.enddate = input.enddate == null ? GetNullEndDate() : input.enddate;
             input.place = input.place == 0 ? null : input.place;
-            var result = db.GetGeneralEvaluation(input.startdate, input.enddate, input.place);
+            input.CategoryID = input.CategoryID == 0 ? null : input.CategoryID;
+            input.SubCategoryID = input.SubCategoryID == 0 ? null : input.SubCategoryID;
+            var result = db.GetGeneralEvaluation(input.startdate, input.enddate, input.place, input.CategoryID, input.SubCategoryID);
             return View(result);
         }
 
@@ -57,7 +67,9 @@ namespace Area.Web.Controllers
             input.startdate = input.startdate == null ? GetNullStartDate() : input.startdate;
             input.enddate = input.enddate == null ? GetNullEndDate() : input.enddate;
             input.place = input.place == 0 ? null : input.place;
-            var result = db.GetConversionPlaceRate(input.startdate, input.enddate, input.place);
+            input.CategoryID = input.CategoryID == 0 ? null : input.CategoryID;
+            input.SubCategoryID = input.SubCategoryID == 0 ? null : input.SubCategoryID;
+            var result = db.GetConversionPlaceRate(input.startdate, input.enddate, input.place, input.CategoryID, input.SubCategoryID);
             return View(result);
         }
 
@@ -66,7 +78,9 @@ namespace Area.Web.Controllers
             input.startdate = input.startdate == null ? GetNullStartDate() : input.startdate;
             input.enddate = input.enddate == null ? GetNullEndDate() : input.enddate;
             input.place = input.place == 0 ? null : input.place;
-            var result = db.GetUKSRate(input.startdate, input.enddate);
+            input.CategoryID = input.CategoryID == 0 ? null : input.CategoryID;
+            input.SubCategoryID = input.SubCategoryID == 0 ? null : input.SubCategoryID;
+            var result = db.GetUKSRate(input.startdate, input.enddate, input.CategoryID, input.SubCategoryID);
             return View(result);
         }
 
@@ -76,6 +90,8 @@ namespace Area.Web.Controllers
             public DateTime? startdate { get; set; }
             public DateTime? enddate { get; set; }
             public int? place { get; set; }
+            public int? CategoryID { get; set; }
+            public int? SubCategoryID { get; set; }
         }
 
         private DateTime GetNullStartDate()

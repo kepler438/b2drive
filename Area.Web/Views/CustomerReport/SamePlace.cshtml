@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Area.Data.GetSamePlace_Result>
+﻿@using Area.Data;
+@model IEnumerable<Area.Data.GetSamePlace_Result>
 @{
     ViewBag.Title = "DifferentPlace";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,11 +16,14 @@
         start = Convert.ToDateTime(startDate);
         end = Convert.ToDateTime(endDate);
     }
+    B2DriveForPostEntities db = new B2DriveForPostEntities();
+    var productCategoryList = db.ProductCategories.OrderBy(p => p.Name).ToList();
+    var productSubCategoryList = db.ProductSubCategories.OrderBy(p => p.Name).ToList();
 
 }
 <div class="span12">
     <div class="widget widget-table action-table">
-        <div class="widget-header  widget-header-st">
+        <div class="widget-header  widget-header-st  Fourinput-ST">
             <form class="filterForm">
                 <div class="container">
                     <div class="row">
@@ -45,7 +49,28 @@
                             </div>
                         </div>
 
+                        <div class="span3">
+                            <h5>Ürün</h5>
+                            <select name="CategoryID">
+                                <option value="0">Seçiniz</option>
+                                @foreach (var item in productCategoryList)
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
+                            </select>
+                        </div>
 
+                        <div class="span3">
+                            <h5>Ürün alt Kategori</h5>
+                            <select name="SubCategoryID">
+                                <option value="0">Seçiniz</option>
+                                @foreach (var item in productSubCategoryList)
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                         
                         <div class="span3 filterBtnArea">
                             <button type="submit" class="btn btn-primary">Filtrele</button>
                         </div>

@@ -58,7 +58,7 @@ namespace Area.Data
         public virtual DbSet<WareHouse> WareHouses { get; set; }
         public virtual DbSet<WareHouseProduct> WareHouseProducts { get; set; }
     
-        public virtual ObjectResult<GetConversionAndUKS_Result> GetConversionAndUKS(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID)
+        public virtual ObjectResult<GetConversionAndUKS_Result> GetConversionAndUKS(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID, Nullable<int> categoryID, Nullable<int> subCategoryID)
         {
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("StartDate", startDate) :
@@ -72,10 +72,18 @@ namespace Area.Data
                 new ObjectParameter("PlaceID", placeID) :
                 new ObjectParameter("PlaceID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetConversionAndUKS_Result>("GetConversionAndUKS", startDateParameter, endDateParameter, placeIDParameter);
+            var categoryIDParameter = categoryID.HasValue ?
+                new ObjectParameter("CategoryID", categoryID) :
+                new ObjectParameter("CategoryID", typeof(int));
+    
+            var subCategoryIDParameter = subCategoryID.HasValue ?
+                new ObjectParameter("SubCategoryID", subCategoryID) :
+                new ObjectParameter("SubCategoryID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetConversionAndUKS_Result>("GetConversionAndUKS", startDateParameter, endDateParameter, placeIDParameter, categoryIDParameter, subCategoryIDParameter);
         }
     
-        public virtual ObjectResult<GetConversionPlaceRate_Result> GetConversionPlaceRate(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID)
+        public virtual ObjectResult<GetConversionPlaceRate_Result> GetConversionPlaceRate(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID, Nullable<int> categoryID, Nullable<int> subCategoryID)
         {
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("StartDate", startDate) :
@@ -89,10 +97,18 @@ namespace Area.Data
                 new ObjectParameter("PlaceID", placeID) :
                 new ObjectParameter("PlaceID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetConversionPlaceRate_Result>("GetConversionPlaceRate", startDateParameter, endDateParameter, placeIDParameter);
+            var categoryIDParameter = categoryID.HasValue ?
+                new ObjectParameter("CategoryID", categoryID) :
+                new ObjectParameter("CategoryID", typeof(int));
+    
+            var subCategoryIDParameter = subCategoryID.HasValue ?
+                new ObjectParameter("SubCategoryID", subCategoryID) :
+                new ObjectParameter("SubCategoryID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetConversionPlaceRate_Result>("GetConversionPlaceRate", startDateParameter, endDateParameter, placeIDParameter, categoryIDParameter, subCategoryIDParameter);
         }
     
-        public virtual ObjectResult<GetDifferentPlace_Result> GetDifferentPlace(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        public virtual ObjectResult<GetDifferentPlace_Result> GetDifferentPlace(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> categoryID, Nullable<int> subCategoryID)
         {
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("StartDate", startDate) :
@@ -102,10 +118,18 @@ namespace Area.Data
                 new ObjectParameter("EndDate", endDate) :
                 new ObjectParameter("EndDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDifferentPlace_Result>("GetDifferentPlace", startDateParameter, endDateParameter);
+            var categoryIDParameter = categoryID.HasValue ?
+                new ObjectParameter("CategoryID", categoryID) :
+                new ObjectParameter("CategoryID", typeof(int));
+    
+            var subCategoryIDParameter = subCategoryID.HasValue ?
+                new ObjectParameter("SubCategoryID", subCategoryID) :
+                new ObjectParameter("SubCategoryID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDifferentPlace_Result>("GetDifferentPlace", startDateParameter, endDateParameter, categoryIDParameter, subCategoryIDParameter);
         }
     
-        public virtual ObjectResult<GetGeneralEvaluation_Result> GetGeneralEvaluation(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID)
+        public virtual ObjectResult<GetGeneralEvaluation_Result> GetGeneralEvaluation(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID, Nullable<int> categoryID, Nullable<int> subCategoryID)
         {
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("StartDate", startDate) :
@@ -119,10 +143,18 @@ namespace Area.Data
                 new ObjectParameter("PlaceID", placeID) :
                 new ObjectParameter("PlaceID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetGeneralEvaluation_Result>("GetGeneralEvaluation", startDateParameter, endDateParameter, placeIDParameter);
+            var categoryIDParameter = categoryID.HasValue ?
+                new ObjectParameter("CategoryID", categoryID) :
+                new ObjectParameter("CategoryID", typeof(int));
+    
+            var subCategoryIDParameter = subCategoryID.HasValue ?
+                new ObjectParameter("SubCategoryID", subCategoryID) :
+                new ObjectParameter("SubCategoryID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetGeneralEvaluation_Result>("GetGeneralEvaluation", startDateParameter, endDateParameter, placeIDParameter, categoryIDParameter, subCategoryIDParameter);
         }
     
-        public virtual ObjectResult<GetPlaceOccupancyRate_Result> GetPlaceOccupancyRate(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID)
+        public virtual ObjectResult<GetPlaceOccupancyRate_Result> GetPlaceOccupancyRate(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID, Nullable<int> categoryID, Nullable<int> subCategoryID)
         {
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("StartDate", startDate) :
@@ -136,10 +168,18 @@ namespace Area.Data
                 new ObjectParameter("PlaceID", placeID) :
                 new ObjectParameter("PlaceID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPlaceOccupancyRate_Result>("GetPlaceOccupancyRate", startDateParameter, endDateParameter, placeIDParameter);
+            var categoryIDParameter = categoryID.HasValue ?
+                new ObjectParameter("CategoryID", categoryID) :
+                new ObjectParameter("CategoryID", typeof(int));
+    
+            var subCategoryIDParameter = subCategoryID.HasValue ?
+                new ObjectParameter("SubCategoryID", subCategoryID) :
+                new ObjectParameter("SubCategoryID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPlaceOccupancyRate_Result>("GetPlaceOccupancyRate", startDateParameter, endDateParameter, placeIDParameter, categoryIDParameter, subCategoryIDParameter);
         }
     
-        public virtual ObjectResult<GetPointActivities_Result> GetPointActivities(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        public virtual ObjectResult<GetPointActivities_Result> GetPointActivities(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> categoryID, Nullable<int> subCategoryID)
         {
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("StartDate", startDate) :
@@ -149,10 +189,18 @@ namespace Area.Data
                 new ObjectParameter("EndDate", endDate) :
                 new ObjectParameter("EndDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPointActivities_Result>("GetPointActivities", startDateParameter, endDateParameter);
+            var categoryIDParameter = categoryID.HasValue ?
+                new ObjectParameter("CategoryID", categoryID) :
+                new ObjectParameter("CategoryID", typeof(int));
+    
+            var subCategoryIDParameter = subCategoryID.HasValue ?
+                new ObjectParameter("SubCategoryID", subCategoryID) :
+                new ObjectParameter("SubCategoryID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPointActivities_Result>("GetPointActivities", startDateParameter, endDateParameter, categoryIDParameter, subCategoryIDParameter);
         }
     
-        public virtual ObjectResult<GetSamePlace_Result> GetSamePlace(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        public virtual ObjectResult<GetSamePlace_Result> GetSamePlace(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> categoryID, Nullable<int> subCategoryID)
         {
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("StartDate", startDate) :
@@ -162,10 +210,18 @@ namespace Area.Data
                 new ObjectParameter("EndDate", endDate) :
                 new ObjectParameter("EndDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSamePlace_Result>("GetSamePlace", startDateParameter, endDateParameter);
+            var categoryIDParameter = categoryID.HasValue ?
+                new ObjectParameter("CategoryID", categoryID) :
+                new ObjectParameter("CategoryID", typeof(int));
+    
+            var subCategoryIDParameter = subCategoryID.HasValue ?
+                new ObjectParameter("SubCategoryID", subCategoryID) :
+                new ObjectParameter("SubCategoryID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSamePlace_Result>("GetSamePlace", startDateParameter, endDateParameter, categoryIDParameter, subCategoryIDParameter);
         }
     
-        public virtual ObjectResult<GetUKSRate_Result> GetUKSRate(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        public virtual ObjectResult<GetUKSRate_Result> GetUKSRate(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> categoryID, Nullable<int> subCategoryID)
         {
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("StartDate", startDate) :
@@ -175,7 +231,15 @@ namespace Area.Data
                 new ObjectParameter("EndDate", endDate) :
                 new ObjectParameter("EndDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUKSRate_Result>("GetUKSRate", startDateParameter, endDateParameter);
+            var categoryIDParameter = categoryID.HasValue ?
+                new ObjectParameter("CategoryID", categoryID) :
+                new ObjectParameter("CategoryID", typeof(int));
+    
+            var subCategoryIDParameter = subCategoryID.HasValue ?
+                new ObjectParameter("SubCategoryID", subCategoryID) :
+                new ObjectParameter("SubCategoryID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUKSRate_Result>("GetUKSRate", startDateParameter, endDateParameter, categoryIDParameter, subCategoryIDParameter);
         }
     }
 }

@@ -923,37 +923,53 @@
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
           <Parameter Name="PlaceID" Type="int" Mode="In" />
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+          <Parameter Name="SubCategoryID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetConversionPlaceRate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
           <Parameter Name="PlaceID" Type="int" Mode="In" />
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+          <Parameter Name="SubCategoryID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetDifferentPlace" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+          <Parameter Name="SubCategoryID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetGeneralEvaluation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
           <Parameter Name="PlaceID" Type="int" Mode="In" />
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+          <Parameter Name="SubCategoryID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetPlaceOccupancyRate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
           <Parameter Name="PlaceID" Type="int" Mode="In" />
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+          <Parameter Name="SubCategoryID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetPointActivities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+          <Parameter Name="SubCategoryID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetSamePlace" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+          <Parameter Name="SubCategoryID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetUKSRate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+          <Parameter Name="SubCategoryID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="B2DriveForPostModelStoreContainer">
           <EntitySet Name="AvailableUserVisit" EntityType="Self.AvailableUserVisit" Schema="dbo" store:Type="Tables" />
@@ -1173,42 +1189,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="B2DriveForPostModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="B2DriveForPostEntities" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="GetConversionAndUKS" ReturnType="Collection(B2DriveForPostModel.GetConversionAndUKS_Result)">
-            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
-            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
-            <Parameter Name="PlaceID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="GetConversionPlaceRate" ReturnType="Collection(B2DriveForPostModel.GetConversionPlaceRate_Result)">
-            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
-            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
-            <Parameter Name="PlaceID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="GetDifferentPlace" ReturnType="Collection(B2DriveForPostModel.GetDifferentPlace_Result)">
-            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
-            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <FunctionImport Name="GetGeneralEvaluation" ReturnType="Collection(B2DriveForPostModel.GetGeneralEvaluation_Result)">
-            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
-            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
-            <Parameter Name="PlaceID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="GetPlaceOccupancyRate" ReturnType="Collection(B2DriveForPostModel.GetPlaceOccupancyRate_Result)">
-            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
-            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
-            <Parameter Name="PlaceID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="GetPointActivities" ReturnType="Collection(B2DriveForPostModel.GetPointActivities_Result)">
-            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
-            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <FunctionImport Name="GetSamePlace" ReturnType="Collection(B2DriveForPostModel.GetSamePlace_Result)">
-            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
-            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <FunctionImport Name="GetUKSRate" ReturnType="Collection(B2DriveForPostModel.GetUKSRate_Result)">
-            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
-            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
           <EntitySet Name="AvailableUserVisits" EntityType="B2DriveForPostModel.AvailableUserVisit" />
           <EntitySet Name="Cities" EntityType="B2DriveForPostModel.City" />
           <EntitySet Name="Invoices" EntityType="B2DriveForPostModel.Invoice" />
@@ -1415,56 +1395,59 @@
             <End Role="Permission" EntitySet="Permissions" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <FunctionImport Name="GetConversionAndUKS" ReturnType="Collection(B2DriveForPostModel.GetConversionAndUKS_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="PlaceID" Mode="In" Type="Int32" />
+            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+            <Parameter Name="SubCategoryID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetConversionPlaceRate" ReturnType="Collection(B2DriveForPostModel.GetConversionPlaceRate_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="PlaceID" Mode="In" Type="Int32" />
+            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+            <Parameter Name="SubCategoryID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetDifferentPlace" ReturnType="Collection(B2DriveForPostModel.GetDifferentPlace_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+            <Parameter Name="SubCategoryID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetGeneralEvaluation" ReturnType="Collection(B2DriveForPostModel.GetGeneralEvaluation_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="PlaceID" Mode="In" Type="Int32" />
+            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+            <Parameter Name="SubCategoryID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetPlaceOccupancyRate" ReturnType="Collection(B2DriveForPostModel.GetPlaceOccupancyRate_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="PlaceID" Mode="In" Type="Int32" />
+            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+            <Parameter Name="SubCategoryID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetPointActivities" ReturnType="Collection(B2DriveForPostModel.GetPointActivities_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+            <Parameter Name="SubCategoryID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetSamePlace" ReturnType="Collection(B2DriveForPostModel.GetSamePlace_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+            <Parameter Name="SubCategoryID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetUKSRate" ReturnType="Collection(B2DriveForPostModel.GetUKSRate_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+            <Parameter Name="SubCategoryID" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
-        <ComplexType Name="GetConversionAndUKS_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
-          <Property Type="Int32" Name="CountPlace" Nullable="true" />
-          <Property Type="Double" Name="Liter" Nullable="true" />
-          <Property Type="Int32" Name="Uks" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GetConversionPlaceRate_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
-          <Property Type="Int32" Name="CountPlace" Nullable="true" />
-          <Property Type="Double" Name="Liter" Nullable="true" />
-          <Property Type="Double" Name="Rate" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GetDifferentPlace_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
-          <Property Type="DateTime" Name="StartDate" Nullable="false" Precision="23" />
-        </ComplexType>
-        <ComplexType Name="GetGeneralEvaluation_Result">
-          <Property Type="DateTime" Name="StartDate" Nullable="false" Precision="23" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
-          <Property Type="Double" Name="ConversionLiter" Nullable="true" />
-          <Property Type="Int32" Name="Uks" Nullable="true" />
-          <Property Type="Int32" Name="Tks" Nullable="true" />
-          <Property Type="Int32" Name="SurveyCount" Nullable="true" />
-          <Property Type="String" Name="CustomerNegativeComment" Nullable="true" />
-          <Property Type="String" Name="CustomerPositiveComment" Nullable="true" />
-          <Property Type="String" Name="PlaceNegativeComment" Nullable="true" />
-          <Property Type="String" Name="PlacePositiveComment" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GetPlaceOccupancyRate_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
-          <Property Type="Decimal" Name="Rate" Nullable="true" Precision="36" Scale="2" />
-        </ComplexType>
-        <ComplexType Name="GetPointActivities_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
-        </ComplexType>
-        <ComplexType Name="GetSamePlace_Result">
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
-          <Property Type="Int32" Name="CountPlace" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GetUKSRate_Result">
-          <Property Type="Decimal" Name="InvoiceAmount" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Int32" Name="UKS" Nullable="true" />
-          <Property Type="Decimal" Name="Rate" Nullable="true" Precision="5" Scale="3" />
-        </ComplexType>
         <EntityType Name="AvailableUserVisit">
           <Key>
             <PropertyRef Name="ID" />
@@ -2439,93 +2422,61 @@
           <End Type="B2DriveForPostModel.Permission" Role="Permission" Multiplicity="*" />
           <End Type="B2DriveForPostModel.User" Role="User" Multiplicity="*" />
         </Association>
+        <ComplexType Name="GetConversionAndUKS_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="CountPlace" Nullable="true" />
+          <Property Type="Double" Name="Liter" Nullable="true" />
+          <Property Type="Int32" Name="Uks" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetConversionPlaceRate_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="CountPlace" Nullable="true" />
+          <Property Type="Double" Name="Liter" Nullable="true" />
+          <Property Type="Double" Name="Rate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetDifferentPlace_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="StartDate" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="GetGeneralEvaluation_Result">
+          <Property Type="DateTime" Name="StartDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
+          <Property Type="Double" Name="ConversionLiter" Nullable="true" />
+          <Property Type="Int32" Name="Uks" Nullable="true" />
+          <Property Type="Int32" Name="Tks" Nullable="true" />
+          <Property Type="Int32" Name="SurveyCount" Nullable="true" />
+          <Property Type="String" Name="CustomerNegativeComment" Nullable="true" />
+          <Property Type="String" Name="CustomerPositiveComment" Nullable="true" />
+          <Property Type="String" Name="PlaceNegativeComment" Nullable="true" />
+          <Property Type="String" Name="PlacePositiveComment" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetPlaceOccupancyRate_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
+          <Property Type="Decimal" Name="Rate" Nullable="true" Precision="36" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="GetPointActivities_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="GetSamePlace_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="CountPlace" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetUKSRate_Result">
+          <Property Type="Decimal" Name="InvoiceAmount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="UKS" Nullable="true" />
+          <Property Type="Decimal" Name="Rate" Nullable="true" Precision="5" Scale="3" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="B2DriveForPostModelStoreContainer" CdmEntityContainer="B2DriveForPostEntities">
-          <FunctionImportMapping FunctionImportName="GetConversionAndUKS" FunctionName="B2DriveForPostModel.Store.GetConversionAndUKS">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetConversionAndUKS_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CountPlace" ColumnName="CountPlace" />
-                <ScalarProperty Name="Liter" ColumnName="Liter" />
-                <ScalarProperty Name="Uks" ColumnName="Uks" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetConversionPlaceRate" FunctionName="B2DriveForPostModel.Store.GetConversionPlaceRate">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetConversionPlaceRate_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CountPlace" ColumnName="CountPlace" />
-                <ScalarProperty Name="Liter" ColumnName="Liter" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetDifferentPlace" FunctionName="B2DriveForPostModel.Store.GetDifferentPlace">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetDifferentPlace_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetGeneralEvaluation" FunctionName="B2DriveForPostModel.Store.GetGeneralEvaluation">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetGeneralEvaluation_Result">
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ConversionLiter" ColumnName="ConversionLiter" />
-                <ScalarProperty Name="Uks" ColumnName="Uks" />
-                <ScalarProperty Name="Tks" ColumnName="Tks" />
-                <ScalarProperty Name="SurveyCount" ColumnName="SurveyCount" />
-                <ScalarProperty Name="CustomerNegativeComment" ColumnName="CustomerNegativeComment" />
-                <ScalarProperty Name="CustomerPositiveComment" ColumnName="CustomerPositiveComment" />
-                <ScalarProperty Name="PlaceNegativeComment" ColumnName="PlaceNegativeComment" />
-                <ScalarProperty Name="PlacePositiveComment" ColumnName="PlacePositiveComment" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetPlaceOccupancyRate" FunctionName="B2DriveForPostModel.Store.GetPlaceOccupancyRate">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetPlaceOccupancyRate_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetPointActivities" FunctionName="B2DriveForPostModel.Store.GetPointActivities">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetPointActivities_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetSamePlace" FunctionName="B2DriveForPostModel.Store.GetSamePlace">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetSamePlace_Result">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CountPlace" ColumnName="CountPlace" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetUKSRate" FunctionName="B2DriveForPostModel.Store.GetUKSRate">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetUKSRate_Result">
-                <ScalarProperty Name="InvoiceAmount" ColumnName="InvoiceAmount" />
-                <ScalarProperty Name="UKS" ColumnName="UKS" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="AvailableUserVisits">
             <EntityTypeMapping TypeName="B2DriveForPostModel.AvailableUserVisit">
               <MappingFragment StoreEntitySet="AvailableUserVisit">
@@ -2930,6 +2881,87 @@
               <ScalarProperty Name="Id" ColumnName="PermissionId" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="GetConversionAndUKS" FunctionName="B2DriveForPostModel.Store.GetConversionAndUKS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetConversionAndUKS_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CountPlace" ColumnName="CountPlace" />
+                <ScalarProperty Name="Liter" ColumnName="Liter" />
+                <ScalarProperty Name="Uks" ColumnName="Uks" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetConversionPlaceRate" FunctionName="B2DriveForPostModel.Store.GetConversionPlaceRate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetConversionPlaceRate_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CountPlace" ColumnName="CountPlace" />
+                <ScalarProperty Name="Liter" ColumnName="Liter" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDifferentPlace" FunctionName="B2DriveForPostModel.Store.GetDifferentPlace">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetDifferentPlace_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetGeneralEvaluation" FunctionName="B2DriveForPostModel.Store.GetGeneralEvaluation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetGeneralEvaluation_Result">
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ConversionLiter" ColumnName="ConversionLiter" />
+                <ScalarProperty Name="Uks" ColumnName="Uks" />
+                <ScalarProperty Name="Tks" ColumnName="Tks" />
+                <ScalarProperty Name="SurveyCount" ColumnName="SurveyCount" />
+                <ScalarProperty Name="CustomerNegativeComment" ColumnName="CustomerNegativeComment" />
+                <ScalarProperty Name="CustomerPositiveComment" ColumnName="CustomerPositiveComment" />
+                <ScalarProperty Name="PlaceNegativeComment" ColumnName="PlaceNegativeComment" />
+                <ScalarProperty Name="PlacePositiveComment" ColumnName="PlacePositiveComment" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetPlaceOccupancyRate" FunctionName="B2DriveForPostModel.Store.GetPlaceOccupancyRate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetPlaceOccupancyRate_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetPointActivities" FunctionName="B2DriveForPostModel.Store.GetPointActivities">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetPointActivities_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetSamePlace" FunctionName="B2DriveForPostModel.Store.GetSamePlace">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetSamePlace_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CountPlace" ColumnName="CountPlace" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetUKSRate" FunctionName="B2DriveForPostModel.Store.GetUKSRate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetUKSRate_Result">
+                <ScalarProperty Name="InvoiceAmount" ColumnName="InvoiceAmount" />
+                <ScalarProperty Name="UKS" ColumnName="UKS" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -20,10 +20,13 @@
     }
     B2DriveForPostEntities db = new B2DriveForPostEntities();
     var placeList = db.Places.OrderBy(p => p.Name).ToList();
+
+    var productCategoryList = db.ProductCategories.OrderBy(p => p.Name).ToList();
+    var productSubCategoryList = db.ProductSubCategories.OrderBy(p => p.Name).ToList();
 }
 <div class="span12">
     <div class="widget widget-table action-table">
-        <div class="widget-header  widget-header-st">
+        <div class="widget-header  widget-header-st  Fourinput-ST">
             <form class="filterForm">
                 <div class="container">
                     <div class="row">
@@ -53,6 +56,28 @@
                             <select name="place">
                                 <option value="0">Seçiniz</option>
                                 @foreach (var item in placeList)
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="span3">
+                            <h5>Ürün</h5>
+                            <select name="CategoryID">
+                                <option value="0">Seçiniz</option>
+                                @foreach (var item in productCategoryList)
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="span3">
+                            <h5>Ürün alt Kategori</h5>
+                            <select name="SubCategoryID">
+                                <option value="0">Seçiniz</option>
+                                @foreach (var item in productSubCategoryList)
                                 {
                                     <option value="@item.ID">@item.Name</option>
                                 }
