@@ -41,9 +41,9 @@
                                 <label class="control-label" for="productcategory">Ürün Kategorisi</label>
                                 <div class="controls">
                                     @using (Html.BeginForm())
-                                {
-                                    @Html.DropDownList("ProductCategory", ViewData["productCategory"] as List<SelectListItem>, new { @class = "span4" })
-                            }
+    {
+                                @Html.DropDownList("ProductCategory", ViewData["ProductCategory"] as List<SelectListItem>, "Lütfen Kategori Seçiniz", new { @class = "span4" })
+}
                                 </div>
                             </div>
                             <div class="control-group">

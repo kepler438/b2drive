@@ -85,16 +85,40 @@
             <div class="widget-content">
                 <div class="tabbable">
                     <div class="tab-content">
-                       
-                            <div class="sidebyside">
-                                <a href="/Visitplacestock/@Url.RequestContext.RouteData.Values["id"]" class="btn btn-small btn-warning one pull-left"><i class="btn-icon-only icon-circle-arrow-left"> Geri Gel </i></a> 
+
+                        <div class="sidebyside">
+                            <a href="/Visitplacestock/@Url.RequestContext.RouteData.Values["id"]" class="btn btn-small btn-warning one pull-left"><i class="btn-icon-only icon-circle-arrow-left"> Geri Gel </i></a>
+                        </div>
+
+                        <br />
+                        <br />
+                        @using (Html.BeginForm("available", "Checkout", FormMethod.Post))
+                        {
+                        <fieldset style="text-align:center">
+                            <div class="control-group">
+                                <label class="control-label">Haftaya Müsait misin?</label>
+                                <div class="controls">
+                                    <label class="radio inline">
+                                        <input type="radio" name="status" value="True" @((availableUserInfo != null && availableUserInfo.Status == true) ? "checked='checked'" : "")> Evet
+                                    </label>
+
+                                    <label class="radio inline">
+                                        <input type="radio" name="status" value="False" @((availableUserInfo != null && availableUserInfo.Status == false) ? "checked='checked'" : "")> Hayır
+                                    </label>
+                                </div>
                             </div>
-                            <br />
-                            <br /> 
-                            <fieldset style="text-align:center">
-                                <a href="/adminplacecontrol/ApprovedVisit/@Url.RequestContext.RouteData.Values["id"]" class="btn btn-success">Onaylandı</a>
-                                <a href="/adminplacecontrol/CancelApproved" class="btn btn-danger">Onaylamadan Listeye Dön</a>
-                            </fieldset> 
+                            <input name="VisitID" type="hidden" value="@Url.RequestContext.RouteData.Values["id"]" />
+                            <input type="submit" value="Kaydet" class="btn btn-success" />
+                        </fieldset>
+                        }
+                        <br />
+                        <br />
+
+
+                        <fieldset style="text-align:center">
+                            <a href="/adminplacecontrol/ApprovedVisit/@Url.RequestContext.RouteData.Values["id"]" class="btn btn-success">Onaylandı</a>
+                            <a href="/adminplacecontrol/CancelApproved" class="btn btn-danger">Onaylamadan Listeye Dön</a>
+                        </fieldset>
                     </div>
                 </div>
             </div>

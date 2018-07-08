@@ -312,8 +312,6 @@
     <Content Include="Views\SPPlace\InspectionComment.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Question.cshtml" />
     <Content Include="Views\UserAssignedVisit\Create.cshtml" />
-    <Content Include="Views\UserAssignedVisit\Delete.cshtml" />
-    <Content Include="Views\UserAssignedVisit\Details.cshtml" />
     <Content Include="Views\UserAssignedVisit\Edit.cshtml" />
     <Content Include="Views\UserAssignedVisit\Index.cshtml" />
     <Content Include="Views\SPPlace\InspectionInfo.cshtml" />

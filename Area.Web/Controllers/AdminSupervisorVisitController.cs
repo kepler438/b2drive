@@ -130,24 +130,7 @@ namespace Area.Web.Controllers
             ViewBag.ProductSubCategoryID = new SelectList(db.ProductSubCategories.Where(p => p.CategoryID != 2), "ID", "Name", visitPlace.ProductSubCategory);
             return View(visitPlace);
         }
-
-        // GET: AdminSupervisorVisit/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            VisitPlace visitPlace = db.VisitPlaces.Find(id);
-            if (visitPlace == null)
-            {
-                return HttpNotFound();
-            }
-            return View(visitPlace);
-        }
-
-        // POST: AdminSupervisorVisit/Delete/5
-        [HttpPost, ActionName("Delete")] 
+         
         public ActionResult DeleteConfirmed(int id)
         {
             VisitPlace visitPlace = db.VisitPlaces.Find(id);

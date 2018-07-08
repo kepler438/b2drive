@@ -57,8 +57,8 @@ namespace Area.Web.Controllers
                 input.UserID = Convert.ToInt32(Session["UserId"]);
                 db.AvailableUserVisits.Add(input);
                 db.SaveChanges();
-            } 
-            return Redirect("/Home");
+            }
+            return RedirectToAction("/" + input.VisitID);
         }
 
         protected override void Dispose(bool disposing)

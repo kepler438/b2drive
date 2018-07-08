@@ -18,9 +18,9 @@ namespace Area.Web.Controllers
         [Route("productsale/{id?}")]
         public ActionResult Index(int? id)
         { 
-            var categoryList = db.ProductCategories.Where(p => p.IsActive == true).ToList();
+            var categoryList = db.ProductCategories.Where(p => p.IsActive == true && p.ID != 2).ToList();
             categoryList.Add(new ProductCategory()
-            { ID = 0, Name = "Lütfen Bir Kategori Seçiniz." });
+            { ID = 0, Name = "Lütfen Bir Kategori Seçiniz." }); 
             ViewData["productCategory"] = new SelectList(categoryList.OrderBy(p=>p.ID), "ID", "Name");
             var productsalesList = db.ProductSales.Where(p => p.IsActive == true && p.VisitPlaceID == id && p.SaleType != 3).ToList();
             return View(productsalesList);

@@ -135,24 +135,7 @@ namespace Area.Web.Controllers
             return View(visitPlace);
         }
 
-        // GET: UserAssignedVisit/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            VisitPlace visitPlace = db.VisitPlaces.Find(id);
-            if (visitPlace == null)
-            {
-                return HttpNotFound();
-            }
-            return View(visitPlace);
-        }
-
-        // POST: UserAssignedVisit/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+  
         public ActionResult DeleteConfirmed(int id)
         {
             VisitPlace visitPlace = db.VisitPlaces.Find(id);
