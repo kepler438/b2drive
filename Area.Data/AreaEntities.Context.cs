@@ -29,7 +29,6 @@ namespace Area.Data
     
         public virtual DbSet<AvailableUserVisit> AvailableUserVisits { get; set; }
         public virtual DbSet<City> Cities { get; set; }
-        public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Place> Places { get; set; }
         public virtual DbSet<PlaceCheckInfo> PlaceCheckInfoes { get; set; }
@@ -57,6 +56,7 @@ namespace Area.Data
         public virtual DbSet<VisitPlaceWareHouse> VisitPlaceWareHouses { get; set; }
         public virtual DbSet<WareHouse> WareHouses { get; set; }
         public virtual DbSet<WareHouseProduct> WareHouseProducts { get; set; }
+        public virtual DbSet<Invoice> Invoices { get; set; }
     
         public virtual ObjectResult<GetConversionAndUKS_Result> GetConversionAndUKS(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID, Nullable<int> categoryID, Nullable<int> subCategoryID)
         {
@@ -240,6 +240,19 @@ namespace Area.Data
                 new ObjectParameter("SubCategoryID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUKSRate_Result>("GetUKSRate", startDateParameter, endDateParameter, categoryIDParameter, subCategoryIDParameter);
+        }
+    
+        public virtual ObjectResult<GetPersonelStatus_Result> GetPersonelStatus(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPersonelStatus_Result>("GetPersonelStatus", startDateParameter, endDateParameter);
         }
     }
 }

@@ -24,6 +24,7 @@ namespace Area.Web.Controllers
         // GET: Invoices/Create
         public ActionResult Create()
         {
+            ViewBag.ProductCategoryID = new SelectList(db.ProductCategories.Where(p => p.ID != 2), "ID", "Name");
             return View();
         }
 
@@ -51,6 +52,7 @@ namespace Area.Web.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ProductCategoryID = new SelectList(db.ProductCategories.Where(p => p.ID != 2), "ID", "Name", invoice.ProductCategoryID);
             return View(invoice);
         }
 

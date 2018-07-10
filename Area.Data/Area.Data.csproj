@@ -88,6 +88,9 @@
     <Compile Include="GetGeneralEvaluation_Result.cs">
       <DependentUpon>AreaEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetPersonelStatus_Result.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetPlaceOccupancyRate_Result.cs">
       <DependentUpon>AreaEntities.tt</DependentUpon>
     </Compile>

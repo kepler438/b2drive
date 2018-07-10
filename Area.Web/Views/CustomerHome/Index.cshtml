@@ -47,69 +47,68 @@
 
     //}
 }
-<style>
-    .rightempty {
-        padding-left: 35px;
-    }
-</style>
 
-<form>
-    <div class="span12">
-        <div class="info-box">
-            <div class="row-fluid">
-                <div class="span2 rightempty">
-                    <h5>Başlangıç Tarihi</h5>
-                    <div class="container">
-                        <div style="position: relative;width:0px;">
-                            <span class="add-on">
-                                <input type="text" name="startdate" class="form-control" id="datetimepicker1" value="@start" autocomplete="off" />
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="span2 rightempty">
-                    <h5>Bitiş Tarihi</h5>
-                    <div class="container">
-                        <div style="position: relative;width:0px;">
-                            <span class="add-on">
-                                <input type="text" name="enddate" class="form-control" id="datetimepicker2" value="@end" autocomplete="off" />
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="span2 rightempty">
-                    <h5>Ürün Ailesi</h5>
-                    <select name="product">
-                        <option value="0">Seçiniz</option>
-                        @foreach (var item in productList)
-                        {
-                            <option value="@item.ID">@item.Name</option>
-                        }
-                    </select>
-                </div>
-                <div class="span2 rightempty">
-                    <h5>Mekanlar</h5>
-                    <select name="place">
-                        <option value="0">Seçiniz</option>
-                        @foreach (var item in placeList)
-                        {
-                            <option value="@item.ID">@item.Name</option>
-                        }
-                    </select>
-                </div>
-
-                <div class="span2" style="float:right">
-                    <h5>&nbsp;</h5>
-                    <button type="submit" class="btn btn-primary">Filtrele</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</form>
 <div class="span12">
-    <div class="info-box">
+    <div class="widget widget-table action-table">
+        <div class="widget-header  widget-header-st  Fourinput-ST">
+            <form class="filterForm">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="span3">
+                            <h5>Başlangıç Tarihi</h5>
+                            <div class="controls datetimepicker1">
+                                <span class="add-on">
+                                    <input type="text" name="startdate" class="form-control" id="datetimepicker1" value="@start" autocomplete="off" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <h5>Bitiş Tarihi</h5>
+                            <div class="container">
+                                <div class="controls datetimepicker1">
+                                    <span class="add-on">
+                                        <input type="text" name="enddate" class="form-control" id="datetimepicker2" value="@end" autocomplete="off" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <h5>Mekanlar</h5>
+                            <select name="place">
+                                <option value="0">Seçiniz</option>
+                                <option value="0">Tüm Mekanlar</option>
+                                @foreach (var item in placeList)
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="span3">
+                            <h5>Ürün</h5>
+                            <select name="CategoryID">
+                                <option value="0">Seçiniz</option>
+                                @foreach (var item in productList)
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                         
+                        <div class="span3 filterBtnArea">
+                            <button type="submit" class="btn btn-primary">Filtrele</button>
+                        </div>
+
+                    </div>
+                </div> 
+            </form>
+
+        </div>
+        <!-- /widget-header -->
+        <div class="widget-content">
+             <div class="info-box">
         <div class="row-fluid stats-box">
             <div class="span4">
                 <div class="stats-box-title">Müsait Personel Sayısı</div>
@@ -135,235 +134,7 @@
             </div>
         </div>
     </div>
-</div>
-
-@*<div class="span6">
-        <div class="widget">
-            <div class="widget-header">
-                <i class="icon-star"></i>
-                <h3>Şefler Tarafından Oluşturulan Mekanlar ( Yeni Hafta )</h3>
-            </div>
-
-            <div class="widget-content">
-                <div id="canvas-holder">
-                    <canvas id="chart-area" />
-                </div>
-            </div>
         </div>
     </div>
-
-    <div class="span6">
-        <div class="widget">
-            <div class="widget-header">
-                <i class="icon-star"></i>
-                <h3>Geçen Hafta Etkinlik Yapılan Mekan Sayısı</h3>
-            </div>
-
-            <div class="widget-content">
-                <div id="canvas-holder">
-                    <canvas id="chart-area-past-visit-count" />
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="span12">
-        <div class="widget">
-            <div class="widget-header">
-                <i class="icon-star"></i>
-                <h3>Yeni Hafta İstenilen Ürün Sarf ve Adetleri</h3>
-            </div>
-            <div class="widget-content ">
-                <div class="pointContainer"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="span12">
-        <div class="widget">
-            <div class="widget-header">
-                <i class="icon-star"></i>
-                <h3>Mekan Stok Raporu</h3>
-            </div>
-            <div class="widget-content ">
-                <canvas id="canvasPlaceStock"></canvas>
-            </div>
-        </div>
-    </div>*@
-
-<script>
-
-    $(function () {
-        $('#datetimepicker1').datetimepicker({
-            locale: 'tr'
-        });
-
-        $('#datetimepicker2').datetimepicker({
-            locale: 'tr'
-        });
-    });
-
-
-
-    var configchart = {
-        type: 'pie',
-        data: {
-            datasets: [{
-                data: [
-                    18,
-                    39,
-                    7,
-                ],
-                backgroundColor: [
-                    window.chartColors.red,
-                    window.chartColors.yellow,
-                    window.chartColors.blue
-                ],
-                label: 'Dataset 1'
-            }],
-            labels: [
-                "İzmir",
-                "İstanbul",
-                "Adana"
-            ]
-        },
-        options: {
-            responsive: true
-        }
-    };
-
-    var configchartpastvisit = {
-        type: 'pie',
-        data: {
-            datasets: [{
-                data: [
-                    21,
-                    39,
-                    1,
-                    5
-                ],
-                backgroundColor: [
-                    window.chartColors.red,
-                    window.chartColors.yellow,
-                    window.chartColors.blue,
-                    window.chartColors.orange
-                ],
-                label: 'Dataset 1'
-            }],
-            labels: [
-                "TR Ailesi",
-                "YR Ailesi",
-                "AR Ailesi",
-                "KR Ailesi"
-            ]
-        },
-        options: {
-            responsive: true
-        }
-    };
-
-    function createConfig(pointStyle) {
-        return {
-            type: 'line',
-            data: {
-                labels: ["YR", "YRYS", "YRALA", "YRUK", "TR", "TRTS", "TRAS", "TRKA", "N10", "KR", "AR"],
-                datasets: [{
-                    label: "Adet",
-                    backgroundColor: window.chartColors.red,
-                    borderColor: window.chartColors.red,
-                    data: [3, 2, 1, 1, 2, 2, 1, 1, 0, 0, 0],
-                    fill: false,
-                    pointRadius: 10,
-                    pointHoverRadius: 15,
-                    showLine: true
-                }]
-            },
-            options: {
-                responsive: true,
-                title: {
-                    display: false,
-                    text: 'Sarf Adetleri '
-                },
-                legend: {
-                    display: false
-                },
-                elements: {
-                    point: {
-                        pointStyle: pointStyle
-                    }
-                }
-            }
-        };
-    }
-
-    var color = Chart.helpers.color;
-    var barChartData = {
-        labels: ["YR", "YRYS", "YRALA", "YRUK", "TR", "TRTS", "TRAS", "TRKA", "N10", "KR", "AR"],
-        datasets: [{
-            label: 'Ürünler',
-            backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-            borderColor: window.chartColors.blue,
-            borderWidth: 1,
-            data: [
-                320,
-                272,
-                122,
-                21,
-                29,
-                22,
-                10,
-                13,
-                3,
-                56,
-                22
-            ]
-        }]
-
-    };
-
-
-    window.onload = function () {
-        var container = document.querySelector('.pointContainer');
-        [
-            'circle'
-        ].forEach(function (pointStyle) {
-            var div = document.createElement('div');
-            div.classList.add('chart-container');
-            var canvas = document.createElement('canvas');
-            div.appendChild(canvas);
-            container.appendChild(div);
-            var ctx = canvas.getContext('2d');
-            var config = createConfig(pointStyle);
-            new Chart(ctx, config);
-
-            //NOTE:Chart Pie
-            var ctxchart = document.getElementById("chart-area").getContext("2d");
-            window.myPie = new Chart(ctxchart, configchart);
-
-            //NOTE:Geçmiş Mekan Sayısı
-            var ctxchartpastvisit = document.getElementById("chart-area-past-visit-count").getContext("2d");
-            window.myPie = new Chart(ctxchartpastvisit, configchartpastvisit);
-
-            var ctxpastvisit = document.getElementById("canvasPlaceStock").getContext("2d");
-            window.myBar = new Chart(ctxpastvisit, {
-                type: 'bar',
-                data: barChartData,
-                options: {
-                    responsive: true,
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: false,
-                        text: ''
-                    }
-                }
-            });
-
-        });
-
-
-    };
-
-
-</script>
+</div> 
+ 

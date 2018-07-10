@@ -30,6 +30,7 @@
           <Property Name="StartDate" Type="datetime" />
           <Property Name="EndDate" Type="datetime" />
           <Property Name="InvoiceAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ProductCategoryID" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
@@ -946,6 +947,10 @@
           <Parameter Name="CategoryID" Type="int" Mode="In" />
           <Parameter Name="SubCategoryID" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetPersonelStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="GetPlaceOccupancyRate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
@@ -1191,7 +1196,6 @@
         <EntityContainer Name="B2DriveForPostEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AvailableUserVisits" EntityType="B2DriveForPostModel.AvailableUserVisit" />
           <EntitySet Name="Cities" EntityType="B2DriveForPostModel.City" />
-          <EntitySet Name="Invoices" EntityType="B2DriveForPostModel.Invoice" />
           <EntitySet Name="Permissions" EntityType="B2DriveForPostModel.Permission" />
           <EntitySet Name="Places" EntityType="B2DriveForPostModel.Place" />
           <EntitySet Name="PlaceCheckInfoes" EntityType="B2DriveForPostModel.PlaceCheckInfo" />
@@ -1447,6 +1451,11 @@
             <Parameter Name="CategoryID" Mode="In" Type="Int32" />
             <Parameter Name="SubCategoryID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Invoices" EntityType="B2DriveForPostModel.Invoice" />
+          <FunctionImport Name="GetPersonelStatus" ReturnType="Collection(B2DriveForPostModel.GetPersonelStatus_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="AvailableUserVisit">
           <Key>
@@ -1467,17 +1476,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CityName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Places" Relationship="B2DriveForPostModel.FK_Place_City" FromRole="City" ToRole="Place" />
-        </EntityType>
-        <EntityType Name="Invoice">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
-          <Property Name="InvoiceAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -2471,6 +2469,23 @@
           <Property Type="Int32" Name="UKS" Nullable="true" />
           <Property Type="Decimal" Name="Rate" Nullable="true" Precision="5" Scale="3" />
         </ComplexType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="InvoiceAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProductCategoryID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="GetPersonelStatus_Result">
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+          <Property Type="String" Name="FullName" Nullable="true" MaxLength="1001" />
+          <Property Type="DateTime" Name="AvailableDate" Nullable="true" Precision="23" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2492,18 +2507,6 @@
             <EntityTypeMapping TypeName="B2DriveForPostModel.City">
               <MappingFragment StoreEntitySet="City">
                 <ScalarProperty Name="CityName" ColumnName="CityName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Invoices">
-            <EntityTypeMapping TypeName="B2DriveForPostModel.Invoice">
-              <MappingFragment StoreEntitySet="Invoice">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="InvoiceAmount" ColumnName="InvoiceAmount" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2959,6 +2962,28 @@
                 <ScalarProperty Name="InvoiceAmount" ColumnName="InvoiceAmount" />
                 <ScalarProperty Name="UKS" ColumnName="UKS" />
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="B2DriveForPostModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ProductCategoryID" ColumnName="ProductCategoryID" />
+                <ScalarProperty Name="InvoiceAmount" ColumnName="InvoiceAmount" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetPersonelStatus" FunctionName="B2DriveForPostModel.Store.GetPersonelStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="B2DriveForPostModel.GetPersonelStatus_Result">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="AvailableDate" ColumnName="AvailableDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -4,10 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a3ecca8cd2ea4b51bfaedf47933cccb3" Name="Diagram1" ZoomLevel="57">
+      <Diagram DiagramId="a3ecca8cd2ea4b51bfaedf47933cccb3" Name="Diagram1" ZoomLevel="111">
         <EntityTypeShape EntityType="B2DriveForPostModel.AvailableUserVisit" Width="1.5" PointX="13.5" PointY="28.625" />
         <EntityTypeShape EntityType="B2DriveForPostModel.City" Width="1.5" PointX="0.75" PointY="21.125" />
-        <EntityTypeShape EntityType="B2DriveForPostModel.Invoice" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="B2DriveForPostModel.Permission" Width="1.5" PointX="0.75" PointY="16.25" />
         <EntityTypeShape EntityType="B2DriveForPostModel.Place" Width="1.5" PointX="3" PointY="23.375" />
         <EntityTypeShape EntityType="B2DriveForPostModel.PlaceCheckInfo" Width="1.5" PointX="6" PointY="18" />
@@ -79,6 +78,7 @@
         <AssociationConnector Association="B2DriveForPostModel.FK_VisitPlaceWareHouse_WareHouse" />
         <AssociationConnector Association="B2DriveForPostModel.FK_WareHouseProduct_VisitPlaceWareHouse" />
         <AssociationConnector Association="B2DriveForPostModel.User_Permission" />
+        <EntityTypeShape EntityType="B2DriveForPostModel.Invoice" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

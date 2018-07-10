@@ -360,6 +360,7 @@
     <Content Include="Views\CustomerReport\GeneralEvaluationReport.cshtml" />
     <Content Include="Views\CustomerReport\ConversionPlaceRate.cshtml" />
     <Content Include="Views\CustomerReport\UksRate.cshtml" />
+    <Content Include="Views\CustomerReport\PersonelStatus.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

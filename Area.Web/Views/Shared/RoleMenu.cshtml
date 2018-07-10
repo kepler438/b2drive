@@ -125,7 +125,10 @@
             else if (UserType == (int)EnumUserType.Admin)
             {
                 <ul class="mainnav">
+
+
                     <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "admin" ? "active" : string.Empty)"><a href="/admin"><i class="icon-dashboard"></i><span>Anasayfa</span> </a> </li>
+                    <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "admincheckin" ? "active" : string.Empty)"><a href="/invoices"><i class="icon-long-arrow-down"></i><span>Checkin Yönetimi</span> </a> </li>
                     <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "productcategories" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "productsubcategories" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "products" ? "active" : string.Empty)">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-barcode"></i><span>Ürün Yönetimi</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -139,12 +142,12 @@
                     @*<li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "createuser" ? "active" : string.Empty)"><a href="/createuser"><i class="icon-user"></i><span>Kullanıcı Oluştur</span> </a> </li>*@
 
                     @*<li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "adminregion" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "adminplace" ? "active" : string.Empty)">
-                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-sitemap"></i><span>Bölge/Mekan Yönetimi</span> <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/adminregion/Index">Bölge</a></li>
-                                <li><a href="/adminplace/Index">Mekan</a></li
-                            </ul>
-                        </li>*@
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-sitemap"></i><span>Bölge/Mekan Yönetimi</span> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="/adminregion/Index">Bölge</a></li>
+                <li><a href="/adminplace/Index">Mekan</a></li
+            </ul>
+        </li>*@
                     <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "picknavigation")">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-cog"></i><span>Personel/Supervisor Yönetimi</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -165,7 +168,7 @@
                     </li>
 
                     @*TODO EKLE BUNU*@
-                    <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "invoices" ? "active" : string.Empty)"><a href="/invoices"><i class="text-color"></i><span>Fatura Yönetimi</span> </a> </li>
+                    <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "invoices" ? "active" : string.Empty)"><a href="/invoices"><i class="icon-bar-chart"></i><span>Fatura Yönetimi</span> </a> </li>
 
                 </ul>
             }
@@ -176,6 +179,7 @@
                     <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "customerreport" ? "active" : string.Empty)">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-table"></i><span>Detayli Raporlar</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            <li><a href="/customerreport/personelStatus">Personel Durumları</a></li>
                             <li><a href="/customerreport/differentplace">Farkli Mekanlar</a></li>
                             <li><a href="/customerreport/sameplace">Tekrar Eden Mekanlar</a></li>
                             <li><a href="/customerreport/conversionanduks">Conversion - Ulasilan Kisi Sayisi</a></li>

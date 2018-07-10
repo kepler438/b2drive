@@ -55,10 +55,11 @@
                             <h5>Mekanlar</h5>
                             <select name="place">
                                 <option value="0">Seçiniz</option>
+                                <option value="0">Tüm Mekanlar</option>
                                 @foreach (var item in placeList)
-                                {
-                                    <option value="@item.ID">@item.Name</option>
-                                }
+    {
+                            <option value="@item.ID">@item.Name</option>
+}
                             </select>
                         </div>
 

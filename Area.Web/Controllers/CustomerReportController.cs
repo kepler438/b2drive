@@ -84,6 +84,14 @@ namespace Area.Web.Controllers
             return View(result);
         }
 
+        public ActionResult PersonelStatus(InputParameter input)
+        {
+            input.startdate = input.startdate == null ? GetNullStartDate() : input.startdate;
+            input.enddate = input.enddate == null ? GetNullEndDate() : input.enddate; 
+            var result = db.GetPersonelStatus(input.startdate, input.enddate);
+            return View(result);
+        }
+
 
         public class InputParameter
         {

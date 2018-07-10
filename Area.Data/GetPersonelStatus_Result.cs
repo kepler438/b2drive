@@ -10,16 +10,11 @@
 namespace Area.Data
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Invoice
+    public partial class GetPersonelStatus_Result
     {
-        public int ID { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
-        public Nullable<decimal> InvoiceAmount { get; set; }
-        public Nullable<int> ProductCategoryID { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
-        public bool IsActive { get; set; }
+        public Nullable<bool> Status { get; set; }
+        public string FullName { get; set; }
+        public Nullable<System.DateTime> AvailableDate { get; set; }
     }
 }
