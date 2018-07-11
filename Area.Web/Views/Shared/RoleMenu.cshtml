@@ -128,7 +128,7 @@
 
 
                     <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "admin" ? "active" : string.Empty)"><a href="/admin"><i class="icon-dashboard"></i><span>Anasayfa</span> </a> </li>
-                    <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "admincheckin" ? "active" : string.Empty)"><a href="/invoices"><i class="icon-long-arrow-down"></i><span>Checkin Yönetimi</span> </a> </li>
+                    <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "admincheckin" ? "active" : string.Empty)"><a href="/admincheckin"><i class="icon-long-arrow-down"></i><span>Checkin Yönetimi</span> </a> </li>
                     <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "productcategories" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "productsubcategories" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "products" ? "active" : string.Empty)">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-barcode"></i><span>Ürün Yönetimi</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu">

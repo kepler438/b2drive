@@ -1,13 +1,14 @@
-﻿@using Area.Data;
+﻿@using System.Linq;
+@using Area.Data;
 @using System.Data.Entity;
-@model IEnumerable<Area.Data.GetConversionAndUKS_Result>
+@using Area.Web.Helper;
 @{
-    ViewBag.Title = "DifferentPlace";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var startDate = this.Request.QueryString["startdate"];
     var endDate = this.Request.QueryString["enddate"];
-    var placeID = this.Request.QueryString["placeid"];
+    var place = this.Request.QueryString["place"];
 
     DayOfWeek day = DateTime.Now.DayOfWeek;
     int days = day - DayOfWeek.Monday;
@@ -18,14 +19,19 @@
         start = Convert.ToDateTime(startDate);
         end = Convert.ToDateTime(endDate);
     }
+
     B2DriveForPostEntities db = new B2DriveForPostEntities();
     var placeList = db.Places.OrderBy(p => p.Name).ToList();
-
-    var productCategoryList = db.ProductCategories.Where(p => p.ID != 2).OrderBy(p => p.Name).ToList();
-    var productSubCategoryList = db.ProductSubCategories.Where(p => p.CategoryID != 2).OrderBy(p => p.Name).ToList();
-
-    List<Area.Data.GetConversionAndUKS_Result> resultData = Model.ToList();
+    var visitPlaces = db.VisitPlaces.Where(p => p.CheckInfoID != null && p.StartDate >= start && p.EndDate <= end).Include(v => v.Place).Include(v => v.PlaceCheckInfo).Include(v => v.User);
+    if (Convert.ToInt32(place) > 0)
+    {
+        int plcid = Convert.ToInt32(place);
+        visitPlaces = visitPlaces.Where(p => p.PlaceID == plcid);
+    }
 }
+
+
+
 <div class="span12">
     <div class="widget widget-table action-table">
         <div class="widget-header  widget-header-st  Fourinput-ST">
@@ -58,43 +64,17 @@
                                 <option value="0">Seçiniz</option>
                                 <option value="0">Tüm Mekanlar</option>
                                 @foreach (var item in placeList)
-                            {
-                                <option value="@item.ID">@item.Name</option>
-                        }
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
                             </select>
                         </div>
-
-                        <div class="span3">
-                            <h5>Ürün</h5>
-                            <select name="CategoryID">
-                                <option value="0">Seçiniz</option>
-                                @foreach (var item in productCategoryList)
-                            {
-                                <option value="@item.ID">@item.Name</option>
-                        }
-                            </select>
-                        </div>
-
-                        <div class="span3">
-                            <h5>Ürün alt Kategori</h5>
-                            <select name="SubCategoryID">
-                                <option value="0">Seçiniz</option>
-                                @foreach (var item in productSubCategoryList)
-                            {
-                                <option value="@item.ID">@item.Name</option>
-                        }
-                            </select>
-                        </div>
-
                         <div class="span3 filterBtnArea">
                             <button type="submit" class="btn btn-primary">Filtrele</button>
                         </div>
 
                     </div>
                 </div>
-
-
-
             </form>
 
         </div>
@@ -103,44 +83,40 @@
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>
-                            Mekan Adı
-                        </th>
-                        <th>
-                            Etkinlik Sayısı
-                        </th>
-                        <th>
-                            Litre
-                        </th>
-                        <th>
-                            Ulaşılan Kişi Sayısı
-                        </th>
+                        <th> Mekan Adı </th>
+                        <th> Checkin Yapan Kullanıcı </th>
+                        <th> Maps </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in resultData)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CountPlace)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Liter)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Uks)
-                        </td>
-                    </tr>
-            }
+                    @foreach (var item in visitPlaces)
+                    {
+                        <tr>
+                            <td> @item.Place.Name </td>
+                            <td> @(item.User.FirstName + " " + item.User.LastName )</td>
+                            <td>
+                                <iframe width="300"
+                                        height="170"
+                                        frameborder="0"
+                                        scrolling="no"
+                                        marginheight="0"
+                                        marginwidth="0"
+                                        src="https://maps.google.com/maps?q=@item.PlaceCheckInfo.CheckinLatitude,@item.PlaceCheckInfo.CheckinLongitude&hl=es;z=14&amp;output=embed"></iframe>
+                                <br />
+                                <small>
+                                    <a href="https://maps.google.com/maps?q=@item.PlaceCheckInfo.CheckinLatitude,@item.PlaceCheckInfo.CheckinLongitude&hl=es;z=14&amp;output=embed"
+                                       style="color:#0000FF;text-align:left"
+                                       target="_blank">
+                                        Google Haritalarda İncele
+                                    </a>
+                                </small>
+
+                            </td>
+
+                        </tr>
+                    }
                 </tbody>
             </table>
-        </div>
-        <div class="form-actions" style="float:right;color:red;text">
-            <span><b>Toplam Ulaşılan Kişi Sayısı :</b></span> <span><b>@(resultData != null && resultData.Count() > 0 ? resultData.Sum(p => p.Uks) : 0) </b></span><br />
-
         </div>
     </div>
 </div>

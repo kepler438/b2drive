@@ -23,6 +23,8 @@
 
     var productCategoryList = db.ProductCategories.Where(p => p.ID != 2).OrderBy(p => p.Name).ToList();
     var productSubCategoryList = db.ProductSubCategories.Where(p => p.CategoryID != 2).OrderBy(p => p.Name).ToList();
+
+    List<Area.Data.GetGeneralEvaluation_Result> resultData = Model.ToList();
 }
 <div class="span12">
     <div class="widget widget-table action-table">
@@ -57,9 +59,9 @@
                                 <option value="0">Seçiniz</option>
                                 <option value="0">Tüm Mekanlar</option>
                                 @foreach (var item in placeList)
-    {
-                            <option value="@item.ID">@item.Name</option>
-}
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
                             </select>
                         </div>
 
@@ -118,7 +120,7 @@
                             Tadim Yaptirilan Kisi Sayisi
                         </th>
                     </tr>
-                </thead>@foreach (var item in Model)
+                </thead>@foreach (var item in resultData)
                 {
                     <tbody class="openInnerTable">
 
@@ -182,6 +184,12 @@
                     </tbody>
                 }
             </table>
+        </div>
+        <div class="form-actions" style="float:right;color:red;text">
+            <span><b>Toplam Litre :</b></span> <span><b>@(resultData != null && resultData.Count() > 0 ? resultData.Sum(p => p.ConversionLiter) : 0) </b></span><br />
+            <span><b>Toplam Ulaşılan Kişi Sayısı :</b></span> <span><b>@(resultData != null && resultData.Count() > 0 ? resultData.Sum(p => p.Uks) : 0) </b></span><br />
+            <span><b>Toplam Tadım Yaptırılan Kişi Sayısı :</b></span> <span><b>@(resultData != null && resultData.Count() > 0 ? resultData.Sum(p => p.Tks) : 0) </b></span><br />
+            <span><b>Toplam Anket Yapılan Kişi Sayısı :</b></span> <span><b>@(resultData != null && resultData.Count() > 0 ? resultData.Sum(p => p.SurveyCount) : 0) </b></span><br />
         </div>
     </div>
 </div>

@@ -22,11 +22,6 @@
     }
 
     B2DriveForPostEntities db = new B2DriveForPostEntities();
-    var availablePersonelList = db.AvailableUserVisits.Include(p => p.VisitPlace).Where(p => p.VisitPlace.StartDate > start && p.VisitPlace.StartDate < end && p.VisitPlace.IsApproved == true).ToList();
-    var userList = db.Users.Include(p => p.Permissions).Where(p => p.Permissions.FirstOrDefault().Id == 3).ToList();
-    var availablePersonel = availablePersonelList.Where(p => p.Status == true).ToList();
-    var notAvailablePersonel = availablePersonelList.Where(p => p.Status == false).ToList();
-    var uncertainPersonel = userList.Count - availablePersonelList.Count;
 
     var placeList = db.Places.OrderBy(p => p.Name).ToList();
     var productList = db.ProductSubCategories.OrderBy(p => p.Name).ToList();
@@ -38,6 +33,13 @@
     {
         spentCount = Convert.ToInt32(productSaleList.Where(p => p.SaleType == 1).Sum(p => p.Quantity) * 70);
         conversionCount = Convert.ToInt32(productSaleList.Where(p => p.SaleType == 2).Sum(p => p.Quantity) * 70);
+    }
+    var differentPlace = db.GetDifferentPlace(start, end, Convert.ToInt32(product), 0).ToList();
+    var placeOccopuancy = db.GetPlaceOccupancyRate(start, end, Convert.ToInt32(place), Convert.ToInt32(product), 0).ToList();
+    string occopuanctyRate = "0";
+    if (placeOccopuancy.Count() > 0)
+    {
+        occopuanctyRate = Convert.ToDecimal(placeOccopuancy.Sum(p => p.Rate) / placeOccopuancy.Count()).ToString("#.#");
     }
 
     //if (!String.IsNullOrEmpty(startDate))
@@ -96,45 +98,40 @@
                                 }
                             </select>
                         </div>
-                         
+
                         <div class="span3 filterBtnArea">
                             <button type="submit" class="btn btn-primary">Filtrele</button>
                         </div>
 
                     </div>
-                </div> 
+                </div>
             </form>
 
         </div>
         <!-- /widget-header -->
         <div class="widget-content">
-             <div class="info-box">
-        <div class="row-fluid stats-box">
-            <div class="span4">
-                <div class="stats-box-title">Müsait Personel Sayısı</div>
-                <div class="stats-box-all-info"><i class="icon-user" style="color:#3C3;"></i> @availablePersonel.Count() </div>
-            </div>
-            <div class="span4">
-                <div class="stats-box-title">Müsait Olmayan Personel Sayısı</div>
-                <div class="stats-box-all-info"><i class="icon-user" style="color:#F30"></i> @notAvailablePersonel.Count()</div>
-            </div>
-            <div class="span4">
-                <div class="stats-box-title">Müsaitlik Durumu Belli Olmayan Personel Sayısı</div>
-                <div class="stats-box-all-info"><i class="icon-user" style="color:#3366cc"></i> @uncertainPersonel</div>
-            </div>
-        </div>
-        <div class="row-fluid stats-box">
-            <div class="span6">
-                <div class="stats-box-title">Conversion Raporu </div>
-                <div class="stats-box-all-info"><i class="icon-money" style="color:#c3b334;"></i> @conversionCount Litre</div>
-            </div>
-            <div class="span6">
-                <div class="stats-box-title">Harcanan Ürün</div>
-                <div class="stats-box-all-info"><i class="icon-gift" style="color:#c334a3"></i> @spentCount Litre</div>
+            <div class="info-box">
+                <div class="row-fluid stats-box">
+                    <div class="span6">
+                        <div class="stats-box-title">Farklı Mekanlarda Yapılan Etkinlik Sayısı</div>
+                        <div class="stats-box-all-info"><i class="icon-anchor" style="color:#3C3;"></i> @differentPlace.Count() </div>
+                    </div>
+                    <div class="span6">
+                        <div class="stats-box-title">Doluluk Oranları</div>
+                        <div class="stats-box-all-info"><i class="icon-bullhorn" style="color:#F30"></i> @(occopuanctyRate) % </div>
+                    </div>
+                </div>
+                <div class="row-fluid stats-box">
+                    <div class="span6">
+                        <div class="stats-box-title">Conversion Raporu </div>
+                        <div class="stats-box-all-info"><i class="icon-money" style="color:#c3b334;"></i> @conversionCount Litre</div>
+                    </div>
+                    <div class="span6">
+                        <div class="stats-box-title">Harcanan Ürün</div>
+                        <div class="stats-box-all-info"><i class="icon-gift" style="color:#c334a3"></i> @spentCount Litre</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-        </div>
-    </div>
-</div> 
- 
+</div>

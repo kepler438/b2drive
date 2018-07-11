@@ -20,6 +20,8 @@
     var productCategoryList = db.ProductCategories.Where(p => p.ID != 2).OrderBy(p => p.Name).ToList();
     var productSubCategoryList = db.ProductSubCategories.Where(p => p.CategoryID != 2).OrderBy(p => p.Name).ToList();
 
+    List<Area.Data.GetSamePlace_Result> resultData = Model.ToList();
+
 }
 <div class="span12">
     <div class="widget widget-table action-table">
@@ -54,9 +56,9 @@
                             <select name="CategoryID">
                                 <option value="0">Seçiniz</option>
                                 @foreach (var item in productCategoryList)
-                                {
-                                    <option value="@item.ID">@item.Name</option>
-                                }
+                            {
+                                <option value="@item.ID">@item.Name</option>
+                        }
                             </select>
                         </div>
 
@@ -65,12 +67,12 @@
                             <select name="SubCategoryID">
                                 <option value="0">Seçiniz</option>
                                 @foreach (var item in productSubCategoryList)
-                                {
-                                    <option value="@item.ID">@item.Name</option>
-                                }
+                            {
+                                <option value="@item.ID">@item.Name</option>
+                        }
                             </select>
                         </div>
-                         
+
                         <div class="span3 filterBtnArea">
                             <button type="submit" class="btn btn-primary">Filtrele</button>
                         </div>
@@ -96,20 +98,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
+                    @foreach (var item in resultData)
+                {
+                    <tr>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CountPlace)
-                            </td>
-                        </tr>
-                    }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CountPlace)
+                        </td>
+                    </tr>
+            }
                 </tbody>
             </table>
+        </div>
+        <div class="form-actions" style="float:right;color:red;text">
+            <span><b>Toplam Etkinlik Sayısı :</b></span> <span><b>@(resultData != null && resultData.Count() > 0 ? resultData.Sum(p=>p.CountPlace): 0) </b></span><br />
+
         </div>
     </div>
 </div>

@@ -206,6 +206,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Attributes\VerifyUserAttribute.cs" />
+    <Compile Include="Controllers\AdminCheckinController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdminPlaceController.cs" />
     <Compile Include="Controllers\AdminRegionController.cs" />
@@ -361,6 +362,7 @@
     <Content Include="Views\CustomerReport\ConversionPlaceRate.cshtml" />
     <Content Include="Views\CustomerReport\UksRate.cshtml" />
     <Content Include="Views\CustomerReport\PersonelStatus.cshtml" />
+    <Content Include="Views\AdminCheckin\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var startDate = this.Request.QueryString["startdate"];
-    var endDate = this.Request.QueryString["enddate"]; 
+    var endDate = this.Request.QueryString["enddate"];
 
     DayOfWeek day = DateTime.Now.DayOfWeek;
     int days = day - DayOfWeek.Monday;
@@ -16,7 +16,9 @@
     {
         start = Convert.ToDateTime(startDate);
         end = Convert.ToDateTime(endDate);
-    } 
+    }
+
+    List<Area.Data.GetPersonelStatus_Result> resultData = Model.ToList();
 }
 <div class="span12">
     <div class="widget widget-table action-table">
@@ -44,7 +46,7 @@
                                 </div>
                             </div>
                         </div>
-                          
+
                         <div class="span3 filterBtnArea">
                             <button type="submit" class="btn btn-primary">Filtrele</button>
                         </div>
@@ -74,22 +76,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in resultData)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FullName)
-                        </td>
-                        <td>
-                            @(item.Status == true ? "Müsait" : "Müsait Değil")
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AvailableDate)
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @(item.Status == true ? "Müsait" : "Müsait Değil")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AvailableDate)
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
         </div>
+
+        <div class="form-actions" style="float:right;color:red;text">
+            <span><b>Müsait Personel Sayısı :</b></span> <span><b>@(resultData != null && resultData.Count() > 0 ? resultData.Where(p => p.Status == true).Count() : 0) </b></span><br />
+            <span><b></b>Müsait Olmayan Personel Sayısı :</b></span> <span><b>@(resultData != null && resultData.Count() > 0 ? resultData.Where(p => p.Status == false).Count() : 0) </b></span>
+        </div>  
+
     </div>
 </div>
