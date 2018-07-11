@@ -1,14 +1,14 @@
 ﻿.btn-orange-st {
     margin-top: 0.8em !important;
-    width: 114px !important;
+    /*width: 114px !important;*/
 }
 
-.btn-green-st {
+/*.btn-green-st {
     width: 114px !important;
-}
+}*/
 
 .btn-blue-st {
-    width: 61px;
+    /*width: 61px;*/
     margin-top: .5rem;
 }
 
@@ -112,21 +112,29 @@
     padding: 10px 0px;
 }
 
-.Fourinput-ST .filterForm {
-    margin: 0px;
-}
+    .Fourinput-ST .filterForm {
+        margin: 0px;
+    }
 
 
-.Fourinput-ST .span3 {
-    width: 240px;
-}
+    .Fourinput-ST .span3 {
+        width: 240px;
+    }
 
 .span3.filterBtnArea {
     width: 6%;
 }
 
+.main .span12 .td-actions a {
+    display: block;
+}
+
+    .main .span12 .td-actions a:first-child {
+        margin-bottom: 5px;
+    }
+
 @media (max-width: 576px) {
-    .btn-orange-st {
+    /*.btn-orange-st {
         display: block !important;
         width: 80% !important;
     }
@@ -145,7 +153,7 @@
     .btn-red-st {
         display: block;
         width: 80%;
-    }
+    }*/
 
     .table th, .table td {
         padding: 0px;
@@ -179,6 +187,81 @@
         .filterForm .span3 select {
             width: 99%;
         }
+
+    .action-table .td-actions {
+        width: 60px;
+    }
+
+    .myContainer {
+        margin-left: 0px;
+    }
+
+    /*.main .span12 .td-actions .btn.btn-danger.btn-small {
+        padding: 0px 10px;
+    }*/
+
+    .main .span12 .td-actions a:first-child {
+        margin-bottom: 5px;
+    }
+
+    .main .span12 .td-actions a {
+        display: block;
+    }
+
+    .main .span12 .td-actions .btn {
+        margin-right: 0px;
+    }
+
+    .main .span12 .td-actions {
+        padding: 5px;
+    }
+
+
+
+    .navbar.navbar-fixed-top .btn-navbar {
+        margin-right: 10px;
+        background-color: transparent !important;
+        background-image: none !important;
+        border: 0px;
+        margin-top: 7px;
+    }
+
+    .navbar.navbar-fixed-top .container {
+        padding-left: 10px;
+    }
+
+    .table thead th {
+        vertical-align: middle;
+    }
+
+    .navbar .nav > li > a, .navbar .dropdown-menu a {
+        color: #FFF;
+    }
+
+    .main,
+    .footer {
+        border: 0px;
+    }
+
+    .sidebyside {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    /*.footer {
+        position: absolute;
+        width: 100%;
+        bottom: 0px;
+    }*/
+
+    .main .span12 .tabbable .tab-content .btn.btn-primary.pull-right {
+        font-size: 11px;
+    }
+
+    /*.subnavbar .container > ul > li {
+        max-height: 90px;
+        height: inherit;
+    }*/
 }
 
 @media (max-width: 767px) {
