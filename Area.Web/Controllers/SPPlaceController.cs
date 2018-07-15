@@ -79,7 +79,7 @@ namespace Area.Web.Controllers
         public ActionResult PlaceOwnerComment(int? id)
         {
             int userID = Convert.ToInt32(Session["UserId"]); 
-            var visitplacaInfo = db.VisitPlaceInfoes.Where(p => p.IsActive == true && p.UserID == userID && p.SupervisorVisitPlace == id).FirstOrDefault();
+            var visitplacaInfo = db.VisitPlaceInfoes.Where(p => p.IsActive == true && p.UserID == userID && p.SupervisorVisitPlaceID == id).FirstOrDefault();
             return View(visitplacaInfo == null ? new VisitPlaceInfo() : visitplacaInfo);
              
             //ViewData["supervisorVisitPlace"] = db.SupervisorVisitPlaces.Where(p => p.ID == id).FirstOrDefault();
@@ -238,7 +238,7 @@ namespace Area.Web.Controllers
         [HttpPost]
         public ActionResult SaveOwnerComment(VisitPlaceInfo visitplaceInfo)
         {
-            var visitplaceInfoEntity = db.VisitPlaceInfoes.Where(p => p.SupervisorVisitPlace == visitplaceInfo.SupervisorVisitPlace).FirstOrDefault();
+            var visitplaceInfoEntity = db.VisitPlaceInfoes.Where(p => p.SupervisorVisitPlaceID == visitplaceInfo.SupervisorVisitPlaceID).FirstOrDefault();
             if (visitplaceInfoEntity == null)
             {
                 visitplaceInfo.CreateDate = DateTime.Now;
@@ -259,7 +259,7 @@ namespace Area.Web.Controllers
                 db.SaveChanges();
                 //return Redirect("/VisitPlaceStock/" + visitplaceInfo.VisitPlaceID); 
             }
-            return Redirect("spplace/inspectioninfo/" + visitplaceInfo.SupervisorVisitPlace);
+            return Redirect("spplace/inspectioninfo/" + visitplaceInfo.SupervisorVisitPlaceID);
 
 
             //db.SupervisorVisitPlaceComments.RemoveRange(db.SupervisorVisitPlaceComments.Where(x => x.SupervisorVisitPlaceID == input.visitplaceID && x.PlaceOwner == true));

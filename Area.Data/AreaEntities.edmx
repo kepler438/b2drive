@@ -331,8 +331,8 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="VisitPlaceID" Type="int" Nullable="false" />
-          <Property Name="SupervisorVisitPlace" Type="int" />
+          <Property Name="VisitPlaceID" Type="int" />
+          <Property Name="SupervisorVisitPlaceID" Type="int" />
           <Property Name="PlaceCapacity" Type="int" />
           <Property Name="PeopleInterviewed" Type="int" />
           <Property Name="PeopleToTasted" Type="int" />
@@ -863,7 +863,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VisitPlaceInfo_VisitPlace">
-          <End Role="VisitPlace" Type="Self.VisitPlace" Multiplicity="1" />
+          <End Role="VisitPlace" Type="Self.VisitPlace" Multiplicity="0..1" />
           <End Role="VisitPlaceInfo" Type="Self.VisitPlaceInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="VisitPlace">
@@ -2450,8 +2450,8 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="VisitPlaceID" Type="Int32" Nullable="false" />
-          <Property Name="SupervisorVisitPlace" Type="Int32" />
+          <Property Name="VisitPlaceID" Type="Int32" />
+          <Property Name="SupervisorVisitPlaceID" Type="Int32" />
           <Property Name="PlaceCapacity" Type="Int32" />
           <Property Name="PeopleInterviewed" Type="Int32" />
           <Property Name="PeopleToTasted" Type="Int32" />
@@ -2479,7 +2479,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VisitPlaceInfo_VisitPlace">
-          <End Type="B2DriveForPostModel.VisitPlace" Role="VisitPlace" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.VisitPlace" Role="VisitPlace" Multiplicity="0..1" />
           <End Type="B2DriveForPostModel.VisitPlaceInfo" Role="VisitPlaceInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="VisitPlace">
@@ -2986,7 +2986,7 @@
                 <ScalarProperty Name="PeopleToTasted" ColumnName="PeopleToTasted" />
                 <ScalarProperty Name="PeopleInterviewed" ColumnName="PeopleInterviewed" />
                 <ScalarProperty Name="PlaceCapacity" ColumnName="PlaceCapacity" />
-                <ScalarProperty Name="SupervisorVisitPlace" ColumnName="SupervisorVisitPlace" />
+                <ScalarProperty Name="SupervisorVisitPlaceID" ColumnName="SupervisorVisitPlaceID" />
                 <ScalarProperty Name="VisitPlaceID" ColumnName="VisitPlaceID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
