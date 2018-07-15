@@ -236,6 +236,7 @@
     <Compile Include="Controllers\SPCarInfoController.cs" />
     <Compile Include="Controllers\SPHomeController.cs" />
     <Compile Include="Controllers\SPPlaceController.cs" />
+    <Compile Include="Controllers\SupervisorReportController.cs" />
     <Compile Include="Controllers\UserAssignedVisitController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UploadPhotosController.cs" />
@@ -367,6 +368,8 @@
     <Content Include="Views\AdminPhotos\Index.cshtml" />
     <Content Include="Views\AdminPhotos\PersonelPhoto.cshtml" />
     <Content Include="Views\AdminPhotos\SupervisorPhotoList.cshtml" />
+    <Content Include="Views\SupervisorReport\Index.cshtml" />
+    <Content Include="Views\SupervisorReport\VisitPlaceCarInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
