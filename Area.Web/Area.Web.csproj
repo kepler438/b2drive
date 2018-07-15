@@ -230,6 +230,7 @@
     <Compile Include="Controllers\ProductSaleController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductSubCategoriesController.cs" />
+    <Compile Include="Controllers\RaitingQuestionsController.cs" />
     <Compile Include="Controllers\ReceivedProductsController.cs" />
     <Compile Include="Controllers\RentACarsController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
@@ -370,6 +371,9 @@
     <Content Include="Views\AdminPhotos\SupervisorPhotoList.cshtml" />
     <Content Include="Views\SupervisorReport\Index.cshtml" />
     <Content Include="Views\SupervisorReport\VisitPlaceCarInfo.cshtml" />
+    <Content Include="Views\RaitingQuestions\Create.cshtml" />
+    <Content Include="Views\RaitingQuestions\Edit.cshtml" />
+    <Content Include="Views\RaitingQuestions\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
