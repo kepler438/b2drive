@@ -23,6 +23,7 @@ namespace Area.Data
         public Nullable<System.DateTime> CarDeliveryDate { get; set; }
         public string CarBrandName { get; set; }
         public string CarModelName { get; set; }
+        public string PnrNo { get; set; }
         public Nullable<System.DateTime> CheckinDate { get; set; }
         public string CheckinLatitude { get; set; }
         public string CheckinLongitude { get; set; }

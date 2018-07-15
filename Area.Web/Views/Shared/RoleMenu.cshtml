@@ -92,10 +92,18 @@
                     {
                         <li class="@(((string)ViewContext.RouteData.Values["action"]).ToLower() == "placeownercomment"  | ((string)ViewContext.RouteData.Values["action"]).ToLower() == "placeownercomment" ? "active" : "")">
                             <a href="#">
-                                <i class="icon-comment"></i><span>Mekan Yetkilisi Değerlendirme Formu</span>
+                                <i class="icon-comment"></i><span>Mekan Değerlendirme Formu</span>
                             </a>
                         </li>
                     }
+                    @*@if (((string)ViewContext.RouteData.Values["controller"]).ToLower() == "spplace" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "detail" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "penetration" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "deliveryproduct")
+                        {
+                            <li class="@(((string)ViewContext.RouteData.Values["action"]).ToLower() == "placeownercomment"  | ((string)ViewContext.RouteData.Values["action"]).ToLower() == "placeownercomment" ? "active" : "")">
+                                <a href="#">
+                                    <i class="icon-comment"></i><span>Mekan Yetkilisi Değerlendirme Formu</span>
+                                </a>
+                            </li>
+                        }*@
                     @if (((string)ViewContext.RouteData.Values["controller"]).ToLower() == "spplace" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "detail" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "penetration" && ((string)ViewContext.RouteData.Values["action"]).ToLower() != "deliveryproduct")
                     {
                         <li class="@(((string)ViewContext.RouteData.Values["action"]).ToLower() == "inspectioninfo"  | ((string)ViewContext.RouteData.Values["action"]).ToLower() == "ınspectioninfo" ? "active" : "")">
@@ -129,6 +137,21 @@
 
                     <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "admin" ? "active" : string.Empty)"><a href="/admin"><i class="icon-dashboard"></i><span>Anasayfa</span> </a> </li>
                     <li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "admincheckin" ? "active" : string.Empty)"><a href="/admincheckin"><i class="icon-long-arrow-down"></i><span>Checkin Yönetimi</span> </a> </li>
+                    <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "customerreport" ? "active" : string.Empty)">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-table"></i><span>Detayli Raporlar</span> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/customerreport/personelStatus">Personel Durumları</a></li>
+                            <li><a href="/customerreport/personelStatus">Personel Mekan Fotoğraflar</a></li>
+                            <li><a href="/customerreport/differentplace">Farkli Mekanlar</a></li>
+                            <li><a href="/customerreport/sameplace">Tekrar Eden Mekanlar</a></li>
+                            <li><a href="/customerreport/conversionanduks">Conversion - Ulasilan Kisi Sayisi</a></li>
+                            <li><a href="/customerreport/generalevaluationreport">Genel Degerlendirme Raporu</a></li>
+                            <li><a href="/customerreport/placeoccupancyrate">Doluluk Oranlari</a></li>
+                            <li><a href="/customerreport/uksrate">U.K.S Orani</a></li>
+                            <li><a href="/customerreport/conversionplacerate">Mekan Bazli Conversion</a></li>
+
+                        </ul>
+                    </li>
                     <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "productcategories" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "productsubcategories" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "products" ? "active" : string.Empty)">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-barcode"></i><span>Ürün Yönetimi</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -142,12 +165,12 @@
                     @*<li class="@(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "createuser" ? "active" : string.Empty)"><a href="/createuser"><i class="icon-user"></i><span>Kullanıcı Oluştur</span> </a> </li>*@
 
                     @*<li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "adminregion" | ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "adminplace" ? "active" : string.Empty)">
-            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-sitemap"></i><span>Bölge/Mekan Yönetimi</span> <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li><a href="/adminregion/Index">Bölge</a></li>
-                <li><a href="/adminplace/Index">Mekan</a></li
-            </ul>
-        </li>*@
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-sitemap"></i><span>Bölge/Mekan Yönetimi</span> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/adminregion/Index">Bölge</a></li>
+                                <li><a href="/adminplace/Index">Mekan</a></li
+                            </ul>
+                        </li>*@
                     <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "picknavigation")">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-cog"></i><span>Personel/Supervisor Yönetimi</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu">

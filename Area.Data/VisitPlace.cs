@@ -23,9 +23,9 @@ namespace Area.Data
             this.ProductSales = new HashSet<ProductSale>();
             this.SupervisorVisitPlaces = new HashSet<SupervisorVisitPlace>();
             this.SupervisorVisitPlaces1 = new HashSet<SupervisorVisitPlace>();
+            this.VisitPlaceWareHouses = new HashSet<VisitPlaceWareHouse>();
             this.VisitPlaceCarInfoes = new HashSet<VisitPlaceCarInfo>();
             this.VisitPlaceInfoes = new HashSet<VisitPlaceInfo>();
-            this.VisitPlaceWareHouses = new HashSet<VisitPlaceWareHouse>();
         }
     
         public int ID { get; set; }
@@ -58,10 +58,10 @@ namespace Area.Data
         public virtual ICollection<SupervisorVisitPlace> SupervisorVisitPlaces1 { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VisitPlaceWareHouse> VisitPlaceWareHouses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VisitPlaceCarInfo> VisitPlaceCarInfoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VisitPlaceInfo> VisitPlaceInfoes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VisitPlaceWareHouse> VisitPlaceWareHouses { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Area.Data.CustomEntity.Evaluation
+﻿@model Area.Data.VisitPlaceInfo
 @{
 
     ViewBag.Title = "PlaceOwnerComment";
@@ -9,7 +9,7 @@
     <div class="widget ">
         <div class="widget-header">
             <i class="icon-user"></i>
-            <h3>İş Değerlendirme</h3>
+            <h3>Mekan Değerlendirme</h3>
         </div>
         <div class="widget-content">
             <div class="tabbable">
@@ -22,9 +22,54 @@
 
                     @using (Html.BeginForm("SaveOwnerComment", "SPPlace", FormMethod.Post, new { @id = "edit-profile", @class = "form-horizontal" }))
                     {
-                        @Html.EditorFor(x => x.Questions) 
-                        <input type="hidden" name="visitplaceID" value="@Url.RequestContext.RouteData.Values["id"]" />
-                        <button type="submit" class="btn btn-primary pull-right two">Kaydet</button>
+                        <fieldset>
+
+                            <div class="control-group">
+                                <label class="control-label" for="productsubcategory">Mekan Kapasite Sayısı</label>
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.PlaceCapacity, new { htmlAttributes = new { @class = "span4", @min = 0, @required = "required" } })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="product">Görüşülen Kişi Sayısı</label>
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.PeopleInterviewed, new { htmlAttributes = new { @class = "span4", @min = 0, @required = "required" } })
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="quantity">Tadım Yaptırılan Kişi Sayısı</label>
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.PeopleToTasted, new { htmlAttributes = new { @class = "span4", @min = 0, @required = "required" } })
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="note">Anket Yapılan Kişi Sayısı</label>
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.PeopleSurvey, new { htmlAttributes = new { @class = "span4", @min = 0, @required = "required" } })
+
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="note">Mekan Hakkında Olumlu Yorumlar</label>
+                                <div class="controls">
+                                    @Html.TextAreaFor(model => model.PlacePositiveComment, new { @class = "span4", @required = "required" })
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="note">Mekan Hakkında Olumsuz Yorumlar</label>
+                                <div class="controls">
+                                    @Html.TextAreaFor(model => model.PlaceNegativeComment, new { @class = "span4", @required = "required" })
+                                </div>
+                            </div>
+                             
+                            <input type="hidden" name="SupervisorVisitPlace" value="@Url.RequestContext.RouteData.Values["id"]" />
+                            <button type="submit" class="btn btn-primary pull-right two">Kaydet</button>
+                        </fieldset>
+
                     }
                 </div>
             </div>

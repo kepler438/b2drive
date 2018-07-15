@@ -18,7 +18,7 @@ namespace Area.Web.Controllers
         [Route("visitplaceinfo/{id?}")]
         public ActionResult Index(int? id)
         {
-            int userID = Convert.ToInt32(Session["UserId"]); //TODO: buraya session uzerınden user gelecek
+            int userID = Convert.ToInt32(Session["UserId"]);  
             var visitplacaInfo = db.VisitPlaceInfoes.Where(p => p.IsActive == true && p.UserID == userID && p.VisitPlaceID == id).FirstOrDefault();
             return View(visitplacaInfo == null ? new VisitPlaceInfo() : visitplacaInfo);
         }

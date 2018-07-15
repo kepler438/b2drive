@@ -58,6 +58,11 @@ namespace Area.Web.Controllers
                 db.AvailableUserVisits.Add(input);
                 db.SaveChanges();
             }
+            bool adminControl = (Session["AdminControl"] != null && Convert.ToBoolean(Session["AdminControl"]) ? true : false);
+            if (!adminControl)
+            {
+                return Redirect("/Home");
+            }
             return RedirectToAction("/" + input.VisitID);
         }
 

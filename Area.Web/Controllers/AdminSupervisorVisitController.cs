@@ -119,8 +119,12 @@ namespace Area.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(visitPlace).State = EntityState.Modified;
-                db.SaveChanges();
+                VisitPlace visitPlacebyID = db.VisitPlaces.Find(visitPlace.ID);
+                visitPlacebyID.UserID = visitPlace.UserID;
+                visitPlacebyID.StartDate = visitPlace.StartDate;
+                visitPlacebyID.EndDate = visitPlace.EndDate;
+                db.Entry(visitPlacebyID).State = EntityState.Modified;
+                db.SaveChanges(); 
                 return RedirectToAction("Index");
             }
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name", visitPlace.PlaceID);

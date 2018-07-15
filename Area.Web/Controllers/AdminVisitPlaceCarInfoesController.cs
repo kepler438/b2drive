@@ -49,6 +49,7 @@ namespace Area.Web.Controllers
                     carinfo.CarModelName = visitPlaceCarInfo.CarModelName;
                     carinfo.CarReceiveDate = visitPlaceCarInfo.CarReceiveDate;
                     carinfo.CarReceivePoint = visitPlaceCarInfo.CarReceivePoint;
+                    carinfo.PnrNo = visitPlaceCarInfo.PnrNo;
                     db.Entry(carinfo).State = EntityState.Modified;
                     db.SaveChanges();
                     return Redirect("/adminsupervisorvisit");

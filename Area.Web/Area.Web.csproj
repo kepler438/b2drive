@@ -208,6 +208,7 @@
     <Compile Include="Attributes\VerifyUserAttribute.cs" />
     <Compile Include="Controllers\AdminCheckinController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminPhotosController.cs" />
     <Compile Include="Controllers\AdminPlaceController.cs" />
     <Compile Include="Controllers\AdminRegionController.cs" />
     <Compile Include="Controllers\AdminSPPlaceDeliveryProductsController.cs" />
@@ -363,6 +364,9 @@
     <Content Include="Views\CustomerReport\UksRate.cshtml" />
     <Content Include="Views\CustomerReport\PersonelStatus.cshtml" />
     <Content Include="Views\AdminCheckin\Index.cshtml" />
+    <Content Include="Views\AdminPhotos\Index.cshtml" />
+    <Content Include="Views\AdminPhotos\PersonelPhoto.cshtml" />
+    <Content Include="Views\AdminPhotos\SupervisorPhotoList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

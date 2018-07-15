@@ -22,14 +22,14 @@
 
     B2DriveForPostEntities db = new B2DriveForPostEntities();
     var placeList = db.Places.OrderBy(p => p.Name).ToList();
-    var visitPlaces = db.VisitPlaces.Where(p => p.CheckInfoID != null && p.StartDate >= start && p.EndDate <= end).Include(v => v.Place).Include(v => v.PlaceCheckInfo).Include(v => v.User);
+    var visitPlaces = db.VisitPlaces.Where(p => p.PlaceID > 0 && p.StartDate >= start && p.EndDate <= end).Include(v => v.Place).Include(v => v.User);
     if (Convert.ToInt32(place) > 0)
     {
         int plcid = Convert.ToInt32(place);
         visitPlaces = visitPlaces.Where(p => p.PlaceID == plcid);
     }
 }
- 
+
 
 <div class="span12">
     <div class="widget widget-table action-table">
@@ -37,7 +37,6 @@
             <form class="filterForm">
                 <div class="container">
                     <div class="row">
-
                         <div class="span3">
                             <h5>Başlangıç Tarihi</h5>
                             <div class="controls datetimepicker1">
@@ -60,7 +59,6 @@
                         <div class="span3">
                             <h5>Mekanlar</h5>
                             <select name="place">
-                                <option value="0">Seçiniz</option>
                                 <option value="0">Tüm Mekanlar</option>
                                 @foreach (var item in placeList)
                                 {
@@ -83,8 +81,10 @@
                 <thead>
                     <tr>
                         <th> Mekan Adı </th>
-                        <th> Checkin Yapan Kullanıcı </th>
-                        <th> Maps </th>
+                        <th> Personel Adı </th>
+                        <th> Başlangıç Tarihi </th>
+                        <th> Bitiş Tarihi </th>
+                        <th class="td-actions"> </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,24 +94,14 @@
                             <td> @item.Place.Name </td>
                             <td> @(item.User.FirstName + " " + item.User.LastName )</td>
                             <td>
-                                <iframe width="300"
-                                        height="170"
-                                        frameborder="0"
-                                        scrolling="no"
-                                        marginheight="0"
-                                        marginwidth="0"
-                                        src="https://maps.google.com/maps?q=@item.PlaceCheckInfo.CheckinLatitude,@item.PlaceCheckInfo.CheckinLongitude&hl=es;z=14&amp;output=embed"></iframe>
-                                <br />
-                                <small>
-                                    <a href="https://maps.google.com/maps?q=@item.PlaceCheckInfo.CheckinLatitude,@item.PlaceCheckInfo.CheckinLongitude&hl=es;z=14&amp;output=embed"
-                                       style="color:#0000FF;text-align:left"
-                                       target="_blank">
-                                        Google Haritalarda İncele
-                                    </a>
-                                </small>
-
+                                @item.StartDate
                             </td>
-
+                            <td>
+                                @item.EndDate
+                            </td>
+                            <td>
+                                <a href="@(Url.Action("PersonelPhoto/" + item.ID))">Fotoğrafları Gör</a>
+                            </td>
                         </tr>
                     }
                 </tbody>

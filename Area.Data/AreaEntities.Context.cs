@@ -51,12 +51,12 @@ namespace Area.Data
         public virtual DbSet<UserLogInformation> UserLogInformations { get; set; }
         public virtual DbSet<UserPassword> UserPasswords { get; set; }
         public virtual DbSet<VisitPlace> VisitPlaces { get; set; }
-        public virtual DbSet<VisitPlaceCarInfo> VisitPlaceCarInfoes { get; set; }
-        public virtual DbSet<VisitPlaceInfo> VisitPlaceInfoes { get; set; }
         public virtual DbSet<VisitPlaceWareHouse> VisitPlaceWareHouses { get; set; }
         public virtual DbSet<WareHouse> WareHouses { get; set; }
         public virtual DbSet<WareHouseProduct> WareHouseProducts { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
+        public virtual DbSet<VisitPlaceCarInfo> VisitPlaceCarInfoes { get; set; }
+        public virtual DbSet<VisitPlaceInfo> VisitPlaceInfoes { get; set; }
     
         public virtual ObjectResult<GetConversionAndUKS_Result> GetConversionAndUKS(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID, Nullable<int> categoryID, Nullable<int> subCategoryID)
         {

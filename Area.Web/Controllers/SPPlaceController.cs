@@ -78,25 +78,28 @@ namespace Area.Web.Controllers
         [Route("spplace/placeownercomment/{id?}")]
         public ActionResult PlaceOwnerComment(int? id)
         {
-            int userID = Convert.ToInt32(Session["UserId"]);
-            ViewData["supervisorVisitPlace"] = db.SupervisorVisitPlaces.Where(p => p.ID == id).FirstOrDefault();
+            int userID = Convert.ToInt32(Session["UserId"]); 
+            var visitplacaInfo = db.VisitPlaceInfoes.Where(p => p.IsActive == true && p.UserID == userID && p.SupervisorVisitPlace == id).FirstOrDefault();
+            return View(visitplacaInfo == null ? new VisitPlaceInfo() : visitplacaInfo);
+             
+            //ViewData["supervisorVisitPlace"] = db.SupervisorVisitPlaces.Where(p => p.ID == id).FirstOrDefault();
 
-            var evalVM = new Evaluation();
-            foreach (var item in db.RaitingQuestions.Where(p => p.IsActive == true))
-            {
-                evalVM.Questions.Add(new Question()
-                {
-                    ID = item.ID,
-                    QuestionText = item.Name,
-                    Answers = new List<Answer>()
-                            {
-                                new Answer() { ID = 1 , AnswerText = "İyi"},
-                                new Answer() { ID = 2 , AnswerText = "Orta"},
-                                new Answer() { ID = 3 , AnswerText = "Yetersiz"},
-                           },
-                });
-            }
-            return View(evalVM);
+            //var evalVM = new Evaluation();
+            //foreach (var item in db.RaitingQuestions.Where(p => p.IsActive == true))
+            //{
+            //    evalVM.Questions.Add(new Question()
+            //    {
+            //        ID = item.ID,
+            //        QuestionText = item.Name,
+            //        Answers = new List<Answer>()
+            //                {
+            //                    new Answer() { ID = 1 , AnswerText = "İyi"},
+            //                    new Answer() { ID = 2 , AnswerText = "Orta"},
+            //                    new Answer() { ID = 3 , AnswerText = "Yetersiz"},
+            //               },
+            //    });
+            //}
+            //return View(evalVM);
         }
 
         [Route("spplace/inspectioninfo/{id?}")]
@@ -233,27 +236,51 @@ namespace Area.Web.Controllers
 
         [Route("saveownercomment")]
         [HttpPost]
-        public ActionResult SaveOwnerComment(Evaluation input)
+        public ActionResult SaveOwnerComment(VisitPlaceInfo visitplaceInfo)
         {
-            db.SupervisorVisitPlaceComments.RemoveRange(db.SupervisorVisitPlaceComments.Where(x => x.SupervisorVisitPlaceID == input.visitplaceID && x.PlaceOwner == true));
-            db.SaveChanges();
-            foreach (var item in input.Questions)
+            var visitplaceInfoEntity = db.VisitPlaceInfoes.Where(p => p.SupervisorVisitPlace == visitplaceInfo.SupervisorVisitPlace).FirstOrDefault();
+            if (visitplaceInfoEntity == null)
             {
-                SupervisorVisitPlaceComment comm = new SupervisorVisitPlaceComment();
-                comm.RaitingID = item.ID;
-                comm.RaitingStar = item.SelectedAnswer;
-                comm.CreateDate = DateTime.Now;
-                comm.PlaceOwner = true;
-                comm.SupervisorVisitPlaceID = input.visitplaceID;
-                db.SupervisorVisitPlaceComments.Add(comm);
-                db.SaveChanges();
+                visitplaceInfo.CreateDate = DateTime.Now;
+                visitplaceInfo.IsActive = true;
+                visitplaceInfo.UserID = Convert.ToInt32(Session["UserId"]);//TODO: Sonradan buraya Session uzerinden userId cek
+                db.VisitPlaceInfoes.Add(visitplaceInfo);
+                db.SaveChanges(); 
             }
-            var comment = db.SupervisorVisitPlaces.Find(input.visitplaceID);
-            comment.PlaceNegativeComment = input.PlaceNegativeComment;
-            comment.PlacePositiveComment = input.PlacePositiveComment;
-            db.Entry(comment);
-            db.SaveChanges();
-            return Redirect("spplace/inspectioninfo/" + input.visitplaceID);
+            else
+            {
+                visitplaceInfoEntity.PlaceCapacity = visitplaceInfo.PlaceCapacity;
+                visitplaceInfoEntity.PeopleInterviewed = visitplaceInfo.PeopleInterviewed;
+                visitplaceInfoEntity.PeopleSurvey = visitplaceInfo.PeopleSurvey;
+                visitplaceInfoEntity.PeopleToTasted = visitplaceInfo.PeopleToTasted;
+                visitplaceInfoEntity.PlaceNegativeComment = visitplaceInfo.PlaceNegativeComment;
+                visitplaceInfoEntity.PlacePositiveComment = visitplaceInfo.PlacePositiveComment;  
+                db.Entry(visitplaceInfoEntity);
+                db.SaveChanges();
+                //return Redirect("/VisitPlaceStock/" + visitplaceInfo.VisitPlaceID); 
+            }
+            return Redirect("spplace/inspectioninfo/" + visitplaceInfo.SupervisorVisitPlace);
+
+
+            //db.SupervisorVisitPlaceComments.RemoveRange(db.SupervisorVisitPlaceComments.Where(x => x.SupervisorVisitPlaceID == input.visitplaceID && x.PlaceOwner == true));
+            //db.SaveChanges();
+            //foreach (var item in input.Questions)
+            //{
+            //    SupervisorVisitPlaceComment comm = new SupervisorVisitPlaceComment();
+            //    comm.RaitingID = item.ID;
+            //    comm.RaitingStar = item.SelectedAnswer;
+            //    comm.CreateDate = DateTime.Now;
+            //    comm.PlaceOwner = true;
+            //    comm.SupervisorVisitPlaceID = input.visitplaceID;
+            //    db.SupervisorVisitPlaceComments.Add(comm);
+            //    db.SaveChanges();
+            //}
+            //var comment = db.SupervisorVisitPlaces.Find(input.visitplaceID);
+            //comment.PlaceNegativeComment = input.PlaceNegativeComment;
+            //comment.PlacePositiveComment = input.PlacePositiveComment;
+            //db.Entry(comment);
+            //db.SaveChanges();
+            //return Redirect("spplace/inspectioninfo/" + input.visitplaceID);
         }
 
         [Route("saveinspectioninfo")]

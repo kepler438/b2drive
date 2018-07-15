@@ -25,8 +25,8 @@ namespace Area.Data
             this.UserLogInformations = new HashSet<UserLogInformation>();
             this.UserPasswords = new HashSet<UserPassword>();
             this.VisitPlaces = new HashSet<VisitPlace>();
-            this.VisitPlaceInfoes = new HashSet<VisitPlaceInfo>();
             this.Permissions = new HashSet<Permission>();
+            this.VisitPlaceInfoes = new HashSet<VisitPlaceInfo>();
         }
     
         public int ID { get; set; }
@@ -55,8 +55,8 @@ namespace Area.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VisitPlace> VisitPlaces { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VisitPlaceInfo> VisitPlaceInfoes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Permission> Permissions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VisitPlaceInfo> VisitPlaceInfoes { get; set; }
     }
 }
