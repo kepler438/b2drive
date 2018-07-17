@@ -28,7 +28,15 @@ namespace Area.Web.Controllers
         {
             return View();
         }
-         
+
+        public ActionResult SupervisorPhoto(int id)
+        {
+            using (B2DriveForPostEntities db = new B2DriveForPostEntities())
+            {
+                var result = db.PlacePhotoes.Where(p => p.SupervisorVisitPlaceID == id && p.IsActive == true).ToList();
+                return View(result);
+            }
+        }
 
     }
 }

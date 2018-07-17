@@ -62,6 +62,7 @@ namespace Area.Web.Controllers
             int UserType = user.Permissions.First().Id;
              if (UserType == (int)EnumUserType.Supervisor)
             {
+                id = db.SupervisorVisitPlaces.Where(p => p.VisitPlaceID == id).FirstOrDefault().ID;
                 return Redirect("/spplace/inspectioninfo/" + id);
             }
            return Redirect("/UploadPhotos/" + id);

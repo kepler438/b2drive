@@ -75,28 +75,19 @@ namespace Area.Web.Controllers
             return View(place);
         }
 
-        // GET: AdminPlace/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Place place = db.Places.Find(id);
-            if (place == null)
-            {
-                return HttpNotFound();
-            }
-            return View(place);
-        }
-
-        // POST: AdminPlace/Delete/5
-        [HttpPost, ActionName("Delete")] 
+      
         public ActionResult DeleteConfirmed(int id)
         {
-            Place place = db.Places.Find(id);
-            db.Places.Remove(place);
-            db.SaveChanges();
+            try
+            {
+                Place place = db.Places.Find(id);
+                db.Places.Remove(place);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                 
+            } 
             return RedirectToAction("Index");
         }
 

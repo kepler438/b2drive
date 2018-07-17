@@ -1,0 +1,27 @@
+﻿@model List<Area.Data.PlacePhoto>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="widget-header myContainer">
+    <i class="icon-user"></i>
+    <h3>Yüklenen Fotoğraflar</h3>
+</div>
+<div class="widget-content myContainer">
+    <div class="tabbable">
+        <div class="tab-content">
+            <div class="image_preview_custom">
+                @foreach (var item in Model)
+                {
+                    <div class="respo-img">
+                        <img class='img-responsive' src="@item.PhotoUrl" />
+                    </div>
+                }
+            </div>
+
+        </div>
+        @Html.ActionLink("Listeye Geri Dön", "SupervisorPhotoList")
+    </div>
+</div>

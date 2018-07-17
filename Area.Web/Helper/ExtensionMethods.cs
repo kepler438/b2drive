@@ -18,5 +18,10 @@ namespace Area.Web.Helper
                 return user.FirstName + " " + user.LastName;
             } 
         }
+
+        public static void CreateExcelReport()
+        {
+
+        }
     }
 }

@@ -141,7 +141,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="/admincheckin">Personel Checkin Yönetimi</a></li>
                             <li><a href="/customerreport/personelStatus">Personel Durumları</a></li>
-                            <li><a href="/customerreport/personelStatus">Personel Mekan Fotoğraflar</a></li>
+                            <li><a href="/adminphotos">Personel Mekan Fotoğraflar</a></li>
                             <li><a href="/customerreport/differentplace">Farkli Mekanlar</a></li>
                             <li><a href="/customerreport/sameplace">Tekrar Eden Mekanlar</a></li>
                             <li><a href="/customerreport/conversionanduks">Conversion - Ulasilan Kisi Sayisi</a></li>
@@ -152,7 +152,7 @@
 
                         </ul>
                     </li>
-                    <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "customerreport" ? "active" : string.Empty)">
+                    <li class="dropdown @(((string)ViewContext.RouteData.Values["controller"]).ToLower() == "adminphotos" || ((string)ViewContext.RouteData.Values["controller"]).ToLower() == "supervisorreport" ? "active" : string.Empty)">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user-md"></i><span>Supervisor Raporlar</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu"> 
                             <li><a href="/adminphotos/supervisorphotolist">Supervisor Mekan Fotoğraflar</a></li>

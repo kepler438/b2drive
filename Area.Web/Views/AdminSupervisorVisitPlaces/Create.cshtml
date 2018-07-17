@@ -82,7 +82,8 @@
                                 <tr>
                                     <th> Ziyaret Mekanı ve Personeli </th>
                                     <th> Başlangıç Tarihi </th>
-                                    <th> Bitiş Tarihi </th>  
+                                    <th> Bitiş Tarihi </th>
+                                    <th class="td-actions"> </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,15 +93,11 @@
                                         <td>@item.VisitPlace1.Place.Name </td>
                                         <td>@item.StartDate </td>
                                         <td>@item.EndDate </td> 
-                                        @*<td class="td-actions">
-                                            <a href="/receivedproducts/delete/@item.ID" class="btn btn-danger btn-small">
+                                        <td class="td-actions">
+                                            <a href="/AdminSupervisorVisitPlaces/DeleteSpVisit/@item.ID" class="btn btn-danger btn-small">
                                                 <i class="btn-icon-only icon-remove"> </i>
-                                            </a>
-                                            <a href="/receivedproducts/edit/@item.ID" class="btn btn-success btn-small">
-                                                <i class="btn-icon-only icon-edit"> </i>
-                                            </a>
-
-                                        </td>*@
+                                            </a> 
+                                        </td>
                                     </tr>
                                 }
                             </tbody>

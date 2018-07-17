@@ -85,6 +85,15 @@ namespace Area.Web.Controllers
             return RedirectToAction("/Create/"+ supervisorVisitPlace.VisitPlaceID);
         }
 
+        public ActionResult DeleteSpVisit(int id)
+        {
+            SupervisorVisitPlace visit = db.SupervisorVisitPlaces.Find(id);
+            int visitPlaceID = visit.VisitPlaceID;
+            db.SupervisorVisitPlaces.Remove(visit);
+            db.SaveChanges();
+            return RedirectToAction("/Create/" + visitPlaceID);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
