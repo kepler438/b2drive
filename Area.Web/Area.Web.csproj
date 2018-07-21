@@ -228,6 +228,7 @@
     <Compile Include="Controllers\CustomerHomeController.cs" />
     <Compile Include="Controllers\CustomerPlaceMapController.cs" />
     <Compile Include="Controllers\CustomerReportController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AdminPickNavigationController.cs" />
     <Compile Include="Controllers\AdminPlaceControlController.cs" />
@@ -382,6 +383,8 @@
     <Content Include="Views\RaitingQuestions\Edit.cshtml" />
     <Content Include="Views\RaitingQuestions\Index.cshtml" />
     <Content Include="Views\AdminPhotos\SupervisorPhoto.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
