@@ -49,7 +49,7 @@ namespace Area.Web.Controllers
                 db.Users.Add(saveUser);
                 db.SaveChanges(); 
 
-                Area.Data.UserPassword newUserPassword = new UserPassword();
+                UserPassword newUserPassword = new UserPassword();
                 var keyNew = LogHelper.GeneratePassword(10);
                 var password = LogHelper.EncodePassword(user.Password, keyNew);
                 newUserPassword.CreatedDate = DateTime.Now;
@@ -82,13 +82,36 @@ namespace Area.Web.Controllers
         }
         
         [HttpPost]
-        public ActionResult Edit(User user)
+        public ActionResult Edit(InputUser user)
         {
             if (ModelState.IsValid)
-            {
-                user.CreateDate = DateTime.Now;
-                db.Entry(user).State = EntityState.Modified;
+            { 
+                User saveUser = new User();
+                saveUser.ID = user.ID;
+                saveUser.FirstName = user.FirstName;
+                saveUser.LastName = user.LastName;
+                saveUser.Phone = user.Phone;
+                saveUser.MailAddress = user.MailAddress;
+                saveUser.UserName = user.UserName; 
+                saveUser.CreateDate = DateTime.Now;
+                saveUser.IsActive = user.IsActive;
+                db.Entry(saveUser).State = EntityState.Modified;
                 db.SaveChanges();
+
+                if (!String.IsNullOrEmpty(user.Password))
+                { 
+                    db.UserPasswords.Remove(db.UserPasswords.Where(p => p.UserId == user.ID).FirstOrDefault()); 
+                    UserPassword newUserPassword = new UserPassword();
+                    var keyNew = LogHelper.GeneratePassword(10);
+                    var password = LogHelper.EncodePassword(user.Password, keyNew);
+                    newUserPassword.CreatedDate = DateTime.Now;
+                    newUserPassword.IsActive = true;
+                    newUserPassword.UserId = saveUser.ID;
+                    newUserPassword.Password = password;
+                    newUserPassword.Vcode = keyNew;
+                    db.UserPasswords.Add(newUserPassword);
+                    db.SaveChanges();
+                } 
                 return RedirectToAction("Index");
             }
             return View(user);
