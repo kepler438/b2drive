@@ -27,7 +27,7 @@ namespace Area.Web.Controllers
         }
         public ActionResult LoginInfoControl(LoginInfo info)
         {
-            var getUser = (from s in db.Users where s.UserName == info.username || s.MailAddress == info.username select s).FirstOrDefault();
+            var getUser = (from s in db.Users where s.IsActive == true &&( s.UserName == info.username || s.MailAddress == info.username) select s).FirstOrDefault();
             if (getUser != null)
             {
                 UserPassword pass = db.UserPasswords.Where(x => x.UserId == getUser.ID && x.IsActive == true).FirstOrDefault();
