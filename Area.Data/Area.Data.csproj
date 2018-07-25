@@ -106,6 +106,9 @@
     <Compile Include="Invoice.cs">
       <DependentUpon>AreaEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="PenetrationPlace.cs">
+      <DependentUpon>AreaEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Permission.cs">
       <DependentUpon>AreaEntities.tt</DependentUpon>
     </Compile>

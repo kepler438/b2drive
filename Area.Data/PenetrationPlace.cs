@@ -12,18 +12,11 @@ namespace Area.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class SupervisorVisitPlacePenetration
+    public partial class PenetrationPlace
     {
         public int ID { get; set; }
-        public int ProductID { get; set; }
-        public Nullable<int> SupervisorVisitPlaceID { get; set; }
-        public Nullable<int> PenetrationPlaceID { get; set; }
-        public decimal Price { get; set; }
-        public System.DateTime CreateDate { get; set; }
+        public string PlaceName { get; set; }
+        public string PlaceAddress { get; set; }
         public bool IsActive { get; set; }
-        public Nullable<int> CreatedBy { get; set; }
-    
-        public virtual Product Product { get; set; }
-        public virtual SupervisorVisitPlace SupervisorVisitPlace { get; set; }
     }
 }

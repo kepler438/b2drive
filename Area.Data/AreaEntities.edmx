@@ -34,6 +34,15 @@
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="PenetrationPlace">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlaceName" Type="nvarchar" MaxLength="500" />
+          <Property Name="PlaceAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Permission">
           <Key>
             <PropertyRef Name="Id" />
@@ -243,9 +252,11 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="SupervisorVisitPlaceID" Type="int" />
+          <Property Name="PenetrationPlaceID" Type="int" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -982,6 +993,7 @@
           <EntitySet Name="AvailableUserVisit" EntityType="Self.AvailableUserVisit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PenetrationPlace" EntityType="Self.PenetrationPlace" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Place" EntityType="Self.Place" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlaceCheckInfo" EntityType="Self.PlaceCheckInfo" Schema="dbo" store:Type="Tables" />
@@ -1215,7 +1227,6 @@
           <EntitySet Name="SupervisorVisitPlaces" EntityType="B2DriveForPostModel.SupervisorVisitPlace" />
           <EntitySet Name="SupervisorVisitPlaceComments" EntityType="B2DriveForPostModel.SupervisorVisitPlaceComment" />
           <EntitySet Name="SupervisorVisitPlaceInfoes" EntityType="B2DriveForPostModel.SupervisorVisitPlaceInfo" />
-          <EntitySet Name="SupervisorVisitPlacePenetrations" EntityType="B2DriveForPostModel.SupervisorVisitPlacePenetration" />
           <EntitySet Name="Users" EntityType="B2DriveForPostModel.User" />
           <EntitySet Name="UserLogInformations" EntityType="B2DriveForPostModel.UserLogInformation" />
           <EntitySet Name="UserPasswords" EntityType="B2DriveForPostModel.UserPassword" />
@@ -1278,10 +1289,6 @@
           <AssociationSet Name="FK_SPPlaceDeliveryProducts_Product" Association="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_Product">
             <End Role="Product" EntitySet="Products" />
             <End Role="SPPlaceDeliveryProduct" EntitySet="SPPlaceDeliveryProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SupervisorVisitPlacePenetration_Product" Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="SupervisorVisitPlacePenetration" EntitySet="SupervisorVisitPlacePenetrations" />
           </AssociationSet>
           <AssociationSet Name="FK_WareHouseProduct_Product" Association="B2DriveForPostModel.FK_WareHouseProduct_Product">
             <End Role="Product" EntitySet="Products" />
@@ -1350,10 +1357,6 @@
           <AssociationSet Name="FK_SupervisorVisitPlaceInfo_SupervisorVisitPlace" Association="B2DriveForPostModel.FK_SupervisorVisitPlaceInfo_SupervisorVisitPlace">
             <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
             <End Role="SupervisorVisitPlaceInfo" EntitySet="SupervisorVisitPlaceInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace">
-            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
-            <End Role="SupervisorVisitPlacePenetration" EntitySet="SupervisorVisitPlacePenetrations" />
           </AssociationSet>
           <AssociationSet Name="FK_UserLogInformation_User" Association="B2DriveForPostModel.FK_UserLogInformation_User">
             <End Role="User" EntitySet="Users" />
@@ -1458,6 +1461,16 @@
             <End Role="VisitPlace" EntitySet="VisitPlaces" />
             <End Role="VisitPlaceInfo" EntitySet="VisitPlaceInfoes" />
           </AssociationSet>
+          <EntitySet Name="PenetrationPlaces" EntityType="B2DriveForPostModel.PenetrationPlace" />
+          <EntitySet Name="SupervisorVisitPlacePenetrations" EntityType="B2DriveForPostModel.SupervisorVisitPlacePenetration" />
+          <AssociationSet Name="FK_SupervisorVisitPlacePenetration_Product" Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="SupervisorVisitPlacePenetration" EntitySet="SupervisorVisitPlacePenetrations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace">
+            <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
+            <End Role="SupervisorVisitPlacePenetration" EntitySet="SupervisorVisitPlacePenetrations" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AvailableUserVisit">
           <Key>
@@ -1559,8 +1572,8 @@
           <NavigationProperty Name="ProductRecivedDelivereds" Relationship="B2DriveForPostModel.FK_ProductRecivedDelivered_Product" FromRole="Product" ToRole="ProductRecivedDelivered" />
           <NavigationProperty Name="ProductSales" Relationship="B2DriveForPostModel.FK_ProductSale_Product" FromRole="Product" ToRole="ProductSale" />
           <NavigationProperty Name="SPPlaceDeliveryProducts" Relationship="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_Product" FromRole="Product" ToRole="SPPlaceDeliveryProduct" />
-          <NavigationProperty Name="SupervisorVisitPlacePenetrations" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_Product" FromRole="Product" ToRole="SupervisorVisitPlacePenetration" />
           <NavigationProperty Name="WareHouseProducts" Relationship="B2DriveForPostModel.FK_WareHouseProduct_Product" FromRole="Product" ToRole="WareHouseProduct" />
+          <NavigationProperty Name="SupervisorVisitPlacePenetrations" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_Product" FromRole="Product" ToRole="SupervisorVisitPlacePenetration" />
         </EntityType>
         <EntityType Name="ProductCategory">
           <Key>
@@ -1725,19 +1738,6 @@
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="SupervisorVisitPlace" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlaceInfo_SupervisorVisitPlace" FromRole="SupervisorVisitPlaceInfo" ToRole="SupervisorVisitPlace" />
-        </EntityType>
-        <EntityType Name="SupervisorVisitPlacePenetration">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="SupervisorVisitPlaceID" Type="Int32" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_Product" FromRole="SupervisorVisitPlacePenetration" ToRole="Product" />
-          <NavigationProperty Name="SupervisorVisitPlace" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" FromRole="SupervisorVisitPlacePenetration" ToRole="SupervisorVisitPlace" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -2027,18 +2027,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SupervisorVisitPlacePenetration_Product">
-          <End Type="B2DriveForPostModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="B2DriveForPostModel.SupervisorVisitPlacePenetration" Role="SupervisorVisitPlacePenetration" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupervisorVisitPlacePenetration">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_WareHouseProduct_Product">
           <End Type="B2DriveForPostModel.Product" Role="Product" Multiplicity="0..1" />
           <End Type="B2DriveForPostModel.WareHouseProduct" Role="WareHouseProduct" Multiplicity="*" />
@@ -2239,18 +2227,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="SupervisorVisitPlaceInfo">
-              <PropertyRef Name="SupervisorVisitPlaceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace">
-          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="0..1" />
-          <End Type="B2DriveForPostModel.SupervisorVisitPlacePenetration" Role="SupervisorVisitPlacePenetration" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SupervisorVisitPlace">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupervisorVisitPlacePenetration">
               <PropertyRef Name="SupervisorVisitPlaceID" />
             </Dependent>
           </ReferentialConstraint>
@@ -2487,6 +2463,54 @@
             </Principal>
             <Dependent Role="VisitPlaceInfo">
               <PropertyRef Name="VisitPlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PenetrationPlace">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlaceName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupervisorVisitPlacePenetration">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="SupervisorVisitPlaceID" Type="Int32" />
+          <Property Name="PenetrationPlaceID" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_Product" FromRole="SupervisorVisitPlacePenetration" ToRole="Product" />
+          <NavigationProperty Name="SupervisorVisitPlace" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" FromRole="SupervisorVisitPlacePenetration" ToRole="SupervisorVisitPlace" />
+        </EntityType>
+        <Association Name="FK_SupervisorVisitPlacePenetration_Product">
+          <End Type="B2DriveForPostModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="B2DriveForPostModel.SupervisorVisitPlacePenetration" Role="SupervisorVisitPlacePenetration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupervisorVisitPlacePenetration">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace">
+          <End Type="B2DriveForPostModel.SupervisorVisitPlace" Role="SupervisorVisitPlace" Multiplicity="0..1" />
+          <End Type="B2DriveForPostModel.SupervisorVisitPlacePenetration" Role="SupervisorVisitPlacePenetration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupervisorVisitPlace">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupervisorVisitPlacePenetration">
+              <PropertyRef Name="SupervisorVisitPlaceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2734,18 +2758,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SupervisorVisitPlacePenetrations">
-            <EntityTypeMapping TypeName="B2DriveForPostModel.SupervisorVisitPlacePenetration">
-              <MappingFragment StoreEntitySet="SupervisorVisitPlacePenetration">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="SupervisorVisitPlaceID" ColumnName="SupervisorVisitPlaceID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="B2DriveForPostModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -2989,6 +3001,30 @@
                 <ScalarProperty Name="SupervisorVisitPlaceID" ColumnName="SupervisorVisitPlaceID" />
                 <ScalarProperty Name="VisitPlaceID" ColumnName="VisitPlaceID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PenetrationPlaces">
+            <EntityTypeMapping TypeName="B2DriveForPostModel.PenetrationPlace">
+              <MappingFragment StoreEntitySet="PenetrationPlace">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PlaceAddress" ColumnName="PlaceAddress" />
+                <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupervisorVisitPlacePenetrations">
+            <EntityTypeMapping TypeName="B2DriveForPostModel.SupervisorVisitPlacePenetration">
+              <MappingFragment StoreEntitySet="SupervisorVisitPlacePenetration">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PenetrationPlaceID" ColumnName="PenetrationPlaceID" />
+                <ScalarProperty Name="SupervisorVisitPlaceID" ColumnName="SupervisorVisitPlaceID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -119,6 +119,16 @@ namespace Area.Web.Controllers
             return View(result);
         }
 
+        [Route("spplace/penetrationplaceFree")]
+        public ActionResult PenetrationPlaceFree()
+        {
+            var userID = Convert.ToInt32(Session["UserId"]);
+            var result = db.SupervisorVisitPlacePenetrations.Where(p => p.CreatedBy == userID).ToList();
+            ViewData["ProductCategory"] = new SelectList(db.ProductCategories.Where(p => p.IsActive == true && p.ID != 2), "ID", "Name");
+            ViewData["PenetrationPlaceID"] = new SelectList(db.PenetrationPlaces.Where(p => p.IsActive == true), "ID", "PlaceName");
+            return View(result);
+        }
+
         [Route("spplace/GetSubCategories/{categoryid?}")]
         public JsonResult GetSubCategories(string categoryid)
         {
@@ -323,6 +333,19 @@ namespace Area.Web.Controllers
                 db.SaveChanges();
 
             return Redirect("spplace/penetration/" + input.SupervisorVisitPlaceID);
+        }
+
+        [Route("savepenetrationplace")]
+        [HttpPost]
+        public ActionResult SavePenetrationPlace(SupervisorVisitPlacePenetration input)
+        {
+            input.CreateDate = DateTime.Now;
+            input.IsActive = true;
+            input.CreatedBy = Convert.ToInt32(Session["UserId"]);
+            db.SupervisorVisitPlacePenetrations.Add(input);
+            db.SaveChanges();
+
+            return Redirect("spplace/penetrationplaceFree");
         }
 
 

@@ -46,7 +46,6 @@ namespace Area.Data
         public virtual DbSet<SupervisorVisitPlace> SupervisorVisitPlaces { get; set; }
         public virtual DbSet<SupervisorVisitPlaceComment> SupervisorVisitPlaceComments { get; set; }
         public virtual DbSet<SupervisorVisitPlaceInfo> SupervisorVisitPlaceInfoes { get; set; }
-        public virtual DbSet<SupervisorVisitPlacePenetration> SupervisorVisitPlacePenetrations { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserLogInformation> UserLogInformations { get; set; }
         public virtual DbSet<UserPassword> UserPasswords { get; set; }
@@ -57,6 +56,8 @@ namespace Area.Data
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<VisitPlaceCarInfo> VisitPlaceCarInfoes { get; set; }
         public virtual DbSet<VisitPlaceInfo> VisitPlaceInfoes { get; set; }
+        public virtual DbSet<PenetrationPlace> PenetrationPlaces { get; set; }
+        public virtual DbSet<SupervisorVisitPlacePenetration> SupervisorVisitPlacePenetrations { get; set; }
     
         public virtual ObjectResult<GetConversionAndUKS_Result> GetConversionAndUKS(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> placeID, Nullable<int> categoryID, Nullable<int> subCategoryID)
         {

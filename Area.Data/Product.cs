@@ -20,8 +20,8 @@ namespace Area.Data
             this.ProductRecivedDelivereds = new HashSet<ProductRecivedDelivered>();
             this.ProductSales = new HashSet<ProductSale>();
             this.SPPlaceDeliveryProducts = new HashSet<SPPlaceDeliveryProduct>();
-            this.SupervisorVisitPlacePenetrations = new HashSet<SupervisorVisitPlacePenetration>();
             this.WareHouseProducts = new HashSet<WareHouseProduct>();
+            this.SupervisorVisitPlacePenetrations = new HashSet<SupervisorVisitPlacePenetration>();
         }
     
         public int ID { get; set; }
@@ -39,8 +39,8 @@ namespace Area.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SPPlaceDeliveryProduct> SPPlaceDeliveryProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupervisorVisitPlacePenetration> SupervisorVisitPlacePenetrations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WareHouseProduct> WareHouseProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupervisorVisitPlacePenetration> SupervisorVisitPlacePenetrations { get; set; }
     }
 }

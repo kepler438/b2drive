@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a3ecca8cd2ea4b51bfaedf47933cccb3" Name="Diagram1" ZoomLevel="62">
+      <Diagram DiagramId="a3ecca8cd2ea4b51bfaedf47933cccb3" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="B2DriveForPostModel.AvailableUserVisit" Width="1.5" PointX="13.5" PointY="28.625" />
         <EntityTypeShape EntityType="B2DriveForPostModel.City" Width="1.5" PointX="0.75" PointY="21.125" />
         <EntityTypeShape EntityType="B2DriveForPostModel.Permission" Width="1.5" PointX="0.75" PointY="16.25" />
@@ -24,7 +24,6 @@
         <EntityTypeShape EntityType="B2DriveForPostModel.SupervisorVisitPlace" Width="1.5" PointX="5.25" PointY="22" />
         <EntityTypeShape EntityType="B2DriveForPostModel.SupervisorVisitPlaceComment" Width="1.5" PointX="10.5" PointY="19.5" />
         <EntityTypeShape EntityType="B2DriveForPostModel.SupervisorVisitPlaceInfo" Width="1.5" PointX="7.5" PointY="38.625" />
-        <EntityTypeShape EntityType="B2DriveForPostModel.SupervisorVisitPlacePenetration" Width="1.5" PointX="10.5" PointY="27.625" />
         <EntityTypeShape EntityType="B2DriveForPostModel.User" Width="1.5" PointX="3" PointY="15.125" />
         <EntityTypeShape EntityType="B2DriveForPostModel.UserLogInformation" Width="1.5" PointX="8.25" PointY="15.25" />
         <EntityTypeShape EntityType="B2DriveForPostModel.UserPassword" Width="1.5" PointX="5.25" PointY="14.125" />
@@ -46,7 +45,6 @@
         <AssociationConnector Association="B2DriveForPostModel.FK_ProductRecivedDelivered_Product" />
         <AssociationConnector Association="B2DriveForPostModel.FK_ProductSale_Product" />
         <AssociationConnector Association="B2DriveForPostModel.FK_SPPlaceDeliveryProducts_Product" />
-        <AssociationConnector Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_Product" />
         <AssociationConnector Association="B2DriveForPostModel.FK_WareHouseProduct_Product" />
         <AssociationConnector Association="B2DriveForPostModel.FK_ProductSubCategory_ProductCategory" />
         <AssociationConnector Association="B2DriveForPostModel.FK_ProductRecivedDelivered_SupervisorVisitPlace" />
@@ -64,7 +62,6 @@
         <AssociationConnector Association="B2DriveForPostModel.FK_SupervisorVisitPlace_VisitPlaceParent" />
         <AssociationConnector Association="B2DriveForPostModel.FK_SupervisorVisitPlaceComment_SupervisorVisitPlace1" />
         <AssociationConnector Association="B2DriveForPostModel.FK_SupervisorVisitPlaceInfo_SupervisorVisitPlace" />
-        <AssociationConnector Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" />
         <AssociationConnector Association="B2DriveForPostModel.FK_UserLogInformation_User" />
         <AssociationConnector Association="B2DriveForPostModel.FK_UserPassword_User" />
         <AssociationConnector Association="B2DriveForPostModel.FK_VisitPlace_User" />
@@ -79,6 +76,10 @@
         <EntityTypeShape EntityType="B2DriveForPostModel.VisitPlaceInfo" Width="1.5" PointX="16.5" PointY="19.375" />
         <AssociationConnector Association="B2DriveForPostModel.FK_VisitPlaceInfo_User" />
         <AssociationConnector Association="B2DriveForPostModel.FK_VisitPlaceInfo_VisitPlace" />
+        <EntityTypeShape EntityType="B2DriveForPostModel.PenetrationPlace" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="B2DriveForPostModel.SupervisorVisitPlacePenetration" Width="1.5" PointX="16.5" PointY="33.125" />
+        <AssociationConnector Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_Product" />
+        <AssociationConnector Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
