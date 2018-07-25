@@ -170,6 +170,15 @@ namespace Area.Web.Controllers
             return RedirectToAction("/Detail/" + product.SupervisorVisitPlaceID);
         }
 
+        [Route("spplace/deletepenetrationplace/{id}")]
+        public ActionResult DeletePenetrationPlace(int id)
+        {
+            SupervisorVisitPlacePenetration place = db.SupervisorVisitPlacePenetrations.Find(id);
+            db.SupervisorVisitPlacePenetrations.Remove(place);
+            db.SaveChanges();
+            return RedirectToAction("penetrationplacefree");
+        }
+
         [Route("spplace/checkin")]
         [HttpPost]
         public ActionResult Checkin(Location input)

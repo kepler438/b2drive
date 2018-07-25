@@ -76,10 +76,11 @@
         <EntityTypeShape EntityType="B2DriveForPostModel.VisitPlaceInfo" Width="1.5" PointX="16.5" PointY="19.375" />
         <AssociationConnector Association="B2DriveForPostModel.FK_VisitPlaceInfo_User" />
         <AssociationConnector Association="B2DriveForPostModel.FK_VisitPlaceInfo_VisitPlace" />
-        <EntityTypeShape EntityType="B2DriveForPostModel.PenetrationPlace" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="B2DriveForPostModel.SupervisorVisitPlacePenetration" Width="1.5" PointX="16.5" PointY="33.125" />
         <AssociationConnector Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_Product" />
         <AssociationConnector Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" />
+        <EntityTypeShape EntityType="B2DriveForPostModel.PenetrationPlace" Width="1.5" PointX="3.375" PointY="0.875" />
+        <AssociationConnector Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_PenetrationPlace" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

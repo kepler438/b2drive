@@ -693,6 +693,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SupervisorVisitPlacePenetration_PenetrationPlace">
+          <End Role="PenetrationPlace" Type="Self.PenetrationPlace" Multiplicity="0..1" />
+          <End Role="SupervisorVisitPlacePenetration" Type="Self.SupervisorVisitPlacePenetration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PenetrationPlace">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupervisorVisitPlacePenetration">
+              <PropertyRef Name="PenetrationPlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SupervisorVisitPlacePenetration_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="SupervisorVisitPlacePenetration" Type="Self.SupervisorVisitPlacePenetration" Multiplicity="*" />
@@ -1122,6 +1134,10 @@
             <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlace" />
             <End Role="SupervisorVisitPlaceInfo" EntitySet="SupervisorVisitPlaceInfo" />
           </AssociationSet>
+          <AssociationSet Name="FK_SupervisorVisitPlacePenetration_PenetrationPlace" Association="Self.FK_SupervisorVisitPlacePenetration_PenetrationPlace">
+            <End Role="PenetrationPlace" EntitySet="PenetrationPlace" />
+            <End Role="SupervisorVisitPlacePenetration" EntitySet="SupervisorVisitPlacePenetration" />
+          </AssociationSet>
           <AssociationSet Name="FK_SupervisorVisitPlacePenetration_Product" Association="Self.FK_SupervisorVisitPlacePenetration_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="SupervisorVisitPlacePenetration" EntitySet="SupervisorVisitPlacePenetration" />
@@ -1461,7 +1477,6 @@
             <End Role="VisitPlace" EntitySet="VisitPlaces" />
             <End Role="VisitPlaceInfo" EntitySet="VisitPlaceInfoes" />
           </AssociationSet>
-          <EntitySet Name="PenetrationPlaces" EntityType="B2DriveForPostModel.PenetrationPlace" />
           <EntitySet Name="SupervisorVisitPlacePenetrations" EntityType="B2DriveForPostModel.SupervisorVisitPlacePenetration" />
           <AssociationSet Name="FK_SupervisorVisitPlacePenetration_Product" Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_Product">
             <End Role="Product" EntitySet="Products" />
@@ -1469,6 +1484,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace">
             <End Role="SupervisorVisitPlace" EntitySet="SupervisorVisitPlaces" />
+            <End Role="SupervisorVisitPlacePenetration" EntitySet="SupervisorVisitPlacePenetrations" />
+          </AssociationSet>
+          <EntitySet Name="PenetrationPlaces" EntityType="B2DriveForPostModel.PenetrationPlace" />
+          <AssociationSet Name="FK_SupervisorVisitPlacePenetration_PenetrationPlace" Association="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_PenetrationPlace">
+            <End Role="PenetrationPlace" EntitySet="PenetrationPlaces" />
             <End Role="SupervisorVisitPlacePenetration" EntitySet="SupervisorVisitPlacePenetrations" />
           </AssociationSet>
           </EntityContainer>
@@ -2466,15 +2486,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="PenetrationPlace">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PlaceName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PlaceAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="SupervisorVisitPlacePenetration">
           <Key>
             <PropertyRef Name="ID" />
@@ -2489,6 +2500,7 @@
           <Property Name="CreatedBy" Type="Int32" />
           <NavigationProperty Name="Product" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_Product" FromRole="SupervisorVisitPlacePenetration" ToRole="Product" />
           <NavigationProperty Name="SupervisorVisitPlace" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_SupervisorVisitPlace" FromRole="SupervisorVisitPlacePenetration" ToRole="SupervisorVisitPlace" />
+          <NavigationProperty Name="PenetrationPlace" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_PenetrationPlace" FromRole="SupervisorVisitPlacePenetration" ToRole="PenetrationPlace" />
         </EntityType>
         <Association Name="FK_SupervisorVisitPlacePenetration_Product">
           <End Type="B2DriveForPostModel.Product" Role="Product" Multiplicity="1" />
@@ -2511,6 +2523,28 @@
             </Principal>
             <Dependent Role="SupervisorVisitPlacePenetration">
               <PropertyRef Name="SupervisorVisitPlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PenetrationPlace">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlaceName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SupervisorVisitPlacePenetrations" Relationship="B2DriveForPostModel.FK_SupervisorVisitPlacePenetration_PenetrationPlace" FromRole="PenetrationPlace" ToRole="SupervisorVisitPlacePenetration" />
+        </EntityType>
+        <Association Name="FK_SupervisorVisitPlacePenetration_PenetrationPlace">
+          <End Type="B2DriveForPostModel.PenetrationPlace" Role="PenetrationPlace" Multiplicity="0..1" />
+          <End Type="B2DriveForPostModel.SupervisorVisitPlacePenetration" Role="SupervisorVisitPlacePenetration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PenetrationPlace">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupervisorVisitPlacePenetration">
+              <PropertyRef Name="PenetrationPlaceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3005,16 +3039,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PenetrationPlaces">
-            <EntityTypeMapping TypeName="B2DriveForPostModel.PenetrationPlace">
-              <MappingFragment StoreEntitySet="PenetrationPlace">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="PlaceAddress" ColumnName="PlaceAddress" />
-                <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SupervisorVisitPlacePenetrations">
             <EntityTypeMapping TypeName="B2DriveForPostModel.SupervisorVisitPlacePenetration">
               <MappingFragment StoreEntitySet="SupervisorVisitPlacePenetration">
@@ -3025,6 +3049,16 @@
                 <ScalarProperty Name="PenetrationPlaceID" ColumnName="PenetrationPlaceID" />
                 <ScalarProperty Name="SupervisorVisitPlaceID" ColumnName="SupervisorVisitPlaceID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PenetrationPlaces">
+            <EntityTypeMapping TypeName="B2DriveForPostModel.PenetrationPlace">
+              <MappingFragment StoreEntitySet="PenetrationPlace">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PlaceAddress" ColumnName="PlaceAddress" />
+                <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

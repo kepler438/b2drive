@@ -405,6 +405,7 @@
     <Content Include="Views\AdminPenetrationPlace\Edit.cshtml" />
     <Content Include="Views\AdminPenetrationPlace\Index.cshtml" />
     <Content Include="Views\SPPlace\PenetrationPlaceFree.cshtml" />
+    <Content Include="Views\SupervisorReport\PenetrationReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -14,9 +14,18 @@ namespace Area.Data
     
     public partial class PenetrationPlace
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PenetrationPlace()
+        {
+            this.SupervisorVisitPlacePenetrations = new HashSet<SupervisorVisitPlacePenetration>();
+        }
+    
         public int ID { get; set; }
         public string PlaceName { get; set; }
         public string PlaceAddress { get; set; }
         public bool IsActive { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupervisorVisitPlacePenetration> SupervisorVisitPlacePenetrations { get; set; }
     }
 }

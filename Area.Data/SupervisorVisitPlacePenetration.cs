@@ -25,5 +25,6 @@ namespace Area.Data
     
         public virtual Product Product { get; set; }
         public virtual SupervisorVisitPlace SupervisorVisitPlace { get; set; }
+        public virtual PenetrationPlace PenetrationPlace { get; set; }
     }
 }
