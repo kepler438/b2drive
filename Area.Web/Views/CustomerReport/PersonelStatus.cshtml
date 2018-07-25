@@ -1,5 +1,7 @@
-﻿@using Area.Data;
-@using System.Data.Entity;
+﻿@using Area.Data; 
+@using ExportImplementation;
+@using System.IO;
+@using System.Diagnostics;
 @model IEnumerable<Area.Data.GetPersonelStatus_Result>
 @{
     ViewBag.Title = "PersonelStatus";
@@ -7,6 +9,7 @@
 
     var startDate = this.Request.QueryString["startdate"];
     var endDate = this.Request.QueryString["enddate"];
+    var export = this.Request.QueryString["export"];
 
     DayOfWeek day = DateTime.Now.DayOfWeek;
     int days = day - DayOfWeek.Monday;
@@ -19,6 +22,28 @@
     }
 
     List<Area.Data.GetPersonelStatus_Result> resultData = Model.ToList();
+    try
+    {
+        if (!string.IsNullOrEmpty(export) && export == "excel")
+        {
+
+            var exportData = new ExportExcel2007<GetPersonelStatus_Result>();
+            var data = exportData.ExportResult(resultData);
+            File.WriteAllBytes("conversionanduks.xlsx", data);
+            Process.Start("conversionanduks.xlsx");
+
+        }
+        else if (!string.IsNullOrEmpty(export) && export == "pdf")
+        {
+            var exportData = new ExportPdfiTextSharp4<GetPersonelStatus_Result>();
+            var data = exportData.ExportResult(resultData);
+            File.WriteAllBytes("conversionanduks.pdf", data);
+            Process.Start("conversionanduks.pdf");
+        }
+    }
+    catch (Exception ex)
+    {
+    }
 }
 <div class="span12">
     <div class="widget widget-table action-table">
@@ -47,10 +72,11 @@
                             </div>
                         </div>
 
-                        <div class="span3 filterBtnArea">
+                        <div class="span3 filterBtnArea withExcel">
                             <button type="submit" class="btn btn-primary">Filtrele</button>
+                            <a href="?export=excel" class="btn btn-warning">Excel'e Çıkar</a>
+                            <a href="?export=pdf" class="btn btn-warning">Pdf'e Çıkar</a>
                         </div>
-
                     </div>
                 </div>
 
@@ -80,19 +106,19 @@
                 </thead>
                 <tbody>
                     @foreach (var item in resultData)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FullName)
-                        </td>
-                        <td>
-                            @(item.Status == true ? "Müsait" : "Müsait Değil")
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AvailableDate)
-                        </td>
-                    </tr>
-            }
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @(item.Status == true ? "Müsait" : "Müsait Değil")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AvailableDate)
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

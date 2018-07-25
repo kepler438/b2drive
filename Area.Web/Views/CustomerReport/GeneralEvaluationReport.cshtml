@@ -1,5 +1,7 @@
-﻿@using Area.Data;
-@using System.Data.Entity;
+﻿@using Area.Data; 
+@using ExportImplementation;
+@using System.IO;
+@using System.Diagnostics;
 @model IEnumerable<Area.Data.GetGeneralEvaluation_Result>
 @{
     ViewBag.Title = "DifferentPlace";
@@ -8,6 +10,7 @@
     var startDate = this.Request.QueryString["startdate"];
     var endDate = this.Request.QueryString["enddate"];
     var placeID = this.Request.QueryString["placeid"];
+    var export = this.Request.QueryString["export"];
 
     DayOfWeek day = DateTime.Now.DayOfWeek;
     int days = day - DayOfWeek.Monday;
@@ -25,6 +28,29 @@
     var productSubCategoryList = db.ProductSubCategories.Where(p => p.CategoryID != 2).OrderBy(p => p.Name).ToList();
 
     List<Area.Data.GetGeneralEvaluation_Result> resultData = Model.ToList();
+    try
+    {
+        if (!string.IsNullOrEmpty(export) && export == "excel")
+        {
+
+            var exportData = new ExportExcel2007<GetGeneralEvaluation_Result>();
+            var data = exportData.ExportResult(resultData);
+            File.WriteAllBytes("conversionanduks.xlsx", data);
+            Process.Start("conversionanduks.xlsx");
+
+        }
+        else if (!string.IsNullOrEmpty(export) && export == "pdf")
+        {
+            var exportData = new ExportPdfiTextSharp4<GetGeneralEvaluation_Result>();
+            var data = exportData.ExportResult(resultData);
+            File.WriteAllBytes("conversionanduks.pdf", data);
+            Process.Start("conversionanduks.pdf");
+        }
+    }
+    catch (Exception ex)
+    {
+    }
+
 }
 <div class="span12">
     <div class="widget widget-table action-table">
@@ -58,9 +84,9 @@
                             <select name="place">
                                 <option value="0">Tüm Mekanlar</option>
                                 @foreach (var item in placeList)
-                            {
-                                <option value="@item.ID">@item.Name</option>
-                        }
+            {
+                    <option value="@item.ID">@item.Name</option>
+}
                             </select>
                         </div>
 
@@ -69,9 +95,9 @@
                             <select name="CategoryID">
                                 <option value="0">Tüm Ürünler</option>
                                 @foreach (var item in productCategoryList)
-                            {
-                                <option value="@item.ID">@item.Name</option>
-                        }
+            {
+                    <option value="@item.ID">@item.Name</option>
+}
                             </select>
                         </div>
 
@@ -80,14 +106,16 @@
                             <select name="SubCategoryID">
                                 <option value="0">Tüm Alt Ürünler</option>
                                 @foreach (var item in productSubCategoryList)
-                            {
-                                <option value="@item.ID">@item.Name</option>
-                        }
+            {
+                    <option value="@item.ID">@item.Name</option>
+}
                             </select>
                         </div>
 
-                        <div class="span3 filterBtnArea">
+                        <div class="span3 filterBtnArea withExcel">
                             <button type="submit" class="btn btn-primary">Filtrele</button>
+                            <a href="?export=excel" class="btn btn-warning">Excel'e Çıkar</a>
+                            <a href="?export=pdf" class="btn btn-warning">Pdf'e Çıkar</a>
                         </div>
 
                     </div>
@@ -123,68 +151,68 @@
                         </th>
                     </tr>
                 </thead>@foreach (var item in resultData)
-            {
-                <tbody class="openInnerTable">
+                {
+                    <tbody class="openInnerTable">
 
-                    <tr class="cursorPointer">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ConversionLiter)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Uks)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Tks)
-                        </td>
+                        <tr class="cursorPointer">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ConversionLiter)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Uks)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Tks)
+                            </td>
 
-                    </tr>
+                        </tr>
 
 
-                    <tr class="innerTableHead">
-                        <th>
-                            Anket Yapilan Kisi Sayisi
-                        </th>
-                        <th>
-                            Müsteri Olumsuz Yorumlari
-                        </th>
-                        <th>
-                            Müsteri Olumlu Yorumlari
-                        </th>
-                        <th>
-                            Mekan Hakkinda Olumsuz Yorumlar
-                        </th>
-                        <th>
-                            Mekan Hakkinda Olumlu Yorumlar
-                        </th>
+                        <tr class="innerTableHead">
+                            <th>
+                                Anket Yapilan Kisi Sayisi
+                            </th>
+                            <th>
+                                Müsteri Olumsuz Yorumlari
+                            </th>
+                            <th>
+                                Müsteri Olumlu Yorumlari
+                            </th>
+                            <th>
+                                Mekan Hakkinda Olumsuz Yorumlar
+                            </th>
+                            <th>
+                                Mekan Hakkinda Olumlu Yorumlar
+                            </th>
 
-                    </tr>
-                    <tr class="innerTableBody">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SurveyCount)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CustomerNegativeComment)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CustomerPositiveComment)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PlaceNegativeComment)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PlacePositiveComment)
-                        </td>
+                        </tr>
+                        <tr class="innerTableBody">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SurveyCount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CustomerNegativeComment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CustomerPositiveComment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PlaceNegativeComment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PlacePositiveComment)
+                            </td>
 
-                    </tr>
+                        </tr>
 
-                </tbody>
-        }
+                    </tbody>
+                }
             </table>
         </div>
         <div class="form-actions" style="float:right;color:red;text">

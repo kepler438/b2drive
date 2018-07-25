@@ -23,12 +23,35 @@
         <div class="widget-content">
             <div class="tabbable">
                 <div class="tab-content">
+                    @if (Session["AdminControl"] != null && Convert.ToBoolean(Session["AdminControl"]))
+                    {
+                        <div style="text-align:center">
+                            <iframe width="300"
+                                    height="170"
+                                    frameborder="0"
+                                    scrolling="no"
+                                    marginheight="0"
+                                    marginwidth="0"
+                                    src="https://maps.google.com/maps?q=@Model.CheckinLatitude,@Model.CheckinLongitude&hl=es;z=14&amp;output=embed"></iframe>
+                            <br />
+                            <small>
+                                <a href="https://maps.google.com/maps?q=@Model.CheckinLatitude,@Model.CheckinLongitude&hl=es;z=14&amp;output=embed"
+                                   style="color:#0000FF;text-align:left"
+                                   target="_blank">
+                                    Google Haritalarda İncele
+                                </a>
+                            </small>
+                        </div>
+
+                    }
+
+
                     @if (Model != null && Model.CheckinDate != null)
                     {
-                    <div class="sidebyside">
-                        <a href="/sphome" class="btn btn-small btn-warning one pull-left"><i class="btn-icon-only icon-circle-arrow-left"> Geri Gel </i></a>
-                        <a href="/spcarinfo/checkoutpage/@Url.RequestContext.RouteData.Values["id"]" class="btn btn-small btn-success two pull-right">Araç İade Sayfası<i class="btn-icon-only icon-circle-arrow-right">  </i></a>
-                    </div>
+                        <div class="sidebyside">
+                            <a href="/sphome" class="btn btn-small btn-warning one pull-left"><i class="btn-icon-only icon-circle-arrow-left"> Geri Gel </i></a>
+                            <a href="/spcarinfo/checkoutpage/@Url.RequestContext.RouteData.Values["id"]" class="btn btn-small btn-success two pull-right">Araç İade Sayfası<i class="btn-icon-only icon-circle-arrow-right">  </i></a>
+                        </div>
 
                     }
                     else

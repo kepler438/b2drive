@@ -66,9 +66,11 @@ namespace Area.Web.Controllers
                     QuestionText = item.Name,
                     Answers = new List<Answer>()
                             {
-                                new Answer() { ID = 1 , AnswerText = "İyi"},
-                                new Answer() { ID = 2 , AnswerText = "Orta"},
-                                new Answer() { ID = 3 , AnswerText = "Yetersiz"},
+                                new Answer() { ID = 1 , AnswerText = "1"},
+                                new Answer() { ID = 2 , AnswerText = "2"},
+                                new Answer() { ID = 3 , AnswerText = "3"},
+                                new Answer() { ID = 4 , AnswerText = "4"},
+                                new Answer() { ID = 5 , AnswerText = "5"},
                            }, 
                 });
             } 

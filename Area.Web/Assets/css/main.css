@@ -79,6 +79,7 @@
 
 .filterBtnArea {
     margin-top: 12px;
+    width: 26%;
 }
 
 .innerTableHead,
@@ -133,6 +134,19 @@
         margin-bottom: 5px;
     }
 
+.filterBtnArea.withExcel {
+    width: 26% !important;
+    float: right;
+    padding-right: 137px;
+}
+
+.filterBtnArea.withExcel a{
+    display: inline-block;
+    margin-left: 10px;
+    width: 81px;
+}
+
+
 @media (max-width: 576px) {
     /*.btn-orange-st {
         display: block !important;
@@ -154,6 +168,19 @@
         display: block;
         width: 80%;
     }*/
+
+    .filterBtnArea.withExcel {
+        width: 26% !important;
+        float: inherit !important;
+        padding-right: 0px !important;
+    }
+
+    .filterBtnArea.withExcel a {
+        display: block;
+        width: 92% !important;
+        margin-bottom: 5px !important;
+        margin-left: 0px !important;
+    }
 
     .table th, .table td {
         padding: 0px;

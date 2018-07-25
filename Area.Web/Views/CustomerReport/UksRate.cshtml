@@ -1,5 +1,7 @@
 ﻿@using Area.Data;
-@using System.Data.Entity;
+@using ExportImplementation;
+@using System.IO;
+@using System.Diagnostics;
 @model IEnumerable<Area.Data.GetUKSRate_Result>
 @{
     ViewBag.Title = "DifferentPlace";
@@ -8,6 +10,7 @@
     var startDate = this.Request.QueryString["startdate"];
     var endDate = this.Request.QueryString["enddate"];
     var placeID = this.Request.QueryString["placeid"];
+    var export = this.Request.QueryString["export"];
 
     DayOfWeek day = DateTime.Now.DayOfWeek;
     int days = day - DayOfWeek.Monday;
@@ -18,9 +21,33 @@
         start = Convert.ToDateTime(startDate);
         end = Convert.ToDateTime(endDate);
     }
-    B2DriveForPostEntities db = new B2DriveForPostEntities(); 
+    B2DriveForPostEntities db = new B2DriveForPostEntities();
 
-    var productCategoryList = db.ProductCategories.Where(p => p.ID != 2).OrderBy(p => p.Name).ToList(); 
+    var productCategoryList = db.ProductCategories.Where(p => p.ID != 2).OrderBy(p => p.Name).ToList();
+
+    List<Area.Data.GetUKSRate_Result> resultData = Model.ToList();
+    try
+    {
+        if (!string.IsNullOrEmpty(export) && export == "excel")
+        {
+
+            var exportData = new ExportExcel2007<GetUKSRate_Result>();
+            var data = exportData.ExportResult(resultData);
+            File.WriteAllBytes("conversionanduks.xlsx", data);
+            Process.Start("conversionanduks.xlsx");
+
+        }
+        else if (!string.IsNullOrEmpty(export) && export == "pdf")
+        {
+            var exportData = new ExportPdfiTextSharp4<GetUKSRate_Result>();
+            var data = exportData.ExportResult(resultData);
+            File.WriteAllBytes("conversionanduks.pdf", data);
+            Process.Start("conversionanduks.pdf");
+        }
+    }
+    catch (Exception ex)
+    {
+    }
 }
 
 <div class="span12">
@@ -55,16 +82,17 @@
                             <select name="CategoryID">
                                 <option value="0">Tüm Ürünler</option>
                                 @foreach (var item in productCategoryList)
-                            {
-                                <option value="@item.ID">@item.Name</option>
-                        }
+            {
+                    <option value="@item.ID">@item.Name</option>
+}
                             </select>
                         </div>
 
-                        <div class="span3 filterBtnArea">
+                        <div class="span3 filterBtnArea withExcel">
                             <button type="submit" class="btn btn-primary">Filtrele</button>
+                            <a href="?export=excel" class="btn btn-warning">Excel'e Çıkar</a>
+                            <a href="?export=pdf" class="btn btn-warning">Pdf'e Çıkar</a>
                         </div>
-
                     </div>
                 </div>
 
@@ -92,20 +120,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.InvoiceAmount)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UKS)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Rate)
-                        </td>
-                    </tr>
-            }
+                    @foreach (var item in resultData)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.InvoiceAmount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UKS)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rate)
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

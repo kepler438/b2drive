@@ -30,8 +30,8 @@ namespace Area.Web.Controllers
                 var checkEntity = new PlaceCheckInfo
                 {
                     CheckinDate = DateTime.Now,
-                    CheckinLatitude = "41.077194",
-                    CheckinLongitude = "29.009297", 
+                    CheckinLatitude = input.Latitude,
+                    CheckinLongitude = input.Longitude, 
                     IsActive = true
                 };
                 visitEntity.PlaceCheckInfo = checkEntity;

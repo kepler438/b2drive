@@ -63,9 +63,10 @@ namespace Area.Web.Controllers
              if (UserType == (int)EnumUserType.Supervisor)
             {
                 id = db.SupervisorVisitPlaces.Where(p => p.VisitPlaceID == id).FirstOrDefault().ID;
-                return Redirect("/spplace/inspectioninfo/" + id);
+                //return Redirect("/spplace/inspectioninfo/" + id);
+                return Redirect("/SPhome");
             }
-           return Redirect("/UploadPhotos/" + id);
+            return Redirect("/UploadPhotos/" + id);
         }
 
         public ActionResult CancelApproved()
