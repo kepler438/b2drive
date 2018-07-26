@@ -14,5 +14,10 @@ namespace Area.Web
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
+
+        protected void Application_Error(Object sender, EventArgs e)
+        {
+            Response.Redirect("/Error/NotFound");
+        }
     }
 }

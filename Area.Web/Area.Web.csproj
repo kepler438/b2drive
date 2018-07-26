@@ -406,6 +406,7 @@
     <Content Include="Views\AdminPenetrationPlace\Index.cshtml" />
     <Content Include="Views\SPPlace\PenetrationPlaceFree.cshtml" />
     <Content Include="Views\SupervisorReport\PenetrationReport.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
