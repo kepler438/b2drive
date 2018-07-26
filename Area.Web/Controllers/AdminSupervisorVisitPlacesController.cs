@@ -26,7 +26,7 @@ namespace Area.Web.Controllers
             List<ItemDrp> visitList = new List<ItemDrp>();
             foreach (var item in db.VisitPlaces.Where(p=>p.StartDate > DateTime.Now && p.Place != null))
             {
-                visitList.Add(new ItemDrp { Name = item.Place.Name + " - " + item.User.UserName, ID = item.ID });
+                visitList.Add(new ItemDrp { Name = item.Place.Name + " - " + item.User.UserName + " - " + item.StartDate.ToString(), ID = item.ID });
             }
 
             ViewBag.PlaceID = new SelectList(db.Places, "ID", "Name");
