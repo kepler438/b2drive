@@ -164,6 +164,7 @@
     <Content Include="Assets\js\guidely\guidely.css" />
     <Content Include="Assets\js\guidely\guidely.min.js" />
     <Content Include="Assets\js\jquery-1.7.2.min.js" />
+    <Content Include="Assets\js\jquery.table2excel.js" />
     <Content Include="Assets\js\signin.js" />
     <Content Include="Assets\js\Chart.bundle.js" />
     <Content Include="Assets\js\utils.js" />
@@ -407,6 +408,7 @@
     <Content Include="Views\SPPlace\PenetrationPlaceFree.cshtml" />
     <Content Include="Views\SupervisorReport\PenetrationReport.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\ErrorMessageSample.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

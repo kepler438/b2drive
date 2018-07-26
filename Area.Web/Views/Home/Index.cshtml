@@ -27,7 +27,7 @@
 }
 
 <div class="span12">
-    @if (Model.Where(p => p.EndDate > DateTime.Now).OrderBy(x => x.StartDate).Count() > 0)
+    @if (Model.Where(p => p.EndDate > DateTime.Now && (p.PlaceCheckInfo == null || p.PlaceCheckInfo.CheckOutDate == null)).OrderBy(x => x.StartDate).Count() > 0)
     {
         <div class="widget widget-table action-table">
             <div class="widget-header">
@@ -105,7 +105,7 @@ else
 
     }
 
-    @if (Model.Where(p => p.EndDate < DateTime.Now).OrderByDescending(x => x.StartDate).Count() > 0)
+    @if (Model.Where(p => p.EndDate < DateTime.Now || (p.PlaceCheckInfo != null && p.PlaceCheckInfo.CheckOutDate != null)).OrderByDescending(x => x.StartDate).Count() > 0)
     {
         <div class="widget widget-table action-table">
             <div class="widget-header">
@@ -121,11 +121,11 @@ else
                             <th> Adresi </th>
                             <th> Başlangıç Tarihi </th>
                             <th> Bitiş Tarihi </th>
-                            <th class="td-actions"></th>
+                            @*<th class="td-actions"></th>*@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Where(p => p.EndDate < DateTime.Now))
+                        @foreach (var item in Model.Where(p => p.EndDate < DateTime.Now || (p.PlaceCheckInfo != null && p.PlaceCheckInfo.CheckOutDate != null)))
                         {
                             <tr>
                                 <td>@Html.DisplayFor(modelItem => item.Place.Name) </td>
@@ -133,9 +133,9 @@ else
                                 <td>@Html.DisplayFor(modelItem => item.StartDate)  </td>
                                 <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
                                 @*<td class="td-actions"><a href="javascript:;" class="btn btn-small btn-success">Göster <i class="btn-icon-only icon-circle-arrow-right">  </i></a></td>*@
-                                <td class="td-actions">
+                                @*<td class="td-actions">
                                     <a href="@(hrefString + item.ID)" class="btn btn-small btn-success">Git <i class="btn-icon-only icon-circle-arrow-right">  </i></a> 
-                                </td>
+                                </td>*@
                             </tr>
                         }
                     </tbody>

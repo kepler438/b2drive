@@ -43,7 +43,8 @@
     <script type="text/javascript" src="/Assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="/Assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/Assets/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript" src="/Assets/js/bootstrap-datetimepicker.pt-BR.js"></script> 
+    <script type="text/javascript" src="/Assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
+    <script type="text/javascript" src="/Assets/js/jquery.table2excel.js"></script>
     <script type="text/javascript" src="/Assets/js/custom.js"></script>
 
 </head>
@@ -68,3 +69,18 @@
     @RenderPage("Footer.cshtml") 
 </body>
 </html>
+
+
+<script>
+    $('#downloadExcel').on('click', function () {
+        var fileNameAttr = $('#table2excel').attr('data-name');
+        $("#table2excel").table2excel({
+            exclude: ".noExl",
+            name: "Worksheet Name",
+            filename: fileNameAttr
+
+        });
+
+    });
+
+</script>

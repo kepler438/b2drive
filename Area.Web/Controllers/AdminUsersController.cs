@@ -99,8 +99,11 @@ namespace Area.Web.Controllers
                 db.SaveChanges();
 
                 if (!String.IsNullOrEmpty(user.Password))
-                { 
-                    db.UserPasswords.Remove(db.UserPasswords.Where(p => p.UserId == user.ID).FirstOrDefault()); 
+                {
+                    if (db.UserPasswords.Where(p => p.UserId == user.ID).FirstOrDefault() != null)
+                    {
+                        db.UserPasswords.Remove(db.UserPasswords.Where(p => p.UserId == user.ID).FirstOrDefault());
+                    } 
                     UserPassword newUserPassword = new UserPassword();
                     var keyNew = LogHelper.GeneratePassword(10);
                     var password = LogHelper.EncodePassword(user.Password, keyNew);
